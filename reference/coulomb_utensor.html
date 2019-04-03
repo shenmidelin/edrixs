@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>coulomb_utensor &mdash; edrixs  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="../_static/copybutton.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="fit_hyb" href="fit_hyb.html" />
+    <link rel="prev" title="basis_transform" href="basis_transform.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> edrixs
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">EDRIXS Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="angular_momentum.html">angular_momentum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basis_transform.html">basis_transform</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">coulomb_utensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fit_hyb.html">fit_hyb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fock_basis.html">fock_basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iostream.html">iostream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manybody_operator.html">manybody_operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="photon_transition.html">photon_transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_spectrum.html">plot_spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rixs_utils.html">rixs_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="soc.html">soc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wannier_ham.html">wannier_ham</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">edrixs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">EDRIXS Reference</a> &raquo;</li>
+        
+      <li>coulomb_utensor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/coulomb_utensor.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-edrixs.coulomb_utensor">
+<span id="coulomb-utensor"></span><h1>coulomb_utensor<a class="headerlink" href="#module-edrixs.coulomb_utensor" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="edrixs.coulomb_utensor.get_gaunt">
+<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_gaunt</code><span class="sig-paren">(</span><em>l1</em>, <em>l2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_gaunt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_gaunt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Gaunt coefficents <span class="math notranslate nohighlight">\(C_{l_1,l_2}(k,m_1,m_2)\)</span></p>
+<div class="math notranslate nohighlight">
+\[C_{l_1,l_2}(k,m_1,m_2)=\sqrt{\frac{4\pi}{2k+1}} \int \mathop{d\phi} \mathop{d\theta} sin(\theta) Y_{l_1}^{m_1\star}(\theta,\phi) 
+                        Y_{k}^{m_1-m_2}(\theta,\phi) Y_{l_2}^{m_2}(\theta,\phi)\]</div>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>l1</strong><span class="classifier">int</span></dt><dd><p>The first quantum number of angular momentum.</p>
+</dd>
+<dt><strong>l2</strong><span class="classifier">int</span></dt><dd><p>The second quantum number of angular momentum.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>res: 3d float array</strong></dt><dd><p>The calculated Gaunt coefficents.</p>
+<p>The 1st index (<span class="math notranslate nohighlight">\(= 0, 1, ..., l_1+l_2+1\)</span>) is the order <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>The 2nd index (<span class="math notranslate nohighlight">\(= 0, 1, ... ,2l_1\)</span>) is the magnetic quantum number <span class="math notranslate nohighlight">\(m_1\)</span> plus <span class="math notranslate nohighlight">\(l_1\)</span></p>
+<p>The 3nd index (<span class="math notranslate nohighlight">\(= 0, 1, ... ,2l_2\)</span>) is the magnetic quantum number <span class="math notranslate nohighlight">\(m_2\)</span> plus <span class="math notranslate nohighlight">\(l_2\)</span></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>It should be noted that <span class="math notranslate nohighlight">\(C_{l_1,l_2}(k,m_1,m_2)\)</span> is nonvanishing only when</p>
+<p><span class="math notranslate nohighlight">\(k + l_1 + l_2 = \text{even}\)</span>,</p>
+<p>and</p>
+<p><span class="math notranslate nohighlight">\(|l_1 -  l_2| \leq k \leq l_1 + l_2\)</span>.</p>
+<p>Please see Ref. <a class="reference internal" href="#rfb9838caf51d-1" id="id1">[1]</a> p. 10 for more details.</p>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rfb9838caf51d-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>Sugano S, Tanabe Y and Kamimura H. 1970. Multiplets of Transition-Metal Ions in Crystals. Academic Press, New York and London.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">coulomb_utensor</span> <span class="k">import</span> <span class="n">get_gaunt</span>
+</pre></div>
+</div>
+<p>Get gaunt coefficients between <span class="math notranslate nohighlight">\(p\)</span>-shell and <span class="math notranslate nohighlight">\(d\)</span>-shell</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">get_gaunt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.coulomb_utensor.get_umat_kanamori">
+<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_kanamori</code><span class="sig-paren">(</span><em>norbs</em>, <em>U</em>, <em>J</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_kanamori"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_kanamori" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Coulomb interaction tensor for a Kanamori-type interaction. For the <span class="math notranslate nohighlight">\(t2g\)</span>-shell case, it is parameterized by <span class="math notranslate nohighlight">\(U, J\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>norbs: int</strong></dt><dd><p>number of orbitals (including spin).</p>
+</dd>
+<dt><strong>U: float</strong></dt><dd><p>Hubbard <span class="math notranslate nohighlight">\(U\)</span> for electrons residing on the same orbital with opposite spin.</p>
+</dd>
+<dt><strong>J: float</strong></dt><dd><p>Hund’s coupling.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>umat: 4d complex array</strong></dt><dd><p>The calculated Coulomb interaction tensor</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori_ge</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_slater</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.umat_slater</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>The order of spin index is: up, down, up, down, …, up, down.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.coulomb_utensor.get_umat_kanamori_ge">
+<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_kanamori_ge</code><span class="sig-paren">(</span><em>norbs</em>, <em>U1</em>, <em>U2</em>, <em>J</em>, <em>Jx</em>, <em>Jp</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_kanamori_ge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_kanamori_ge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Coulomb interaction tensor for a Kanamori-type interaction. For the general case, it is parameterized by <span class="math notranslate nohighlight">\(U_1, U_2, J, J_x, J_p\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>norbs: int</strong></dt><dd><p>number of orbitals (including spin).</p>
+</dd>
+<dt><strong>U1: float</strong></dt><dd><p>Hubbard <span class="math notranslate nohighlight">\(U\)</span> for electrons residing on the same orbital with opposite spin.</p>
+</dd>
+<dt><strong>U2: float</strong></dt><dd><p>Hubbard <span class="math notranslate nohighlight">\(U\)</span> for electrons residing on different orbitals.</p>
+</dd>
+<dt><strong>J: float</strong></dt><dd><p>Hund’s coupling for density-density interaction.</p>
+</dd>
+<dt><strong>Jx: float</strong></dt><dd><p>Hund’s coupling for spin flip.</p>
+</dd>
+<dt><strong>Jp: float</strong></dt><dd><p>Hund’s coupling for pair-hopping.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>umat: 4d complex array</strong></dt><dd><p>The calculated Coulomb interaction tensor</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_slater</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.umat_slater</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>The order of spin index is: up, down, up, down, …, up, down.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.coulomb_utensor.get_umat_slater">
+<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_slater</code><span class="sig-paren">(</span><em>case</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_slater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_slater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenient adapter function to return the Coulomb interaction tensor for common case.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>case: string</strong></dt><dd><p>indicates which atomic shells we will include, should be one of</p>
+<ul class="simple">
+<li><p>‘s’:    a single <span class="math notranslate nohighlight">\(s\)</span>-shell (<span class="math notranslate nohighlight">\(l=0\)</span>)</p></li>
+<li><p>‘p’:    a single <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
+<li><p>‘d’:    a single <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>)</p></li>
+<li><p>‘f’:    a single <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>)</p></li>
+<li><p>‘ps’:   a <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>) and another <span class="math notranslate nohighlight">\(s\)</span>-shell (<span class="math notranslate nohighlight">\(l=0\)</span>)</p></li>
+<li><p>‘pp’:   a <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>) and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
+<li><p>‘ds’:   a <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>) and another <span class="math notranslate nohighlight">\(s\)</span>-shell (<span class="math notranslate nohighlight">\(l=0\)</span>)</p></li>
+<li><p>‘dp’:   a <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>) and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
+<li><p>‘t2gp’: a <span class="math notranslate nohighlight">\(t2g\)</span>-shell (<span class="math notranslate nohighlight">\(l_{\text{eff}}=1\)</span>) and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
+<li><p>‘dd’:   a <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>) and another <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>)</p></li>
+<li><p>‘fs’:   a <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>) and another <span class="math notranslate nohighlight">\(s\)</span>-shell (<span class="math notranslate nohighlight">\(l=0\)</span>)</p></li>
+<li><p>‘fp’:   a <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>) and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
+<li><p>‘fd’:   a <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>) and another <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>)</p></li>
+<li><p>‘ff’:   a <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>) and another <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>)</p></li>
+</ul>
+</dd>
+<dt><strong>args: floats</strong></dt><dd><p>Slater integrals, should be one of</p>
+<ul class="simple">
+<li><p>for case ‘s’:  F0_ss</p></li>
+<li><p>for case ‘p’:  F0_pp, F2_pp</p></li>
+<li><p>for case ‘d’:  F0_dd, F2_dd, F4_dd</p></li>
+<li><p>for case ‘f’:  F0_ff, F2_ff, F4_ff, F6_ff</p></li>
+<li><p>for case ‘ps’: F0_pp, F2_pp, F0_ps, G1_ps, F0_ss</p></li>
+<li><p>for case ‘pp’: F0_p1p1, F2_p1p1, F0_p1p2, F2_p1p2, G0_p1p2, G2_p1p2, F0_p2p2, F2_p2p2</p></li>
+<li><p>for case ‘ds’: F0_dd, F2_dd, F4_dd, F0_ds, G2_ds, F0_ss</p></li>
+<li><p>for case ‘dp’: F0_dd, F2_dd, F4_dd, F0_dp, F2_dp, G1_dp, G3_dp, F0_pp, F2_pp</p></li>
+<li><p>for case ‘t2gp’: F0_dd, F2_dd, F4_dd, F0_dp, F2_dp, G1_dp, G3_dp, F0_pp, F2_pp</p></li>
+<li><p>for case ‘dd’: F0_d1d1, F2_d1d1, F4_d1d1, F0_d1d2, F2_d1d2, F4_d1d2, G0_d1d2, G2_d1d2, G4_d1d2, F0_d2d2, F2_d2d2, F4_d2d2</p></li>
+<li><p>for case ‘fs’:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fs, G3_fs, F0_ss</p></li>
+<li><p>for case ‘fp’:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fp, F2_fp, G2_fp, G4_fp, F0_pp, F2_pp</p></li>
+<li><p>for case ‘fd’:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fd, F2_fd, F4_fd, G1_fd, G3_fd, G5_fd, F0_dd, F2_dd, F4_dd</p></li>
+<li><p>for case ‘ff’:  F0_f1f1, F2_f1f1, F4_f1f1, F6_f1f1, F0_f1f2, F2_f1f2, F4_f1f2, F6_f1f2, G0_f1f2, G2_f1f2, G4_f1f2, G6_f1f2, F0_f2f2, F2_f2f2, F4_f2f2, F6_f2f2</p></li>
+</ul>
+<p>The order of these arguments are important.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>umat: 4d array of complex</strong></dt><dd><p>the Coulomb interaction tensor</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.umat_slater</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori_ge</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.coulomb_utensor.umat_slater">
+<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">umat_slater</code><span class="sig-paren">(</span><em>l_list</em>, <em>fk</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#umat_slater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.umat_slater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Coulomb interaction tensor which is parameterized by Slater integrals <span class="math notranslate nohighlight">\(F^{k}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[U_{m_{l_i}m_{s_i}, m_{l_j}m_{s_j}, m_{l_t}m_{s_t}, m_{l_u}m_{s_u}}^{i,j,t,u} =\frac{1}{2} \delta_{m_{s_i},m_{s_t}}\delta_{m_{s_j},m_{s_u}}
+\delta_{m_{l_i}+m_{l_j}, m_{l_t}+m_{l_u}} \sum_{k}C_{l_i,l_t}(k,m_{l_i},m_{l_t})C_{l_u,l_j}(k,m_{l_u},m_{l_j})F^{k}_{i,j,t,u}\]</div>
+<p>where <span class="math notranslate nohighlight">\(m_s\)</span> is the magnetic quantum number for spin and <span class="math notranslate nohighlight">\(m_l\)</span> is the magnetic quantum number for orbital. <span class="math notranslate nohighlight">\(F^{k}_{i,j,t,u}\)</span>
+are Slater integrals. <span class="math notranslate nohighlight">\(C_{l_i,l_j}(k,m_{l_i},m_{l_j})\)</span> are Gaunt coefficients.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>l_list: list of int</strong></dt><dd><p>contains the quantum number of orbital angular momentum <span class="math notranslate nohighlight">\(l\)</span> for each shell.</p>
+</dd>
+<dt><strong>fk: dict of float</strong></dt><dd><p>contains all the possible Slater integrals between the shells in l_list, the key is a tuple of 5 ints (<span class="math notranslate nohighlight">\(k,i,j,t,u\)</span>), where <span class="math notranslate nohighlight">\(k\)</span> is the order,
+<span class="math notranslate nohighlight">\(i,j,t,u\)</span> are the shell indices begin with 1.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>umat: 4d array of complex</strong></dt><dd><p>contains the Coulomb interaction tensor.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_slater</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori_ge</span></code></p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">coulomb_utensor</span> <span class="k">import</span> <span class="n">umat_slater</span>
+</pre></div>
+</div>
+<p>For only one <span class="math notranslate nohighlight">\(d\)</span>-shell</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="o">=</span><span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">4.0</span> <span class="mf">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">umat_d</span> <span class="o">=</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span> 
+</pre></div>
+</div>
+<p>For one <span class="math notranslate nohighlight">\(d\)</span>-shell and one <span class="math notranslate nohighlight">\(p\)</span>-shell</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="o">=</span><span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F0_dd</span><span class="p">,</span> <span class="n">F2_dd</span><span class="p">,</span> <span class="n">F4_dd</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F0_dp</span><span class="p">,</span> <span class="n">F2_dp</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G1_dp</span><span class="p">,</span> <span class="n">G3_dp</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F0_pp</span><span class="p">,</span> <span class="n">F2_pp</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_dd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_dd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_dd</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_dp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_dp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_dp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_dp</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G1_dp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G1_dp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G3_dp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G3_dp</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_pp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_pp</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="fit_hyb.html" class="btn btn-neutral float-right" title="fit_hyb" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basis_transform.html" class="btn btn-neutral float-left" title="basis_transform" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Brookhaven National Lab
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

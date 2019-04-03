@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>basis_transform &mdash; edrixs  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="../_static/copybutton.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="coulomb_utensor" href="coulomb_utensor.html" />
+    <link rel="prev" title="angular_momentum" href="angular_momentum.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> edrixs
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">EDRIXS Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="angular_momentum.html">angular_momentum</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">basis_transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coulomb_utensor.html">coulomb_utensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fit_hyb.html">fit_hyb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fock_basis.html">fock_basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iostream.html">iostream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manybody_operator.html">manybody_operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="photon_transition.html">photon_transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_spectrum.html">plot_spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rixs_utils.html">rixs_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="soc.html">soc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wannier_ham.html">wannier_ham</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">edrixs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">EDRIXS Reference</a> &raquo;</li>
+        
+      <li>basis_transform</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/basis_transform.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-edrixs.basis_transform">
+<span id="basis-transform"></span><h1>basis_transform<a class="headerlink" href="#module-edrixs.basis_transform" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="edrixs.basis_transform.cb_op">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">cb_op</code><span class="sig-paren">(</span><em>oper_A</em>, <em>t_mat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#cb_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.cb_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the basis of an operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> from one basis <span class="math notranslate nohighlight">\(A\)</span>: <span class="math notranslate nohighlight">\(\psi^{A}_{i}\)</span> to another basis <span class="math notranslate nohighlight">\(B\)</span>: <span class="math notranslate nohighlight">\(\phi^{B}_{j}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}O^{\prime} = T^{\dagger} O T,  \\T_{ij} = &lt;\psi^{A}_{i}|\phi^{B}_{j}&gt;.\end{aligned}\end{align} \]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>oper_A</strong><span class="classifier">2d array</span></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</dd>
+<dt><strong>t_mat</strong><span class="classifier">2d array</span></dt><dd><p>The unitary transformation matrix from basis <span class="math notranslate nohighlight">\(A\)</span> to basis <span class="math notranslate nohighlight">\(B\)</span>,  namely, <span class="math notranslate nohighlight">\(T_{ij} = &lt;\psi^{A}_{i}|\phi^{B}_{j}&gt;\)</span>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>oper_B</strong><span class="classifier">2d array</span></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(B\)</span>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.cb_op2">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">cb_op2</code><span class="sig-paren">(</span><em>oper_A</em>, <em>TL</em>, <em>TR</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#cb_op2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.cb_op2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the basis of an operator <span class="math notranslate nohighlight">\(\hat{O}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[O^{\prime} = (TL)^{\dagger} O (TR),  \]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>oper_A</strong><span class="classifier">2d array</span></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</dd>
+<dt><strong>TL</strong><span class="classifier">2d array</span></dt><dd><p>The unitary transformation matrix applied on the left.</p>
+</dd>
+<dt><strong>TR</strong><span class="classifier">2d array</span></dt><dd><p>The unitary transformation matrix applied on the right.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>oper_B</strong><span class="classifier">2d array</span></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> after the transformation.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.fourier_hr2hk">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">fourier_hr2hk</code><span class="sig-paren">(</span><em>norbs</em>, <em>nkpt</em>, <em>kvec</em>, <em>nrpt</em>, <em>rvec</em>, <em>deg_rpt</em>, <em>hr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#fourier_hr2hk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.fourier_hr2hk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fourier transform a tight-binding Hamiltonian <span class="math notranslate nohighlight">\(H(r)\)</span> from real space to <span class="math notranslate nohighlight">\(k\)</span> space <span class="math notranslate nohighlight">\(H(k)\)</span>,
+for Wannier90.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>norbs</strong><span class="classifier">int</span></dt><dd><p>Number of orbitals.</p>
+</dd>
+<dt><strong>nkpt</strong><span class="classifier">int</span></dt><dd><p>Number of <span class="math notranslate nohighlight">\(k\)</span>-points.</p>
+</dd>
+<dt><strong>kvec</strong><span class="classifier">2d float array</span></dt><dd><p>Fractional coordinate for k-points.</p>
+</dd>
+<dt><strong>nrpt</strong><span class="classifier">int</span></dt><dd><p>Number of r-points.</p>
+</dd>
+<dt><strong>rvec</strong><span class="classifier">2d float array</span></dt><dd><p>Fractional coordinate for r-points.</p>
+</dd>
+<dt><strong>deg_rpt</strong><span class="classifier">int</span></dt><dd><p>The degenerancy for each r-point.</p>
+</dd>
+<dt><strong>hr</strong><span class="classifier">3d complex array</span></dt><dd><p>Hamiltonian in r-space.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>hk</strong><span class="classifier">3d complex array</span></dt><dd><p>Hamiltonian in k-space.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.tmat_c2j">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_c2j</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_c2j"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_c2j" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the transformation matrix from the complex spherical harmonics to 
+the <span class="math notranslate nohighlight">\(|j^2,j_z&gt;\)</span> basis in which the spin-oribt coupling Hamiltonian is diagonal.
+The orbital order is:</p>
+<p><span class="math notranslate nohighlight">\(|j=l-1/2, -j&gt;, |j=l-1/2, -j+1&gt;, ... |j=l-1/2, +j&gt;,\)</span></p>
+<p><span class="math notranslate nohighlight">\(|j=l+1/2, -j&gt;, |j=l+1/2, -j+1&gt;, ..., |j=l+1/2, +j&gt;\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>l</strong><span class="classifier">int</span></dt><dd><p>Quantum number of orbital angular momentum.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>t_c2j</strong><span class="classifier">2d complex array</span></dt><dd><p>The transformation matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.tmat_c2r">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_c2r</code><span class="sig-paren">(</span><em>case</em>, <em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_c2r"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_c2r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the unitary transformation matrix from the basis of complex spherical harmonics to real spherical harmonics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>case</strong><span class="classifier">string</span></dt><dd><p>Label for different systems.</p>
+<ul class="simple">
+<li><p>‘p’: for <span class="math notranslate nohighlight">\(p\)</span>-shell</p></li>
+<li><p>‘t2g’: for <span class="math notranslate nohighlight">\(t_{2g}\)</span>-shell</p></li>
+<li><p>‘d’: for <span class="math notranslate nohighlight">\(d\)</span>-shell</p></li>
+<li><p>‘f’: for <span class="math notranslate nohighlight">\(f\)</span>-shell</p></li>
+</ul>
+</dd>
+<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>t_c2r</strong><span class="classifier">2d complex array</span></dt><dd><p>The transformation matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.tmat_cub2r_f">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_cub2r_f</code><span class="sig-paren">(</span><em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_cub2r_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_cub2r_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the transformation matrix from the cubic spherical harmonics to real spherical harmonics, only for <span class="math notranslate nohighlight">\(f\)</span> system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>t_cub2r</strong><span class="classifier">2d complex array</span></dt><dd><p>The transformation matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.tmat_r2c">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_r2c</code><span class="sig-paren">(</span><em>case</em>, <em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_r2c"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_r2c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the unitary transformation matrix from the basis of complex spherical harmonics to real spherical harmonics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>case</strong><span class="classifier">string</span></dt><dd><p>Label for different systems.</p>
+<ul class="simple">
+<li><p>‘p’: for <span class="math notranslate nohighlight">\(p\)</span>-shell</p></li>
+<li><p>‘t2g’: for <span class="math notranslate nohighlight">\(t_{2g}\)</span>-shell</p></li>
+<li><p>‘d’: for <span class="math notranslate nohighlight">\(d\)</span>-shell</p></li>
+<li><p>‘f’: for <span class="math notranslate nohighlight">\(f\)</span>-shell</p></li>
+</ul>
+</dd>
+<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>t_r2c</strong><span class="classifier">2d complex array</span></dt><dd><p>The transformation matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.tmat_r2cub_f">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_r2cub_f</code><span class="sig-paren">(</span><em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_r2cub_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_r2cub_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the transformation matrix from real spherical harmonics to the cubic spherical harmonics
+that is the representation of the cubic point group, only for <span class="math notranslate nohighlight">\(f\)</span> system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>t_r2cub</strong><span class="classifier">2d complex array</span></dt><dd><p>The transformation matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.transform_utensor">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">transform_utensor</code><span class="sig-paren">(</span><em>umat</em>, <em>tmat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#transform_utensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.transform_utensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform the rank-4 Coulomb interaction tensor from one basis to another basis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>umat</strong><span class="classifier">4d array</span></dt><dd><p>Coulomb interaction tensor (rank-4).</p>
+</dd>
+<dt><strong>tmat</strong><span class="classifier">2d array</span></dt><dd><p>The transformation matrix.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>umat_new</strong><span class="classifier">4d complex array</span></dt><dd><p>The Coulomb interaction tensor in the new basis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="coulomb_utensor.html" class="btn btn-neutral float-right" title="coulomb_utensor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="angular_momentum.html" class="btn btn-neutral float-left" title="angular_momentum" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Brookhaven National Lab
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

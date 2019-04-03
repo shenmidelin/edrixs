@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>manybody_operator &mdash; edrixs  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="../_static/copybutton.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="photon_transition" href="photon_transition.html" />
+    <link rel="prev" title="iostream" href="iostream.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> edrixs
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">EDRIXS Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="angular_momentum.html">angular_momentum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basis_transform.html">basis_transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coulomb_utensor.html">coulomb_utensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fit_hyb.html">fit_hyb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fock_basis.html">fock_basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iostream.html">iostream</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">manybody_operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="photon_transition.html">photon_transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_spectrum.html">plot_spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rixs_utils.html">rixs_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="soc.html">soc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wannier_ham.html">wannier_ham</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">edrixs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">EDRIXS Reference</a> &raquo;</li>
+        
+      <li>manybody_operator</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/manybody_operator.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-edrixs.manybody_operator">
+<span id="manybody-operator"></span><h1>manybody_operator<a class="headerlink" href="#module-edrixs.manybody_operator" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="edrixs.manybody_operator.density_matrix">
+<code class="descclassname">edrixs.manybody_operator.</code><code class="descname">density_matrix</code><span class="sig-paren">(</span><em>iorb</em>, <em>jorb</em>, <em>lb</em>, <em>rb</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/manybody_operator.html#density_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.manybody_operator.density_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the matrix form of density operators <span class="math notranslate nohighlight">\(\hat{f}_{i}^{\dagger}\hat{f}_{j}\)</span> in the given Fock basis,</p>
+<div class="math notranslate nohighlight">
+\[&lt;F_{l}|\hat{f}_{i}^{\dagger}\hat{f}_{j}|F_{r}&gt;\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>iorb</strong><span class="classifier">int</span></dt><dd><p>Orbital index.</p>
+</dd>
+<dt><strong>jorb</strong><span class="classifier">int</span></dt><dd><p>Orbital index.</p>
+</dd>
+<dt><strong>lb</strong><span class="classifier">list or array</span></dt><dd><p>Left fock basis <span class="math notranslate nohighlight">\(&lt;F_{l}|\)</span>.</p>
+</dd>
+<dt><strong>rb</strong><span class="classifier">list or array</span></dt><dd><p>Right fock basis <span class="math notranslate nohighlight">\(|F_{r}&gt;\)</span>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>hmat</strong><span class="classifier">2d complex array</span></dt><dd><p>The calculated matrix form of the density operator.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.manybody_operator.four_fermion">
+<code class="descclassname">edrixs.manybody_operator.</code><code class="descname">four_fermion</code><span class="sig-paren">(</span><em>umat</em>, <em>basis</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/manybody_operator.html#four_fermion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.manybody_operator.four_fermion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build matrix form of a four-fermionic operator in the given Fock basis,</p>
+<div class="math notranslate nohighlight">
+\[&lt;F|\sum_{ij}U_{ijkl}\hat{f}_{i}^{\dagger}\hat{f}_{j}^{\dagger}\hat{f}_{k}\hat{f}_{l}|F&gt; \]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>umat</strong><span class="classifier">4d complex array</span></dt><dd><p>The 4 index Coulomb interaction tensor.</p>
+</dd>
+<dt><strong>basis</strong><span class="classifier">list or array</span></dt><dd><p>Fock basis <span class="math notranslate nohighlight">\(|F&gt;\)</span>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>hmat</strong><span class="classifier">2d complex array</span></dt><dd><p>The matrix form of the four-fermionic operator.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.manybody_operator.one_fermion_annihilation">
+<code class="descclassname">edrixs.manybody_operator.</code><code class="descname">one_fermion_annihilation</code><span class="sig-paren">(</span><em>iorb</em>, <em>lb</em>, <em>rb</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/manybody_operator.html#one_fermion_annihilation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.manybody_operator.one_fermion_annihilation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build matrix form of a fermionic annihilation operator in the given Fock basis.</p>
+<div class="math notranslate nohighlight">
+\[&lt;F_{l}|\hat{f}_{i}|F_{r}&gt; \]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>iorb</strong><span class="classifier">int</span></dt><dd><p>Which orbital.</p>
+</dd>
+<dt><strong>lb</strong><span class="classifier">list or array</span></dt><dd><p>Left fock basis <span class="math notranslate nohighlight">\(&lt;F_{l}|\)</span>.</p>
+</dd>
+<dt><strong>rb</strong><span class="classifier">list of array</span></dt><dd><p>Right fock basis <span class="math notranslate nohighlight">\(|F_{r}&gt;\)</span>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>hmat</strong><span class="classifier">2d complex array</span></dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(\hat{f}_{i}\)</span>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.manybody_operator.two_fermion">
+<code class="descclassname">edrixs.manybody_operator.</code><code class="descname">two_fermion</code><span class="sig-paren">(</span><em>emat</em>, <em>lb</em>, <em>rb</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/manybody_operator.html#two_fermion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.manybody_operator.two_fermion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build matrix form of a two-fermionic operator in the given Fock basis,</p>
+<div class="math notranslate nohighlight">
+\[&lt;F_{l}|\sum_{ij}E_{ij}\hat{f}_{i}^{\dagger}\hat{f}_{j}|F_{r}&gt; \]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>emat</strong><span class="classifier">2d complex array</span></dt><dd><p>The impurity matrix.</p>
+</dd>
+<dt><strong>lb</strong><span class="classifier">list or array</span></dt><dd><p>Left fock basis <span class="math notranslate nohighlight">\(&lt;F_{l}|\)</span>.</p>
+</dd>
+<dt><strong>rb</strong><span class="classifier">list of array</span></dt><dd><p>Right fock basis <span class="math notranslate nohighlight">\(|F_{r}&gt;\)</span>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>hmat</strong><span class="classifier">2d complex array</span></dt><dd><p>The matrix form of the two-fermionic operator.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="photon_transition.html" class="btn btn-neutral float-right" title="photon_transition" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="iostream.html" class="btn btn-neutral float-left" title="iostream" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Brookhaven National Lab
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
