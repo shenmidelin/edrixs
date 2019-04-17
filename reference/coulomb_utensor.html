@@ -178,8 +178,10 @@
 <code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_gaunt</code><span class="sig-paren">(</span><em>l1</em>, <em>l2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_gaunt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_gaunt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the Gaunt coefficents <span class="math notranslate nohighlight">\(C_{l_1,l_2}(k,m_1,m_2)\)</span></p>
 <div class="math notranslate nohighlight">
-\[C_{l_1,l_2}(k,m_1,m_2)=\sqrt{\frac{4\pi}{2k+1}} \int \mathop{d\phi} \mathop{d\theta} sin(\theta) Y_{l_1}^{m_1\star}(\theta,\phi) 
-                        Y_{k}^{m_1-m_2}(\theta,\phi) Y_{l_2}^{m_2}(\theta,\phi)\]</div>
+\[C_{l_1,l_2}(k,m_1,m_2)=\sqrt{\frac{4\pi}{2k+1}} \int
+\mathop{d\phi} \mathop{d\theta} sin(\theta)
+Y_{l_1}^{m_1\star}(\theta,\phi) Y_{k}^{m_1-m_2}(\theta,\phi)
+Y_{l_2}^{m_2}(\theta,\phi)\]</div>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -193,14 +195,17 @@
 <dd class="field-even"><dl>
 <dt><strong>res: 3d float array</strong></dt><dd><p>The calculated Gaunt coefficents.</p>
 <p>The 1st index (<span class="math notranslate nohighlight">\(= 0, 1, ..., l_1+l_2+1\)</span>) is the order <span class="math notranslate nohighlight">\(k\)</span>.</p>
-<p>The 2nd index (<span class="math notranslate nohighlight">\(= 0, 1, ... ,2l_1\)</span>) is the magnetic quantum number <span class="math notranslate nohighlight">\(m_1\)</span> plus <span class="math notranslate nohighlight">\(l_1\)</span></p>
-<p>The 3nd index (<span class="math notranslate nohighlight">\(= 0, 1, ... ,2l_2\)</span>) is the magnetic quantum number <span class="math notranslate nohighlight">\(m_2\)</span> plus <span class="math notranslate nohighlight">\(l_2\)</span></p>
+<p>The 2nd index (<span class="math notranslate nohighlight">\(= 0, 1, ... ,2l_1\)</span>) is the magnetic quantum
+number <span class="math notranslate nohighlight">\(m_1\)</span> plus <span class="math notranslate nohighlight">\(l_1\)</span></p>
+<p>The 3nd index (<span class="math notranslate nohighlight">\(= 0, 1, ... ,2l_2\)</span>) is the magnetic quantum
+number <span class="math notranslate nohighlight">\(m_2\)</span> plus <span class="math notranslate nohighlight">\(l_2\)</span></p>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>It should be noted that <span class="math notranslate nohighlight">\(C_{l_1,l_2}(k,m_1,m_2)\)</span> is nonvanishing only when</p>
+<p>It should be noted that <span class="math notranslate nohighlight">\(C_{l_1,l_2}(k,m_1,m_2)\)</span> is
+nonvanishing only when</p>
 <p><span class="math notranslate nohighlight">\(k + l_1 + l_2 = \text{even}\)</span>,</p>
 <p>and</p>
 <p><span class="math notranslate nohighlight">\(|l_1 -  l_2| \leq k \leq l_1 + l_2\)</span>.</p>
@@ -208,15 +213,16 @@
 <p class="rubric">References</p>
 <dl class="citation">
 <dt class="label" id="rfb9838caf51d-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
-<dd><p>Sugano S, Tanabe Y and Kamimura H. 1970. Multiplets of Transition-Metal Ions in Crystals. Academic Press, New York and London.</p>
+<dd><p>Sugano S, Tanabe Y and Kamimura H. 1970. Multiplets of
+Transition-Metal Ions in Crystals. Academic Press, New York and London.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">coulomb_utensor</span> <span class="k">import</span> <span class="n">get_gaunt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
 </pre></div>
 </div>
 <p>Get gaunt coefficients between <span class="math notranslate nohighlight">\(p\)</span>-shell and <span class="math notranslate nohighlight">\(d\)</span>-shell</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">get_gaunt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">get_gaunt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -224,7 +230,8 @@
 <dl class="function">
 <dt id="edrixs.coulomb_utensor.get_umat_kanamori">
 <code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_kanamori</code><span class="sig-paren">(</span><em>norbs</em>, <em>U</em>, <em>J</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_kanamori"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_kanamori" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the Coulomb interaction tensor for a Kanamori-type interaction. For the <span class="math notranslate nohighlight">\(t2g\)</span>-shell case, it is parameterized by <span class="math notranslate nohighlight">\(U, J\)</span>.</p>
+<dd><p>Calculate the Coulomb interaction tensor for a Kanamori-type interaction.
+For the <span class="math notranslate nohighlight">\(t2g\)</span>-shell case, it is parameterized by <span class="math notranslate nohighlight">\(U, J\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -254,7 +261,8 @@
 <dl class="function">
 <dt id="edrixs.coulomb_utensor.get_umat_kanamori_ge">
 <code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_kanamori_ge</code><span class="sig-paren">(</span><em>norbs</em>, <em>U1</em>, <em>U2</em>, <em>J</em>, <em>Jx</em>, <em>Jp</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_kanamori_ge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_kanamori_ge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the Coulomb interaction tensor for a Kanamori-type interaction. For the general case, it is parameterized by <span class="math notranslate nohighlight">\(U_1, U_2, J, J_x, J_p\)</span>.</p>
+<dd><p>Calculate the Coulomb interaction tensor for a Kanamori-type interaction.
+For the general case, it is parameterized by <span class="math notranslate nohighlight">\(U_1, U_2, J, J_x, J_p\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -304,7 +312,11 @@
 <li><p>‘pp’:   a <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>) and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
 <li><p>‘ds’:   a <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>) and another <span class="math notranslate nohighlight">\(s\)</span>-shell (<span class="math notranslate nohighlight">\(l=0\)</span>)</p></li>
 <li><p>‘dp’:   a <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>) and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
-<li><p>‘t2gp’: a <span class="math notranslate nohighlight">\(t2g\)</span>-shell (<span class="math notranslate nohighlight">\(l_{\text{eff}}=1\)</span>) and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
+<li><dl class="simple">
+<dt>‘t2gp’: a <span class="math notranslate nohighlight">\(t2g\)</span>-shell (<span class="math notranslate nohighlight">\(l_{\text{eff}}=1\)</span>)</dt><dd><p>and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p>
+</dd>
+</dl>
+</li>
 <li><p>‘dd’:   a <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>) and another <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>)</p></li>
 <li><p>‘fs’:   a <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>) and another <span class="math notranslate nohighlight">\(s\)</span>-shell (<span class="math notranslate nohighlight">\(l=0\)</span>)</p></li>
 <li><p>‘fp’:   a <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>) and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
@@ -323,11 +335,14 @@
 <li><p>for case ‘ds’: F0_dd, F2_dd, F4_dd, F0_ds, G2_ds, F0_ss</p></li>
 <li><p>for case ‘dp’: F0_dd, F2_dd, F4_dd, F0_dp, F2_dp, G1_dp, G3_dp, F0_pp, F2_pp</p></li>
 <li><p>for case ‘t2gp’: F0_dd, F2_dd, F4_dd, F0_dp, F2_dp, G1_dp, G3_dp, F0_pp, F2_pp</p></li>
-<li><p>for case ‘dd’: F0_d1d1, F2_d1d1, F4_d1d1, F0_d1d2, F2_d1d2, F4_d1d2, G0_d1d2, G2_d1d2, G4_d1d2, F0_d2d2, F2_d2d2, F4_d2d2</p></li>
+<li><p>for case ‘dd’: F0_d1d1, F2_d1d1, F4_d1d1, F0_d1d2, F2_d1d2, F4_d1d2, G0_d1d2,
+G2_d1d2, G4_d1d2, F0_d2d2, F2_d2d2, F4_d2d2</p></li>
 <li><p>for case ‘fs’:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fs, G3_fs, F0_ss</p></li>
 <li><p>for case ‘fp’:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fp, F2_fp, G2_fp, G4_fp, F0_pp, F2_pp</p></li>
-<li><p>for case ‘fd’:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fd, F2_fd, F4_fd, G1_fd, G3_fd, G5_fd, F0_dd, F2_dd, F4_dd</p></li>
-<li><p>for case ‘ff’:  F0_f1f1, F2_f1f1, F4_f1f1, F6_f1f1, F0_f1f2, F2_f1f2, F4_f1f2, F6_f1f2, G0_f1f2, G2_f1f2, G4_f1f2, G6_f1f2, F0_f2f2, F2_f2f2, F4_f2f2, F6_f2f2</p></li>
+<li><p>for case ‘fd’:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fd, F2_fd, F4_fd, G1_fd, G3_fd, G5_fd,
+F0_dd, F2_dd, F4_dd</p></li>
+<li><p>for case ‘ff’:  F0_f1f1, F2_f1f1, F4_f1f1, F6_f1f1, F0_f1f2, F2_f1f2, F4_f1f2, F6_f1f2,
+G0_f1f2, G2_f1f2, G4_f1f2, G6_f1f2, F0_f2f2, F2_f2f2, F4_f2f2, F6_f2f2</p></li>
 </ul>
 <p>The order of these arguments are important.</p>
 </dd>
@@ -349,18 +364,28 @@
 <dl class="function">
 <dt id="edrixs.coulomb_utensor.umat_slater">
 <code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">umat_slater</code><span class="sig-paren">(</span><em>l_list</em>, <em>fk</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#umat_slater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.umat_slater" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the Coulomb interaction tensor which is parameterized by Slater integrals <span class="math notranslate nohighlight">\(F^{k}\)</span>:</p>
+<dd><p>Calculate the Coulomb interaction tensor which is parameterized by
+Slater integrals <span class="math notranslate nohighlight">\(F^{k}\)</span>:</p>
 <div class="math notranslate nohighlight">
-\[U_{m_{l_i}m_{s_i}, m_{l_j}m_{s_j}, m_{l_t}m_{s_t}, m_{l_u}m_{s_u}}^{i,j,t,u} =\frac{1}{2} \delta_{m_{s_i},m_{s_t}}\delta_{m_{s_j},m_{s_u}}
-\delta_{m_{l_i}+m_{l_j}, m_{l_t}+m_{l_u}} \sum_{k}C_{l_i,l_t}(k,m_{l_i},m_{l_t})C_{l_u,l_j}(k,m_{l_u},m_{l_j})F^{k}_{i,j,t,u}\]</div>
-<p>where <span class="math notranslate nohighlight">\(m_s\)</span> is the magnetic quantum number for spin and <span class="math notranslate nohighlight">\(m_l\)</span> is the magnetic quantum number for orbital. <span class="math notranslate nohighlight">\(F^{k}_{i,j,t,u}\)</span>
-are Slater integrals. <span class="math notranslate nohighlight">\(C_{l_i,l_j}(k,m_{l_i},m_{l_j})\)</span> are Gaunt coefficients.</p>
+\[U_{m_{l_i}m_{s_i}, m_{l_j}m_{s_j}, m_{l_t}m_{s_t},
+m_{l_u}m_{s_u}}^{i,j,t,u}
+=\frac{1}{2} \delta_{m_{s_i},m_{s_t}}\delta_{m_{s_j},m_{s_u}}
+\delta_{m_{l_i}+m_{l_j}, m_{l_t}+m_{l_u}}
+\sum_{k}C_{l_i,l_t}(k,m_{l_i},m_{l_t})C_{l_u,l_j}
+(k,m_{l_u},m_{l_j})F^{k}_{i,j,t,u}\]</div>
+<p>where <span class="math notranslate nohighlight">\(m_s\)</span> is the magnetic quantum number for spin
+and <span class="math notranslate nohighlight">\(m_l\)</span> is the magnetic quantum number for orbital.
+<span class="math notranslate nohighlight">\(F^{k}_{i,j,t,u}\)</span> are Slater integrals.
+<span class="math notranslate nohighlight">\(C_{l_i,l_j}(k,m_{l_i},m_{l_j})\)</span> are Gaunt coefficients.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>l_list: list of int</strong></dt><dd><p>contains the quantum number of orbital angular momentum <span class="math notranslate nohighlight">\(l\)</span> for each shell.</p>
+<dt><strong>l_list: list of int</strong></dt><dd><p>contains the quantum number of orbital angular momentum
+<span class="math notranslate nohighlight">\(l\)</span> for each shell.</p>
 </dd>
-<dt><strong>fk: dict of float</strong></dt><dd><p>contains all the possible Slater integrals between the shells in l_list, the key is a tuple of 5 ints (<span class="math notranslate nohighlight">\(k,i,j,t,u\)</span>), where <span class="math notranslate nohighlight">\(k\)</span> is the order,
+<dt><strong>fk: dict of float</strong></dt><dd><p>contains all the possible Slater integrals between the shells
+in l_list, the key is a tuple of 5 ints (<span class="math notranslate nohighlight">\(k,i,j,t,u\)</span>),
+where <span class="math notranslate nohighlight">\(k\)</span> is the order,
 <span class="math notranslate nohighlight">\(i,j,t,u\)</span> are the shell indices begin with 1.</p>
 </dd>
 </dl>
@@ -377,7 +402,7 @@ are Slater integrals. <span class="math notranslate nohighlight">\(C_{l_i,l_j}(k
 <p><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_slater</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori_ge</span></code></p>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">coulomb_utensor</span> <span class="k">import</span> <span class="n">umat_slater</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
 </pre></div>
 </div>
 <p>For only one <span class="math notranslate nohighlight">\(d\)</span>-shell</p>
@@ -387,7 +412,7 @@ are Slater integrals. <span class="math notranslate nohighlight">\(C_{l_i,l_j}(k
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">umat_d</span> <span class="o">=</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">umat_d</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>For one <span class="math notranslate nohighlight">\(d\)</span>-shell and one <span class="math notranslate nohighlight">\(p\)</span>-shell</p>
@@ -418,6 +443,9 @@ are Slater integrals. <span class="math notranslate nohighlight">\(C_{l_i,l_j}(k
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_pp</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_pp</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">umat_dp</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>

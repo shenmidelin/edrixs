@@ -175,8 +175,9 @@
 <span id="iostream"></span><h1>iostream<a class="headerlink" href="#module-edrixs.iostream" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="edrixs.iostream.write_emat">
-<code class="descclassname">edrixs.iostream.</code><code class="descname">write_emat</code><span class="sig-paren">(</span><em>emat</em>, <em>fname</em>, <em>tol=1e-12</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/iostream.html#write_emat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.iostream.write_emat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write the nonzeros of a matrix to file. The first line is the number of nonzeros, and the following lines are the nonzero elements.
+<code class="descclassname">edrixs.iostream.</code><code class="descname">write_emat</code><span class="sig-paren">(</span><em>emat</em>, <em>fname</em>, <em>tol=1e-12</em>, <em>fmt_int='{:10d}'</em>, <em>fmt_float='{:.15f}'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/iostream.html#write_emat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.iostream.write_emat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the nonzeros of the rank-2 hopping matrices to file.
+The first line is the number of nonzeros, and the following lines are the nonzero elements.
 This file will be read by ed.x, xas.x or rixs.x.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -187,6 +188,10 @@ This file will be read by ed.x, xas.x or rixs.x.</p>
 </dd>
 <dt><strong>tol</strong><span class="classifier">float</span></dt><dd><p>Precision.</p>
 </dd>
+<dt><strong>fmt_int</strong><span class="classifier">str (default: ‘{:10d}’)</span></dt><dd><p>Format for printing integer numbers.</p>
+</dd>
+<dt><strong>fmt_float</strong><span class="classifier">str (default: ‘{:.15f}’)</span></dt><dd><p>Format for printing float numbers.</p>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -194,8 +199,8 @@ This file will be read by ed.x, xas.x or rixs.x.</p>
 
 <dl class="function">
 <dt id="edrixs.iostream.write_tensor">
-<code class="descclassname">edrixs.iostream.</code><code class="descname">write_tensor</code><span class="sig-paren">(</span><em>tensor</em>, <em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/iostream.html#write_tensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.iostream.write_tensor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write <span class="math notranslate nohighlight">\(n\)</span> -dimension numpy array to file, currently, <span class="math notranslate nohighlight">\(n\)</span> can be 1, 2, 3, 4.</p>
+<code class="descclassname">edrixs.iostream.</code><code class="descname">write_tensor</code><span class="sig-paren">(</span><em>tensor</em>, <em>fname</em>, <em>only_nonzeros=False</em>, <em>tol=1e-10</em>, <em>fmt_int='{:10d}'</em>, <em>fmt_float='{:.15f}'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/iostream.html#write_tensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.iostream.write_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write <span class="math notranslate nohighlight">\(n\)</span> -dimension numpy array to file, currently, <span class="math notranslate nohighlight">\(n\)</span> can be 1, 2, 3, 4, 5.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl>
@@ -203,23 +208,14 @@ This file will be read by ed.x, xas.x or rixs.x.</p>
 </dd>
 <dt><strong>fname</strong><span class="classifier">str</span></dt><dd><p>File name.</p>
 </dd>
-</dl>
+<dt><strong>only_nonzeros</strong><span class="classifier">logical (default: False)</span></dt><dd><p>Only write nonzero elements.</p>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.iostream.write_tensor_nonzeros">
-<code class="descclassname">edrixs.iostream.</code><code class="descname">write_tensor_nonzeros</code><span class="sig-paren">(</span><em>tensor</em>, <em>fname</em>, <em>tol=1e-06</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/iostream.html#write_tensor_nonzeros"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.iostream.write_tensor_nonzeros" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write nonzeros of the elements of a <span class="math notranslate nohighlight">\(n\)</span> -dimension numpy array to file, currently, <span class="math notranslate nohighlight">\(n\)</span> can be 1, 2, 3, 4.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
-<dt><strong>tensor</strong><span class="classifier"><span class="math notranslate nohighlight">\(n\)</span> d float or complex array</span></dt><dd><p>The array needs to be written.</p>
+<dt><strong>tol</strong><span class="classifier">float (default: 1E-10)</span></dt><dd><p>Only write the elements when their absolute value are larger than tol
+and only_nonzeros=True.</p>
 </dd>
-<dt><strong>fname</strong><span class="classifier">str</span></dt><dd><p>File name.</p>
+<dt><strong>fmt_int</strong><span class="classifier">str (default: ‘{:10d}’)</span></dt><dd><p>The format for printing integer numbers.</p>
 </dd>
-<dt><strong>tol</strong><span class="classifier">float</span></dt><dd><p>The precision, the elements whose absolute value is large than tol will be written.</p>
+<dt><strong>fmt_float</strong><span class="classifier">str (default: ‘{:.15f}’)</span></dt><dd><p>The format for printing float numbers.</p>
 </dd>
 </dl>
 </dd>
@@ -228,8 +224,9 @@ This file will be read by ed.x, xas.x or rixs.x.</p>
 
 <dl class="function">
 <dt id="edrixs.iostream.write_umat">
-<code class="descclassname">edrixs.iostream.</code><code class="descname">write_umat</code><span class="sig-paren">(</span><em>umat</em>, <em>fname</em>, <em>tol=1e-12</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/iostream.html#write_umat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.iostream.write_umat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write the nonzeros of a rank-4 tensor to file. The first line is the number of nonzeros, and the following lines are the nonzero elements.
+<code class="descclassname">edrixs.iostream.</code><code class="descname">write_umat</code><span class="sig-paren">(</span><em>umat</em>, <em>fname</em>, <em>tol=1e-12</em>, <em>fmt_int='{:10d}'</em>, <em>fmt_float='{:.15f}'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/iostream.html#write_umat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.iostream.write_umat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the nonzeros of the rank-4 Coulomb U tensor to file.
+The first line is the number of nonzeros, and the following lines are the nonzero elements.
 This file will be read by ed.x, xas.x or rixs.x.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -238,7 +235,11 @@ This file will be read by ed.x, xas.x or rixs.x.</p>
 </dd>
 <dt><strong>fname</strong><span class="classifier">str</span></dt><dd><p>File name.</p>
 </dd>
-<dt><strong>tol</strong><span class="classifier">float</span></dt><dd><p>Precision.</p>
+<dt><strong>tol</strong><span class="classifier">float (default: 1E-12)</span></dt><dd><p>Precision.</p>
+</dd>
+<dt><strong>fmt_int</strong><span class="classifier">str (default: ‘{:10d}’)</span></dt><dd><p>Format for printing integer numbers.</p>
+</dd>
+<dt><strong>fmt_float</strong><span class="classifier">str (default: ‘{:.15f}’)</span></dt><dd><p>Format for printing float numbers.</p>
 </dd>
 </dl>
 </dd>

@@ -176,15 +176,19 @@
 <dl class="function">
 <dt id="edrixs.basis_transform.cb_op">
 <code class="descclassname">edrixs.basis_transform.</code><code class="descname">cb_op</code><span class="sig-paren">(</span><em>oper_A</em>, <em>t_mat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#cb_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.cb_op" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change the basis of an operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> from one basis <span class="math notranslate nohighlight">\(A\)</span>: <span class="math notranslate nohighlight">\(\psi^{A}_{i}\)</span> to another basis <span class="math notranslate nohighlight">\(B\)</span>: <span class="math notranslate nohighlight">\(\phi^{B}_{j}\)</span>.</p>
+<dd><p>Change the basis of an operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> from one
+basis <span class="math notranslate nohighlight">\(A\)</span>: <span class="math notranslate nohighlight">\(\psi^{A}_{i}\)</span> to another
+basis <span class="math notranslate nohighlight">\(B\)</span>: <span class="math notranslate nohighlight">\(\phi^{B}_{j}\)</span>.</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}O^{\prime} = T^{\dagger} O T,  \\T_{ij} = &lt;\psi^{A}_{i}|\phi^{B}_{j}&gt;.\end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}O^{\prime} = T^{\dagger} O T,\\T_{ij} = &lt;\psi^{A}_{i}|\phi^{B}_{j}&gt;.\end{aligned}\end{align} \]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>oper_A</strong><span class="classifier">2d array</span></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(A\)</span>.</p>
 </dd>
-<dt><strong>t_mat</strong><span class="classifier">2d array</span></dt><dd><p>The unitary transformation matrix from basis <span class="math notranslate nohighlight">\(A\)</span> to basis <span class="math notranslate nohighlight">\(B\)</span>,  namely, <span class="math notranslate nohighlight">\(T_{ij} = &lt;\psi^{A}_{i}|\phi^{B}_{j}&gt;\)</span>.</p>
+<dt><strong>t_mat</strong><span class="classifier">2d array</span></dt><dd><p>The unitary transformation matrix from basis <span class="math notranslate nohighlight">\(A\)</span> to
+basis <span class="math notranslate nohighlight">\(B\)</span>,  namely,
+<span class="math notranslate nohighlight">\(T_{ij} = &lt;\psi^{A}_{i}|\phi^{B}_{j}&gt;\)</span>.</p>
 </dd>
 </dl>
 </dd>
@@ -202,7 +206,7 @@
 <code class="descclassname">edrixs.basis_transform.</code><code class="descname">cb_op2</code><span class="sig-paren">(</span><em>oper_A</em>, <em>TL</em>, <em>TR</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#cb_op2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.cb_op2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the basis of an operator <span class="math notranslate nohighlight">\(\hat{O}\)</span>.</p>
 <div class="math notranslate nohighlight">
-\[O^{\prime} = (TL)^{\dagger} O (TR),  \]</div>
+\[O^{\prime} = (TL)^{\dagger} O (TR),\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -226,7 +230,8 @@
 <dl class="function">
 <dt id="edrixs.basis_transform.fourier_hr2hk">
 <code class="descclassname">edrixs.basis_transform.</code><code class="descname">fourier_hr2hk</code><span class="sig-paren">(</span><em>norbs</em>, <em>nkpt</em>, <em>kvec</em>, <em>nrpt</em>, <em>rvec</em>, <em>deg_rpt</em>, <em>hr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#fourier_hr2hk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.fourier_hr2hk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fourier transform a tight-binding Hamiltonian <span class="math notranslate nohighlight">\(H(r)\)</span> from real space to <span class="math notranslate nohighlight">\(k\)</span> space <span class="math notranslate nohighlight">\(H(k)\)</span>,
+<dd><p>Fourier transform a tight-binding Hamiltonian <span class="math notranslate nohighlight">\(H(r)\)</span> from
+real space to <span class="math notranslate nohighlight">\(k\)</span> space <span class="math notranslate nohighlight">\(H(k)\)</span>,
 for Wannier90.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -258,16 +263,16 @@ for Wannier90.</p>
 
 <dl class="function">
 <dt id="edrixs.basis_transform.tmat_c2j">
-<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_c2j</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_c2j"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_c2j" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the transformation matrix from the complex spherical harmonics to 
-the <span class="math notranslate nohighlight">\(|j^2,j_z&gt;\)</span> basis in which the spin-oribt coupling Hamiltonian is diagonal.
-The orbital order is:</p>
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_c2j</code><span class="sig-paren">(</span><em>orb_l</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_c2j"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_c2j" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the transformation matrix from the complex spherical harmonics to
+the <span class="math notranslate nohighlight">\(|j^2,j_z&gt;\)</span> basis in which the spin-oribt coupling Hamiltonian
+is diagonal. The orbital order is:</p>
 <p><span class="math notranslate nohighlight">\(|j=l-1/2, -j&gt;, |j=l-1/2, -j+1&gt;, ... |j=l-1/2, +j&gt;,\)</span></p>
 <p><span class="math notranslate nohighlight">\(|j=l+1/2, -j&gt;, |j=l+1/2, -j+1&gt;, ..., |j=l+1/2, +j&gt;\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>l</strong><span class="classifier">int</span></dt><dd><p>Quantum number of orbital angular momentum.</p>
+<dt><strong>orb_l</strong><span class="classifier">int</span></dt><dd><p>Quantum number of orbital angular momentum.</p>
 </dd>
 </dl>
 </dd>
@@ -283,7 +288,8 @@ The orbital order is:</p>
 <dl class="function">
 <dt id="edrixs.basis_transform.tmat_c2r">
 <code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_c2r</code><span class="sig-paren">(</span><em>case</em>, <em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_c2r"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_c2r" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the unitary transformation matrix from the basis of complex spherical harmonics to real spherical harmonics.</p>
+<dd><p>Get the unitary transformation matrix from the basis of complex
+spherical harmonics to real spherical harmonics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -311,7 +317,8 @@ The orbital order is:</p>
 <dl class="function">
 <dt id="edrixs.basis_transform.tmat_cub2r_f">
 <code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_cub2r_f</code><span class="sig-paren">(</span><em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_cub2r_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_cub2r_f" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the transformation matrix from the cubic spherical harmonics to real spherical harmonics, only for <span class="math notranslate nohighlight">\(f\)</span> system.</p>
+<dd><p>Get the transformation matrix from the cubic spherical harmonics to
+real spherical harmonics, only for <span class="math notranslate nohighlight">\(f\)</span> system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -331,7 +338,8 @@ The orbital order is:</p>
 <dl class="function">
 <dt id="edrixs.basis_transform.tmat_r2c">
 <code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_r2c</code><span class="sig-paren">(</span><em>case</em>, <em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_r2c"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_r2c" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the unitary transformation matrix from the basis of complex spherical harmonics to real spherical harmonics.</p>
+<dd><p>Get the unitary transformation matrix from the basis of complex
+spherical harmonics to real spherical harmonics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -359,8 +367,9 @@ The orbital order is:</p>
 <dl class="function">
 <dt id="edrixs.basis_transform.tmat_r2cub_f">
 <code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_r2cub_f</code><span class="sig-paren">(</span><em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_r2cub_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_r2cub_f" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the transformation matrix from real spherical harmonics to the cubic spherical harmonics
-that is the representation of the cubic point group, only for <span class="math notranslate nohighlight">\(f\)</span> system.</p>
+<dd><p>Get the transformation matrix from real spherical harmonics to the
+cubic spherical harmonics that is the representation of the cubic
+point group, only for <span class="math notranslate nohighlight">\(f\)</span> system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -380,7 +389,8 @@ that is the representation of the cubic point group, only for <span class="math 
 <dl class="function">
 <dt id="edrixs.basis_transform.transform_utensor">
 <code class="descclassname">edrixs.basis_transform.</code><code class="descname">transform_utensor</code><span class="sig-paren">(</span><em>umat</em>, <em>tmat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#transform_utensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.transform_utensor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform the rank-4 Coulomb interaction tensor from one basis to another basis.</p>
+<dd><p>Transform the rank-4 Coulomb interaction tensor from one basis to
+another basis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">

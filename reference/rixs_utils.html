@@ -178,8 +178,10 @@
 <code class="descclassname">edrixs.rixs_utils.</code><code class="descname">scattering_mat</code><span class="sig-paren">(</span><em>eval_i</em>, <em>eval_n</em>, <em>trans_mat_abs</em>, <em>trans_mat_emi</em>, <em>omega_inc</em>, <em>gamma_n</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/rixs_utils.html#scattering_mat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.rixs_utils.scattering_mat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate X-ray scattering magnitude.</p>
 <div class="math notranslate nohighlight">
-\[F^{ab}_{fi} = \sum_{n}\frac{&lt;f|T_{a}|n&gt;&lt;n|T_{b}|i&gt;}{\omega_{in} - E_{n} + E_{i} +i\Gamma_{n}},\]</div>
-<p>where, <span class="math notranslate nohighlight">\(T_{a}\)</span> and <span class="math notranslate nohighlight">\(T_{b}\)</span> are components of transition operators( <span class="math notranslate nohighlight">\(a,b=x,y,z\)</span>).</p>
+\[F^{ab}_{fi} = \sum_{n}\frac{&lt;f|T_{a}|n&gt;&lt;n|T_{b}|i&gt;}{\omega_{in}
+            - E_{n} + E_{i} + i\Gamma_{n}},\]</div>
+<p>where, <span class="math notranslate nohighlight">\(T_{a}\)</span> and <span class="math notranslate nohighlight">\(T_{b}\)</span> are components of transition
+operators( <span class="math notranslate nohighlight">\(a,b=x,y,z\)</span>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">

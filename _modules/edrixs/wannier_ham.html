@@ -154,8 +154,9 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+
 <div class="viewcode-block" id="HR"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.HR">[docs]</a><span class="k">class</span> <span class="nc">HR</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot; </span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class for post-process of the Wannier90 tight-binding (TB) Hamiltonian in real space.</span>
 
 <span class="sd">    Parameters</span>
@@ -169,7 +170,7 @@
 <span class="sd">    irpt0 : int</span>
 <span class="sd">        Index of the point (0,0,0).</span>
 
-<span class="sd">    rpts : float array </span>
+<span class="sd">    rpts : float array</span>
 <span class="sd">        The coordinates of :math:`r` points.</span>
 
 <span class="sd">    deg_rpt : int array</span>
@@ -179,12 +180,10 @@
 <span class="sd">        Hamiltonian :math:`H(r)` from Wannier90.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-
-
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nwann</span><span class="p">,</span> <span class="n">nrpt</span><span class="p">,</span> <span class="n">irpt0</span><span class="p">,</span> <span class="n">rpts</span><span class="p">,</span> <span class="n">deg_rpt</span><span class="p">,</span> <span class="n">hr</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nwann</span><span class="o">=</span><span class="n">nwann</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nwann</span> <span class="o">=</span> <span class="n">nwann</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nrpt</span> <span class="o">=</span> <span class="n">nrpt</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">irpt0</span> <span class="o">=</span> <span class="n">irpt0</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">irpt0</span> <span class="o">=</span> <span class="n">irpt0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">deg_rpt</span> <span class="o">=</span> <span class="n">deg_rpt</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rpts</span> <span class="o">=</span> <span class="n">rpts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hr</span> <span class="o">=</span> <span class="n">hr</span>
@@ -196,7 +195,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        fname : str </span>
+<span class="sd">        fname : str</span>
 <span class="sd">            The file that contains the Wannier90 output file: &quot;case_hr.dat&quot;.</span>
 
 <span class="sd">        Returns</span>
@@ -205,35 +204,32 @@
 <span class="sd">            A HR object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">try</span><span class="p">:</span> 
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="c1"># skip the header (1 line)</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-                <span class="n">nwann</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> 
-                <span class="n">nrpt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-                <span class="c1"># the degeneracy of R points</span>
-                <span class="n">nline</span> <span class="o">=</span> <span class="n">nrpt</span><span class="o">//</span><span class="mi">15</span> <span class="o">+</span> <span class="mi">1</span>
-                <span class="n">tmp</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nline</span><span class="p">):</span>
-                    <span class="n">tmp</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>   
-                <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">]</span>
-                <span class="n">deg_rpt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
-                <span class="c1"># read hr for each r-point</span>
-                <span class="n">rpts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nrpt</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span> 
-                <span class="n">hr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nrpt</span><span class="p">,</span> <span class="n">nwann</span><span class="p">,</span> <span class="n">nwann</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nrpt</span><span class="p">):</span>
-                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nwann</span><span class="p">):</span>
-                        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nwann</span><span class="p">):</span>
-                            <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">hr_i</span><span class="p">,</span> <span class="n">hr_j</span><span class="p">,</span> <span class="n">hr_real</span><span class="p">,</span> <span class="n">hr_imag</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> 
-                            <span class="n">rpts</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rx</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">ry</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">rz</span><span class="p">)</span> 
-                            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">rx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">ry</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">rz</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                                <span class="n">irpt0</span> <span class="o">=</span> <span class="n">i</span>  
-                            <span class="n">hr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="n">hr_real</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="n">hr_imag</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span>
-                <span class="c1"># construct the HR instance</span>
-                <span class="k">return</span> <span class="n">HR</span><span class="p">(</span><span class="n">nwann</span><span class="p">,</span> <span class="n">nrpt</span><span class="p">,</span> <span class="n">irpt0</span><span class="p">,</span> <span class="n">rpts</span><span class="p">,</span> <span class="n">deg_rpt</span><span class="p">,</span> <span class="n">hr</span><span class="p">)</span>
-
-        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File:&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">fname</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">&quot;</span> <span class="o">+</span>  <span class="s2">&quot; doesn&#39;t exist!&quot;</span><span class="p">)</span></div>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="c1"># skip the header (1 line)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="n">nwann</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="n">nrpt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="c1"># the degeneracy of R points</span>
+            <span class="n">nline</span> <span class="o">=</span> <span class="n">nrpt</span> <span class="o">//</span> <span class="mi">15</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nline</span><span class="p">):</span>
+                <span class="n">tmp</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">]</span>
+            <span class="n">deg_rpt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+            <span class="c1"># read hr for each r-point</span>
+            <span class="n">rpts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nrpt</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+            <span class="n">hr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nrpt</span><span class="p">,</span> <span class="n">nwann</span><span class="p">,</span> <span class="n">nwann</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nrpt</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nwann</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nwann</span><span class="p">):</span>
+                        <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">,</span> <span class="n">hr_i</span><span class="p">,</span> <span class="n">hr_j</span><span class="p">,</span> <span class="n">hr_real</span><span class="p">,</span> <span class="n">hr_imag</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                        <span class="n">rpts</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rx</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">ry</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">rz</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">rx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">ry</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">rz</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">irpt0</span> <span class="o">=</span> <span class="n">i</span>
+                        <span class="n">hr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span>
+                            <span class="n">hr_real</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="n">hr_imag</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span>
+            <span class="c1"># construct the HR instance</span>
+            <span class="k">return</span> <span class="n">HR</span><span class="p">(</span><span class="n">nwann</span><span class="p">,</span> <span class="n">nrpt</span><span class="p">,</span> <span class="n">irpt0</span><span class="p">,</span> <span class="n">rpts</span><span class="p">,</span> <span class="n">deg_rpt</span><span class="p">,</span> <span class="n">hr</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="HR.copy_hr"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.HR.copy_hr">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">copy_hr</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
@@ -251,16 +247,16 @@
 <span class="sd">            Return a new HR object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="n">HR</span><span class="p">(</span> <span class="n">other</span><span class="o">.</span><span class="n">nwann</span><span class="p">,</span> 
-                   <span class="n">other</span><span class="o">.</span><span class="n">nrpt</span><span class="p">,</span> 
-                   <span class="n">other</span><span class="o">.</span><span class="n">irpt0</span><span class="p">,</span> 
-                   <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">rpts</span><span class="p">),</span> 
-                   <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">deg_rpt</span><span class="p">),</span> 
-                   <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">hr</span><span class="p">)</span> <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">HR</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">nwann</span><span class="p">,</span>
+                  <span class="n">other</span><span class="o">.</span><span class="n">nrpt</span><span class="p">,</span>
+                  <span class="n">other</span><span class="o">.</span><span class="n">irpt0</span><span class="p">,</span>
+                  <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">rpts</span><span class="p">),</span>
+                  <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">deg_rpt</span><span class="p">),</span>
+                  <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">hr</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="HR.get_hr0"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.HR.get_hr0">[docs]</a>    <span class="k">def</span> <span class="nf">get_hr0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ispin</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the on-site term :math:`H(r=0)`. </span>
+<span class="sd">        Return the on-site term :math:`H(r=0)`.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -275,13 +271,13 @@
 
         <span class="k">if</span> <span class="n">ispin</span><span class="p">:</span>
             <span class="n">norbs</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwann</span>
-            <span class="n">hr0_spin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">norbs</span><span class="p">,</span> <span class="n">norbs</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span> 
-            <span class="n">hr0_spin</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">irpt0</span><span class="p">,:,:]</span>
-            <span class="n">hr0_spin</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">irpt0</span><span class="p">,:,:]</span>
+            <span class="n">hr0_spin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">norbs</span><span class="p">,</span> <span class="n">norbs</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+            <span class="n">hr0_spin</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">irpt0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+            <span class="n">hr0_spin</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">irpt0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
             <span class="k">return</span> <span class="n">hr0_spin</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">irpt0</span><span class="p">,:,:]</span></div>
-            
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">irpt0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span></div>
+
 <div class="viewcode-block" id="HR.get_hr"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.HR.get_hr">[docs]</a>    <span class="k">def</span> <span class="nf">get_hr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ispin</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the Hamiltonian of :math:`H(r)`.</span>
@@ -298,27 +294,28 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># with spin, spin order: up dn up dn up dn</span>
-        <span class="k">if</span> <span class="n">ispin</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">norbs</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwann</span> 
+        <span class="k">if</span> <span class="n">ispin</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">norbs</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwann</span>
             <span class="n">hr_spin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">nrpt</span><span class="p">,</span> <span class="n">norbs</span><span class="p">,</span> <span class="n">norbs</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
             <span class="n">hr_spin</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span>
             <span class="n">hr_spin</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">norbs</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span>
             <span class="k">return</span> <span class="n">hr_spin</span>
         <span class="c1"># with spin, spin order: up up up dn dn dn</span>
-        <span class="k">elif</span> <span class="n">ispin</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
-            <span class="n">norbs</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwann</span> 
+        <span class="k">elif</span> <span class="n">ispin</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">norbs</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwann</span>
             <span class="n">hr_spin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">nrpt</span><span class="p">,</span> <span class="n">norbs</span><span class="p">,</span> <span class="n">norbs</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
             <span class="n">hr_spin</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">nwann</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">nwann</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span>
             <span class="n">hr_spin</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwann</span><span class="p">:</span><span class="n">norbs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nwann</span><span class="p">:</span><span class="n">norbs</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span>
             <span class="k">return</span> <span class="n">hr_spin</span>
         <span class="c1"># without spin</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span><span class="p">[:,:,:]</span></div></div>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hr</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span></div></div>
+
 
 <div class="viewcode-block" id="KVec"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.KVec">[docs]</a><span class="k">class</span> <span class="nc">KVec</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Define :math:`k` points in BZ, high symmetry line or uniform grid.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    kpt_type : str</span>
@@ -342,8 +339,8 @@
 
 <div class="viewcode-block" id="KVec.set_base"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.KVec.set_base">[docs]</a>    <span class="k">def</span> <span class="nf">set_base</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kbase</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the basis of the primitive reciprocal. </span>
-<span class="sd">  </span>
+<span class="sd">        Set the basis of the primitive reciprocal.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        kbase : :math:`3 \\times 3` float array</span>
@@ -352,7 +349,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">kbase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">kbase</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="KVec.kvec_from_file"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.KVec.kvec_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">kvec_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">fname</span><span class="p">):</span>
+<div class="viewcode-block" id="KVec.kvec_from_file"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.KVec.kvec_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">kvec_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read :math:`k` points from file.</span>
 
@@ -363,21 +360,18 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">tmp</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">try</span><span class="p">:</span> 
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="n">line</span> <span class="o">!=</span> <span class="p">[]:</span>
-                        <span class="n">tmp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">fname</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;doesn&#39;t exists!&quot;</span><span class="p">)</span></div></div>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">line</span> <span class="o">!=</span> <span class="p">[]:</span>
+                    <span class="n">tmp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span></div></div>
 
- 
+
 <div class="viewcode-block" id="SymKVec"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.SymKVec">[docs]</a><span class="k">class</span> <span class="nc">SymKVec</span><span class="p">(</span><span class="n">KVec</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class for defining :math:`k` points in high symmetry line, derived from :class:`KVec`. </span>
+<span class="sd">    Class for defining :math:`k` points in high symmetry line, derived from :class:`KVec`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -401,22 +395,24 @@
 <span class="sd">        Return length of :math:`k` points segments.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">klen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>          
+        <span class="bp">self</span><span class="o">.</span><span class="n">klen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">klen</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">prev_kpt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span><span class="p">):</span>
-            <span class="n">curr_kpt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span><span class="p">):</span>
+            <span class="n">curr_kpt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
             <span class="n">tmp_kpt</span> <span class="o">=</span> <span class="n">curr_kpt</span> <span class="o">-</span> <span class="n">prev_kpt</span>
-            <span class="n">kx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">tmp_kpt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kbase</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">ky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">tmp_kpt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kbase</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
-            <span class="n">kz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">tmp_kpt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kbase</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">klen</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">klen</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">((</span><span class="n">kx</span><span class="p">,</span><span class="n">ky</span><span class="p">,</span><span class="n">kz</span><span class="p">),</span> <span class="p">(</span><span class="n">kx</span><span class="p">,</span><span class="n">ky</span><span class="p">,</span><span class="n">kz</span><span class="p">)))</span>
+            <span class="n">kx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">tmp_kpt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kbase</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">ky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">tmp_kpt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kbase</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="n">kz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">tmp_kpt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kbase</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">klen</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">klen</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> \
+                <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">((</span><span class="n">kx</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">kz</span><span class="p">),</span> <span class="p">(</span><span class="n">kx</span><span class="p">,</span> <span class="n">ky</span><span class="p">,</span> <span class="n">kz</span><span class="p">)))</span>
             <span class="n">prev_kpt</span> <span class="o">=</span> <span class="n">curr_kpt</span></div>
 
 <div class="viewcode-block" id="SymKVec.from_hsymkpt"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.SymKVec.from_hsymkpt">[docs]</a>    <span class="k">def</span> <span class="nf">from_hsymkpt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nkpt_per_path</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Given starting and end :math:`k` points of each segment, and the number of points per each segment,</span>
+<span class="sd">        Given starting and end :math:`k` points of each segment,</span>
+<span class="sd">        and the number of points per each segment,</span>
 <span class="sd">        return the high symmetry :math:`k` points.</span>
 
 <span class="sd">        Parameters</span>
@@ -425,14 +421,15 @@
 <span class="sd">            Number of :math:`k` points per each segment.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span> <span class="o">=</span> <span class="n">nkpt_per_path</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">)):</span>
-            <span class="n">kpt_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-            <span class="n">kpt_curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">[</span><span class="n">i</span>  <span class="p">,:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span> <span class="o">=</span> <span class="n">nkpt_per_path</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">)):</span>
+            <span class="n">kpt_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">kpt_curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nkpt_per_path</span><span class="p">):</span>
-                <span class="n">ikpt</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">nkpt_per_path</span> <span class="o">+</span> <span class="n">j</span> 
-                <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span><span class="p">[</span><span class="n">ikpt</span><span class="p">,:]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">nkpt_per_path</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">kpt_curr</span> <span class="o">-</span> <span class="n">kpt_prev</span><span class="p">)</span> <span class="o">+</span> <span class="n">kpt_prev</span>     </div>
+                <span class="n">ikpt</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">nkpt_per_path</span> <span class="o">+</span> <span class="n">j</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span><span class="p">[</span><span class="n">ikpt</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">nkpt_per_path</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span>
+                                      <span class="p">(</span><span class="n">kpt_curr</span> <span class="o">-</span> <span class="n">kpt_prev</span><span class="p">)</span> <span class="o">+</span> <span class="n">kpt_prev</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SymKVec.from_hsymkpt_uni"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.SymKVec.from_hsymkpt_uni">[docs]</a>    <span class="k">def</span> <span class="nf">from_hsymkpt_uni</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -445,24 +442,24 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">kvec</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hsym_dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hsym_dis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.0</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-            <span class="n">kpt_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span>
-            <span class="n">kpt_curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,:]</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kbase</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">kpt_curr</span><span class="o">-</span><span class="n">kpt_prev</span><span class="p">)</span>
-            <span class="n">dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span><span class="n">tmp</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hsym_dis</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hsym_dis</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dis</span>
-            <span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">dis</span><span class="p">,</span><span class="n">step</span><span class="p">)</span> <span class="o">/</span> <span class="n">dis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hsym_dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hsym_dis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">kpt_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">kpt_curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsymkpt</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kbase</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">kpt_curr</span> <span class="o">-</span> <span class="n">kpt_prev</span><span class="p">)</span>
+            <span class="n">dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">tmp</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hsym_dis</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hsym_dis</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dis</span>
+            <span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dis</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span> <span class="o">/</span> <span class="n">dis</span>
             <span class="k">for</span> <span class="n">ipt</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">:</span>
-                <span class="n">kvec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ipt</span> <span class="o">*</span> <span class="p">(</span><span class="n">kpt_curr</span><span class="o">-</span><span class="n">kpt_prev</span><span class="p">)</span> <span class="o">+</span> <span class="n">kpt_prev</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">kvec</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+                <span class="n">kvec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ipt</span> <span class="o">*</span> <span class="p">(</span><span class="n">kpt_curr</span> <span class="o">-</span> <span class="n">kpt_prev</span><span class="p">)</span> <span class="o">+</span> <span class="n">kpt_prev</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">kvec</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kvec</span><span class="p">)</span></div></div>
-    
+
 
 <div class="viewcode-block" id="UniKVec"><a class="viewcode-back" href="../../reference/wannier_ham.html#edrixs.wannier_ham.UniKVec">[docs]</a><span class="k">class</span> <span class="nc">UniKVec</span><span class="p">(</span><span class="n">KVec</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class for defining uniform :math:`k` points grid, derived from :class:`KVec`. </span>
+<span class="sd">    Class for defining uniform :math:`k` points grid, derived from :class:`KVec`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -479,28 +476,28 @@
 <span class="sd">        Return uniform :math:`k` points.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">delta</span><span class="o">=</span><span class="mf">0.001</span>
-        <span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">nz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="mf">0.001</span>
+        <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span> <span class="o">=</span> <span class="n">nx</span> <span class="o">*</span> <span class="n">ny</span> <span class="o">*</span> <span class="n">nz</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">nkpt</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
         <span class="n">ikpt</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">nx</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-                <span class="n">kx</span><span class="o">=</span><span class="mf">0.0</span>
+            <span class="k">if</span> <span class="n">nx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">kx</span> <span class="o">=</span> <span class="mf">0.0</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">kx</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">nx</span><span class="p">)</span>  
+                <span class="n">kx</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">nx</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ny</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">ny</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-                    <span class="n">ky</span><span class="o">=</span><span class="mf">0.0</span>
+                <span class="k">if</span> <span class="n">ny</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">ky</span> <span class="o">=</span> <span class="mf">0.0</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">ky</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">ny</span><span class="p">)</span>  
+                    <span class="n">ky</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">ny</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nz</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">nz</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
-                        <span class="n">kz</span><span class="o">=</span><span class="mf">0.0</span>
+                    <span class="k">if</span> <span class="n">nz</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">kz</span> <span class="o">=</span> <span class="mf">0.0</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">kz</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span>  
+                        <span class="n">kz</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">nz</span><span class="p">)</span>
                     <span class="n">ikpt</span> <span class="o">=</span> <span class="n">ikpt</span> <span class="o">+</span> <span class="mi">1</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span><span class="p">[</span><span class="n">ikpt</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">kx</span><span class="o">+</span><span class="n">delta</span><span class="p">,</span><span class="n">ky</span><span class="o">+</span><span class="n">delta</span><span class="p">,</span><span class="n">kz</span><span class="o">+</span><span class="n">delta</span></div></div>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">kvec</span><span class="p">[</span><span class="n">ikpt</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">kx</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span> <span class="n">ky</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span> <span class="n">kz</span> <span class="o">+</span> <span class="n">delta</span></div></div>
 </pre></div>
 
            </div>

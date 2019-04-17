@@ -175,10 +175,12 @@
 <span id="plot-spectrum"></span><h1>plot_spectrum<a class="headerlink" href="#module-edrixs.plot_spectrum" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="edrixs.plot_spectrum.plot_spectrum">
-<code class="descclassname">edrixs.plot_spectrum.</code><code class="descname">plot_spectrum</code><span class="sig-paren">(</span><em>file_list</em>, <em>omega_mesh</em>, <em>gamma_mesh</em>, <em>T</em>, <em>fname</em>, <em>om_shift=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/plot_spectrum.html#plot_spectrum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.plot_spectrum.plot_spectrum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reading poles <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, and calculate the spectrum using continued fraction formula,</p>
+<code class="descclassname">edrixs.plot_spectrum.</code><code class="descname">plot_spectrum</code><span class="sig-paren">(</span><em>file_list</em>, <em>omega_mesh</em>, <em>gamma_mesh</em>, <em>T=1.0</em>, <em>fname='spectrum.dat'</em>, <em>om_shift=0.0</em>, <em>fmt_float='{:.15f}'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/plot_spectrum.html#plot_spectrum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.plot_spectrum.plot_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reading poles <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, and calculate
+the spectrum using continued fraction formula,</p>
 <div class="math notranslate nohighlight">
-\[I(\omega_{i}) =-\frac{1}{\pi}\text{Im} \left[ \frac{1}{x - \alpha_{0} - \frac{\beta_{1}^2}{x-\alpha_{1} - \frac{\beta_{2}^2}{x-\alpha_{2} - ...}} }\right],\]</div>
+\[I(\omega_{i}) =-\frac{1}{\pi}\text{Im} \left[ \frac{1}{x - \alpha_{0} -
+\frac{\beta_{1}^2}{x-\alpha_{1} - \frac{\beta_{2}^2}{x-\alpha_{2} - ...}} }\right],\]</div>
 <p>where, <span class="math notranslate nohighlight">\(x = \omega_{i}+i\Gamma_{i} + E_{g}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -189,11 +191,13 @@
 </dd>
 <dt><strong>gamma_mesh</strong><span class="classifier">1d float array</span></dt><dd><p>The broadening factor, in general, it is frequency dependent.</p>
 </dd>
-<dt><strong>T</strong><span class="classifier">float</span></dt><dd><p>Temperature (K).</p>
+<dt><strong>T</strong><span class="classifier">float (default: 1.0K)</span></dt><dd><p>Temperature (K).</p>
 </dd>
-<dt><strong>fname</strong><span class="classifier">str</span></dt><dd><p>File name to store spectrum.</p>
+<dt><strong>fname</strong><span class="classifier">str (default: ‘spectrum.dat’)</span></dt><dd><p>File name to store spectrum.</p>
 </dd>
-<dt><strong>om_shift</strong><span class="classifier">float</span></dt><dd><p>Energy shift.</p>
+<dt><strong>om_shift</strong><span class="classifier">float (default: 0.0)</span></dt><dd><p>Energy shift.</p>
+</dd>
+<dt><strong>fmt_float</strong><span class="classifier">str (default: ‘{:.15f}’)</span></dt><dd><p>Format for printing float numbers.</p>
 </dd>
 </dl>
 </dd>

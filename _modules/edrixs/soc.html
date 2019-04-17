@@ -150,19 +150,21 @@
            <div itemprop="articleBody">
             
   <h1>Source code for edrixs.soc</h1><div class="highlight"><pre>
-<span></span><span class="c1">#/usr/bin/env python</span>
+<span></span><span class="c1"># /usr/bin/env python</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+
 <div class="viewcode-block" id="atom_hsoc"><a class="viewcode-back" href="../../reference/soc.html#edrixs.soc.atom_hsoc">[docs]</a><span class="k">def</span> <span class="nf">atom_hsoc</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="n">soc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return atomic spin-orbit coupling matrix :math:`\\vec{l}\cdot\\vec{s}` in complex spherical harmonics basis.</span>
-<span class="sd">    </span>
+<span class="sd">    Return atomic spin-orbit coupling matrix :math:`\\vec{l}\\cdot\\vec{s}`</span>
+<span class="sd">    in complex spherical harmonics basis.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    case : str</span>
 <span class="sd">        String label indicating atomic shell,</span>
-<span class="sd">  </span>
+
 <span class="sd">        - &#39;p&#39;: for :math:`p` -shell.</span>
 <span class="sd">        - &#39;t2g&#39;: for :math:`t_{2g}` -shell.</span>
 <span class="sd">        - &#39;d&#39;: for :math:`d` -shell.</span>
@@ -177,86 +179,85 @@
 <span class="sd">        The spin-orbit coupling matrix.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">sqrt2</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
-    <span class="n">sqrt6</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">6.0</span><span class="p">)</span>
+    <span class="n">sqrt2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+    <span class="n">sqrt6</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">6.0</span><span class="p">)</span>
     <span class="n">sqrt10</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span>
     <span class="n">sqrt12</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">12.0</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">case</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span>
-        <span class="n">hsoc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span> 
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span> 
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span> 
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="n">hsoc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
         <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">soc</span> <span class="o">*</span> <span class="n">hsoc</span>
-   
+
     <span class="k">elif</span> <span class="n">case</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;t2g&#39;</span><span class="p">:</span>
-        <span class="n">hsoc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span> 
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span> 
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span> 
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="n">hsoc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt2</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
         <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="o">-</span><span class="n">soc</span> <span class="o">*</span> <span class="n">hsoc</span>
 
     <span class="k">elif</span> <span class="n">case</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span>
-        <span class="n">hsoc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span> 
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span>     
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">2.0</span>     
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">2.0</span>     
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>    
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">2.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">2.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">2.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">2.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span>
+        <span class="n">hsoc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span>
         <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">soc</span> <span class="o">*</span> <span class="n">hsoc</span>
 
     <span class="k">elif</span> <span class="n">case</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span>
-        <span class="n">hsoc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span> 
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>  <span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span>  <span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span>  <span class="p">]</span> <span class="o">=</span> <span class="mf">3.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span>  <span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span>  <span class="p">]</span> <span class="o">=</span> <span class="n">sqrt10</span> 
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span>  <span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span>  <span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span>  <span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">4</span>  <span class="p">]</span> <span class="o">=</span> <span class="n">sqrt12</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span>  <span class="p">]</span> <span class="o">=</span> <span class="n">sqrt10</span> 
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span>  <span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span>  <span class="p">]</span> <span class="o">=</span> <span class="n">sqrt12</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span>  <span class="p">]</span> <span class="o">=</span> <span class="n">sqrt12</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span>  <span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">11</span><span class="p">,</span><span class="mi">8</span> <span class="p">]</span> <span class="o">=</span> <span class="n">sqrt10</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span>  <span class="p">]</span> <span class="o">=</span> <span class="n">sqrt12</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span>  <span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">13</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">11</span> <span class="p">]</span> <span class="o">=</span> <span class="n">sqrt10</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.0</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
-        <span class="n">hsoc</span><span class="p">[</span><span class="mi">13</span><span class="p">,</span><span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span>
+        <span class="n">hsoc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt10</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt12</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt10</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt12</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt12</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt10</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt12</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt10</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.0</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt6</span>
+        <span class="n">hsoc</span><span class="p">[</span><span class="mi">13</span><span class="p">,</span> <span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span>
         <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">soc</span> <span class="o">*</span> <span class="n">hsoc</span>
 
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;don&#39;t support SOC for this case: &quot;</span><span class="p">,</span> <span class="n">case</span><span class="p">)</span>
-        <span class="k">return</span></div>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;error in atom_hsoc: DO NOT support SOC for this case: &quot;</span><span class="p">,</span> <span class="n">case</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

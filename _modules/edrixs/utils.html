@@ -152,6 +152,7 @@
   <h1>Source code for edrixs.utils</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+
 <div class="viewcode-block" id="beta_to_kelvin"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.beta_to_kelvin">[docs]</a><span class="k">def</span> <span class="nf">beta_to_kelvin</span><span class="p">(</span><span class="n">beta</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert :math:`\\beta` to Kelvin.</span>
@@ -167,10 +168,11 @@
 <span class="sd">        Temperature (K).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">kb</span><span class="o">=</span><span class="mf">8.6173303E-5</span>
-    <span class="n">ev</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
-    <span class="n">T</span> <span class="o">=</span> <span class="n">ev</span><span class="o">/</span><span class="n">kb</span>
+    <span class="n">kb</span> <span class="o">=</span> <span class="mf">8.6173303E-5</span>
+    <span class="n">ev</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">ev</span> <span class="o">/</span> <span class="n">kb</span>
     <span class="k">return</span> <span class="n">T</span></div>
+
 
 <div class="viewcode-block" id="kelvin_to_beta"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.kelvin_to_beta">[docs]</a><span class="k">def</span> <span class="nf">kelvin_to_beta</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -187,9 +189,10 @@
 <span class="sd">        Inversion temperature.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">kb</span><span class="o">=</span><span class="mf">8.6173303E-5</span>
-    <span class="n">beta</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="n">kb</span><span class="o">*</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">kb</span> <span class="o">=</span> <span class="mf">8.6173303E-5</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">kb</span> <span class="o">*</span> <span class="n">k</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">beta</span></div>
+
 
 <div class="viewcode-block" id="boltz_dist"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.boltz_dist">[docs]</a><span class="k">def</span> <span class="nf">boltz_dist</span><span class="p">(</span><span class="n">gs</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -209,19 +212,21 @@
 <span class="sd">        The Boltzmann distributition.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">beta</span> <span class="o">=</span> <span class="n">kelvin_to_beta</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>    
-    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span><span class="o">*</span><span class="p">(</span><span class="n">gs</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="n">gs</span><span class="p">)))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span><span class="o">*</span><span class="p">(</span><span class="n">gs</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="n">gs</span><span class="p">))))</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">kelvin_to_beta</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span> <span class="o">*</span> <span class="p">(</span><span class="n">gs</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">gs</span><span class="p">)))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span> <span class="o">*</span> <span class="p">(</span><span class="n">gs</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">gs</span><span class="p">))))</span>
     <span class="k">return</span> <span class="n">res</span></div>
 
-<div class="viewcode-block" id="UJ_to_UdJH"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.UJ_to_UdJH">[docs]</a><span class="k">def</span> <span class="nf">UJ_to_UdJH</span><span class="p">(</span><span class="n">U</span><span class="p">,</span><span class="n">J</span><span class="p">):</span>
+
+<div class="viewcode-block" id="UJ_to_UdJH"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.UJ_to_UdJH">[docs]</a><span class="k">def</span> <span class="nf">UJ_to_UdJH</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">J</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given :math:`U` and :math:`J`, return :math:`U_d` and :math:`J_H`.</span>
+<span class="sd">    Given Kanamori :math:`U` and :math:`J`, return :math:`U_d` and :math:`J_H`,</span>
+<span class="sd">    for :math:`t2g`-orbitals.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    U : float</span>
 <span class="sd">        Coulomb interaction :math:`U`.</span>
-<span class="sd">    </span>
+
 <span class="sd">    J : float</span>
 <span class="sd">        Hund&#39;s coupling :math:`J`.</span>
 
@@ -234,50 +239,54 @@
 <span class="sd">        Hund&#39;s coupling :math:`J_{H}`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">F2</span><span class="o">=</span><span class="n">J</span><span class="o">/</span><span class="p">(</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">49.0</span><span class="o">+</span><span class="mi">20</span><span class="o">*</span><span class="mf">0.625</span><span class="o">/</span><span class="mf">441.0</span><span class="p">)</span>
-    <span class="n">F4</span><span class="o">=</span><span class="mf">0.625</span><span class="o">*</span><span class="n">F2</span>
-    <span class="n">JH</span><span class="o">=</span><span class="p">(</span><span class="n">F2</span><span class="o">+</span><span class="n">F4</span><span class="p">)</span><span class="o">/</span><span class="mf">14.0</span>
-    <span class="n">Ud</span><span class="o">=</span><span class="n">U</span><span class="o">-</span><span class="mf">4.0</span><span class="o">/</span><span class="mf">49.0</span><span class="o">*</span><span class="p">(</span><span class="n">F2</span><span class="o">+</span><span class="n">F4</span><span class="p">)</span>
+    <span class="n">F2</span> <span class="o">=</span> <span class="n">J</span> <span class="o">/</span> <span class="p">(</span><span class="mf">3.0</span> <span class="o">/</span> <span class="mf">49.0</span> <span class="o">+</span> <span class="mi">20</span> <span class="o">*</span> <span class="mf">0.625</span> <span class="o">/</span> <span class="mf">441.0</span><span class="p">)</span>
+    <span class="n">F4</span> <span class="o">=</span> <span class="mf">0.625</span> <span class="o">*</span> <span class="n">F2</span>
+    <span class="n">JH</span> <span class="o">=</span> <span class="p">(</span><span class="n">F2</span> <span class="o">+</span> <span class="n">F4</span><span class="p">)</span> <span class="o">/</span> <span class="mf">14.0</span>
+    <span class="n">Ud</span> <span class="o">=</span> <span class="n">U</span> <span class="o">-</span> <span class="mf">4.0</span> <span class="o">/</span> <span class="mf">49.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">F2</span> <span class="o">+</span> <span class="n">F4</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">Ud</span><span class="p">,</span> <span class="n">JH</span></div>
 
-<div class="viewcode-block" id="UdJH_to_UJ"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.UdJH_to_UJ">[docs]</a><span class="k">def</span> <span class="nf">UdJH_to_UJ</span><span class="p">(</span><span class="n">Ud</span><span class="p">,</span><span class="n">JH</span><span class="p">):</span>
+
+<div class="viewcode-block" id="UdJH_to_UJ"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.UdJH_to_UJ">[docs]</a><span class="k">def</span> <span class="nf">UdJH_to_UJ</span><span class="p">(</span><span class="n">Ud</span><span class="p">,</span> <span class="n">JH</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given :math:`U_d` and :math:`J_H`, return :math:`U` and :math:`J`.</span>
+<span class="sd">    Given :math:`U_d` and :math:`J_H`, return Kanamori :math:`U` and :math:`J`,</span>
+<span class="sd">    for :math:`t2g`-orbitals.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    Ud : float</span>
 <span class="sd">        Coulomb interaction :math:`U_d`.</span>
-<span class="sd">    </span>
+
 <span class="sd">    JH : float</span>
 <span class="sd">        Hund&#39;s coupling :math:`J_H`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    U : float</span>
-<span class="sd">        Coulomb interaction :math:`U`.</span>
+<span class="sd">        Coulomb interaction :math:`U` in Kanamori form.</span>
 
 <span class="sd">    J : float</span>
-<span class="sd">        Hund&#39;s coupling :math:`J`.</span>
+<span class="sd">        Hund&#39;s coupling :math:`J` in Kanamori form.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">F2</span><span class="o">=</span><span class="mf">14.0</span><span class="o">/</span><span class="mf">1.625</span><span class="o">*</span><span class="n">JH</span>
-    <span class="n">F4</span><span class="o">=</span><span class="mf">0.625</span><span class="o">*</span><span class="n">F2</span>
-    <span class="n">J</span><span class="o">=</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">49.0</span><span class="o">*</span><span class="n">F2</span><span class="o">+</span><span class="mi">20</span><span class="o">/</span><span class="mf">441.0</span><span class="o">*</span><span class="n">F4</span>
-    <span class="n">U</span><span class="o">=</span><span class="n">Ud</span><span class="o">+</span><span class="mf">4.0</span><span class="o">/</span><span class="mf">49.0</span><span class="o">*</span><span class="p">(</span><span class="n">F2</span><span class="o">+</span><span class="n">F4</span><span class="p">)</span>
+    <span class="n">F2</span> <span class="o">=</span> <span class="mf">14.0</span> <span class="o">/</span> <span class="mf">1.625</span> <span class="o">*</span> <span class="n">JH</span>
+    <span class="n">F4</span> <span class="o">=</span> <span class="mf">0.625</span> <span class="o">*</span> <span class="n">F2</span>
+    <span class="n">J</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">/</span> <span class="mf">49.0</span> <span class="o">*</span> <span class="n">F2</span> <span class="o">+</span> <span class="mi">20</span> <span class="o">/</span> <span class="mf">441.0</span> <span class="o">*</span> <span class="n">F4</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">Ud</span> <span class="o">+</span> <span class="mf">4.0</span> <span class="o">/</span> <span class="mf">49.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">F2</span> <span class="o">+</span> <span class="n">F4</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">U</span><span class="p">,</span><span class="n">J</span></div>
+    <span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">J</span></div>
 
-<div class="viewcode-block" id="UdJH_to_F0F2F4"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.UdJH_to_F0F2F4">[docs]</a><span class="k">def</span> <span class="nf">UdJH_to_F0F2F4</span><span class="p">(</span><span class="n">Ud</span><span class="p">,</span><span class="n">JH</span><span class="p">):</span>
+
+<div class="viewcode-block" id="UdJH_to_F0F2F4"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.UdJH_to_F0F2F4">[docs]</a><span class="k">def</span> <span class="nf">UdJH_to_F0F2F4</span><span class="p">(</span><span class="n">Ud</span><span class="p">,</span> <span class="n">JH</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given :math:`U_d` and :math:`J_H`, return :math:`F_0`, :math:`F_2` and :math:`F_4`.</span>
+<span class="sd">    Given :math:`U_d` and :math:`J_H`, return :math:`F_0`, :math:`F_2` and :math:`F_4`,</span>
+<span class="sd">    for :math:`d`-orbitals.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    Ud : float</span>
 <span class="sd">        Coulomb interaction :math:`U_d`.</span>
-<span class="sd">    </span>
+
 <span class="sd">    JH : float</span>
 <span class="sd">        Hund&#39;s coupling :math:`J_H`.</span>
 
@@ -293,21 +302,23 @@
 <span class="sd">        Slater integral :math:`F_4`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">F0</span><span class="o">=</span><span class="n">Ud</span>
-    <span class="n">F2</span><span class="o">=</span><span class="mi">14</span><span class="o">/</span><span class="mf">1.625</span> <span class="o">*</span> <span class="n">JH</span>
-    <span class="n">F4</span><span class="o">=</span><span class="mf">0.625</span><span class="o">*</span><span class="n">F2</span>
+    <span class="n">F0</span> <span class="o">=</span> <span class="n">Ud</span>
+    <span class="n">F2</span> <span class="o">=</span> <span class="mi">14</span> <span class="o">/</span> <span class="mf">1.625</span> <span class="o">*</span> <span class="n">JH</span>
+    <span class="n">F4</span> <span class="o">=</span> <span class="mf">0.625</span> <span class="o">*</span> <span class="n">F2</span>
 
     <span class="k">return</span> <span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span></div>
 
-<div class="viewcode-block" id="UdJH_to_F0F2F4F6"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.UdJH_to_F0F2F4F6">[docs]</a><span class="k">def</span> <span class="nf">UdJH_to_F0F2F4F6</span><span class="p">(</span><span class="n">Ud</span><span class="p">,</span><span class="n">JH</span><span class="p">):</span>
+
+<div class="viewcode-block" id="UdJH_to_F0F2F4F6"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.UdJH_to_F0F2F4F6">[docs]</a><span class="k">def</span> <span class="nf">UdJH_to_F0F2F4F6</span><span class="p">(</span><span class="n">Ud</span><span class="p">,</span> <span class="n">JH</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given :math:`U_d` and :math:`J_H`, return :math:`F_0`, :math:`F_2`, :math:`F_4` and :math:`F_6`.</span>
+<span class="sd">    Given :math:`U_d` and :math:`J_H`, return :math:`F_0`, :math:`F_2`, :math:`F_4` and :math:`F_6`,</span>
+<span class="sd">    for :math:`f`-orbitals.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    Ud : float</span>
 <span class="sd">        Coulomb interaction :math:`U_d`.</span>
-<span class="sd">    </span>
+
 <span class="sd">    JH : float</span>
 <span class="sd">        Hund&#39;s coupling :math:`J_H`.</span>
 
@@ -327,16 +338,18 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">F0</span><span class="o">=</span><span class="n">Ud</span>
-    <span class="n">F2</span><span class="o">=</span><span class="mi">6435</span><span class="o">/</span><span class="p">(</span><span class="mf">286.0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">195</span><span class="o">*</span><span class="mi">451</span><span class="p">)</span><span class="o">/</span><span class="mf">675.0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">250</span><span class="o">*</span><span class="mi">1001</span><span class="p">)</span><span class="o">/</span><span class="mf">2025.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">JH</span>
-    <span class="n">F4</span><span class="o">=</span><span class="mi">451</span><span class="o">/</span><span class="mf">675.0</span><span class="o">*</span><span class="n">F2</span>
-    <span class="n">F6</span><span class="o">=</span><span class="mi">1001</span><span class="o">/</span><span class="mf">2025.0</span><span class="o">*</span><span class="n">F2</span>
+    <span class="n">F0</span> <span class="o">=</span> <span class="n">Ud</span>
+    <span class="n">F2</span> <span class="o">=</span> <span class="mi">6435</span> <span class="o">/</span> <span class="p">(</span><span class="mf">286.0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">195</span> <span class="o">*</span> <span class="mi">451</span><span class="p">)</span> <span class="o">/</span> <span class="mf">675.0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">250</span> <span class="o">*</span> <span class="mi">1001</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2025.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">JH</span>
+    <span class="n">F4</span> <span class="o">=</span> <span class="mi">451</span> <span class="o">/</span> <span class="mf">675.0</span> <span class="o">*</span> <span class="n">F2</span>
+    <span class="n">F6</span> <span class="o">=</span> <span class="mi">1001</span> <span class="o">/</span> <span class="mf">2025.0</span> <span class="o">*</span> <span class="n">F2</span>
 
     <span class="k">return</span> <span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span><span class="p">,</span> <span class="n">F6</span></div>
 
+
 <div class="viewcode-block" id="F0F2F4_to_UdJH"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.F0F2F4_to_UdJH">[docs]</a><span class="k">def</span> <span class="nf">F0F2F4_to_UdJH</span><span class="p">(</span><span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given :math:`F_0`, :math:`F_2` and :math:`F_4`, return :math:`U_d` and :math:`J_H`. </span>
+<span class="sd">    Given :math:`F_0`, :math:`F_2` and :math:`F_4`, return :math:`U_d` and :math:`J_H`,</span>
+<span class="sd">    for :math:`d`-orbitals.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -353,19 +366,21 @@
 <span class="sd">    -------</span>
 <span class="sd">    Ud : float</span>
 <span class="sd">        Coulomb interaction :math:`U_d`.</span>
-<span class="sd">    </span>
+
 <span class="sd">    JH : float</span>
 <span class="sd">        Hund&#39;s coupling :math:`J_H`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">Ud</span><span class="o">=</span><span class="n">F0</span>
-    <span class="n">JH</span><span class="o">=</span><span class="p">(</span><span class="n">F2</span><span class="o">+</span><span class="n">F4</span><span class="p">)</span><span class="o">/</span><span class="mf">14.0</span>
+    <span class="n">Ud</span> <span class="o">=</span> <span class="n">F0</span>
+    <span class="n">JH</span> <span class="o">=</span> <span class="p">(</span><span class="n">F2</span> <span class="o">+</span> <span class="n">F4</span><span class="p">)</span> <span class="o">/</span> <span class="mf">14.0</span>
 
     <span class="k">return</span> <span class="n">Ud</span><span class="p">,</span> <span class="n">JH</span></div>
 
+
 <div class="viewcode-block" id="F0F2F4_to_UJ"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.F0F2F4_to_UJ">[docs]</a><span class="k">def</span> <span class="nf">F0F2F4_to_UJ</span><span class="p">(</span><span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given :math:`F_0`, :math:`F_2` and :math:`F_4`, return :math:`U` and :math:`J`. </span>
+<span class="sd">    Given :math:`F_0`, :math:`F_2` and :math:`F_4`, return :math:`U` and :math:`J`,</span>
+<span class="sd">    for :math:`t2g`-orbitals.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -382,19 +397,21 @@
 <span class="sd">    -------</span>
 <span class="sd">    U : float</span>
 <span class="sd">        Coulomb interaction :math:`U`.</span>
-<span class="sd">    </span>
+
 <span class="sd">    J : float</span>
 <span class="sd">        Hund&#39;s coupling :math:`J`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">U</span><span class="o">=</span><span class="n">F0</span> <span class="o">+</span> <span class="mf">4.0</span><span class="o">/</span><span class="mf">49.0</span><span class="o">*</span><span class="p">(</span><span class="n">F2</span><span class="o">+</span><span class="n">F4</span><span class="p">)</span>
-    <span class="n">J</span><span class="o">=</span><span class="mf">3.0</span><span class="o">/</span><span class="mf">49.0</span><span class="o">*</span><span class="n">F2</span><span class="o">+</span><span class="mi">20</span><span class="o">/</span><span class="mf">441.0</span><span class="o">*</span><span class="n">F4</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">F0</span> <span class="o">+</span> <span class="mf">4.0</span> <span class="o">/</span> <span class="mf">49.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">F2</span> <span class="o">+</span> <span class="n">F4</span><span class="p">)</span>
+    <span class="n">J</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">/</span> <span class="mf">49.0</span> <span class="o">*</span> <span class="n">F2</span> <span class="o">+</span> <span class="mi">20</span> <span class="o">/</span> <span class="mf">441.0</span> <span class="o">*</span> <span class="n">F4</span>
 
-    <span class="k">return</span> <span class="n">U</span><span class="p">,</span><span class="n">J</span></div>
+    <span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">J</span></div>
+
 
 <div class="viewcode-block" id="F0F2F4F6_to_UdJH"><a class="viewcode-back" href="../../reference/utils.html#edrixs.utils.F0F2F4F6_to_UdJH">[docs]</a><span class="k">def</span> <span class="nf">F0F2F4F6_to_UdJH</span><span class="p">(</span><span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span><span class="p">,</span> <span class="n">F6</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given :math:`F_0`, :math:`F_2`, :math:`F_4` and :math:`F_6`, return :math:`U_d` and :math:`J_H`. </span>
+<span class="sd">    Given :math:`F_0`, :math:`F_2`, :math:`F_4` and :math:`F_6`,</span>
+<span class="sd">    return :math:`U_d` and :math:`J_H`, for :math:`f`-orbitals.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -414,14 +431,14 @@
 <span class="sd">    -------</span>
 <span class="sd">    Ud : float</span>
 <span class="sd">        Coulomb interaction :math:`U_d`.</span>
-<span class="sd">    </span>
+
 <span class="sd">    JH : float</span>
 <span class="sd">        Hund&#39;s coupling :math:`J_H`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">Ud</span><span class="o">=</span><span class="n">F0</span>
-    <span class="n">JH</span><span class="o">=</span><span class="p">(</span><span class="mi">286</span><span class="o">*</span><span class="n">F2</span><span class="o">+</span><span class="mi">195</span><span class="o">*</span><span class="n">F4</span><span class="o">+</span><span class="mi">250</span><span class="o">*</span><span class="n">F6</span><span class="p">)</span><span class="o">/</span><span class="mf">6435.0</span>
-    <span class="k">return</span> <span class="n">Ud</span><span class="p">,</span><span class="n">JH</span></div>
+    <span class="n">Ud</span> <span class="o">=</span> <span class="n">F0</span>
+    <span class="n">JH</span> <span class="o">=</span> <span class="p">(</span><span class="mi">286</span> <span class="o">*</span> <span class="n">F2</span> <span class="o">+</span> <span class="mi">195</span> <span class="o">*</span> <span class="n">F4</span> <span class="o">+</span> <span class="mi">250</span> <span class="o">*</span> <span class="n">F6</span><span class="p">)</span> <span class="o">/</span> <span class="mf">6435.0</span>
+    <span class="k">return</span> <span class="n">Ud</span><span class="p">,</span> <span class="n">JH</span></div>
 </pre></div>
 
            </div>
