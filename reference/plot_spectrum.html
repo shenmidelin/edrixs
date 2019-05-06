@@ -85,9 +85,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">EDRIXS Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="angular_momentum.html">angular_momentum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis_transform.html">basis_transform</a></li>
@@ -100,11 +98,13 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">plot_spectrum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rixs_utils.html">rixs_utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="soc.html">soc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solvers.html">solvers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wannier_ham.html">wannier_ham</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -174,6 +174,45 @@
   <div class="section" id="module-edrixs.plot_spectrum">
 <span id="plot-spectrum"></span><h1>plot_spectrum<a class="headerlink" href="#module-edrixs.plot_spectrum" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
+<dt id="edrixs.plot_spectrum.get_spectra_from_poles">
+<code class="descclassname">edrixs.plot_spectrum.</code><code class="descname">get_spectra_from_poles</code><span class="sig-paren">(</span><em>poles_dict</em>, <em>omega_mesh</em>, <em>gamma_mesh</em>, <em>temperature</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/plot_spectrum.html#get_spectra_from_poles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.plot_spectrum.get_spectra_from_poles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the dict of poles, calculate XAS or RIXS spectra using continued fraction formula,</p>
+<div class="math notranslate nohighlight">
+\[I(\omega_{i}) =-\frac{1}{\pi}\text{Im} \left[ \frac{1}{x - \alpha_{0} -
+\frac{\beta_{1}^2}{x-\alpha_{1} - \frac{\beta_{2}^2}{x-\alpha_{2} - ...}} }\right],\]</div>
+<p>where, <span class="math notranslate nohighlight">\(x = \omega_{i}+i\Gamma_{i} + E_{g}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>poles_dict: dict</strong></dt><dd><p>Dict containing information of poles, which are calculated from
+xas_fsolver and rixs_fsolver.
+This dict is constructed by <code class="xref py py-func docutils literal notranslate"><span class="pre">iostream.read_poles_from_file()</span></code>.</p>
+</dd>
+<dt><strong>omega_mesh: 1d float array</strong></dt><dd><p>Energy grid.</p>
+</dd>
+<dt><strong>gamma_mesh: 1d float array</strong></dt><dd><p>Life-time broadening.</p>
+</dd>
+<dt><strong>temperature: float number</strong></dt><dd><p>Temperature (K) for boltzmann distribution.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>spectra: 1d float array</dt><dd><p>The calculated XAS or RIXS spectra.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">iostream.read_poles_from_file</span></code></dt><dd><p>read XAS or RIXS poles files.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="edrixs.plot_spectrum.plot_spectrum">
 <code class="descclassname">edrixs.plot_spectrum.</code><code class="descname">plot_spectrum</code><span class="sig-paren">(</span><em>file_list</em>, <em>omega_mesh</em>, <em>gamma_mesh</em>, <em>T=1.0</em>, <em>fname='spectrum.dat'</em>, <em>om_shift=0.0</em>, <em>fmt_float='{:.15f}'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/plot_spectrum.html#plot_spectrum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.plot_spectrum.plot_spectrum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reading poles <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, and calculate
@@ -185,19 +224,39 @@ the spectrum using continued fraction formula,</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>file_list</strong><span class="classifier">list of string</span></dt><dd><p>Name of poles file.</p>
+<dt><strong>file_list: list of string</strong></dt><dd><p>Name of poles file.</p>
 </dd>
-<dt><strong>omega_mesh</strong><span class="classifier">1d float array</span></dt><dd><p>The frequency mesh.</p>
+<dt><strong>omega_mesh: 1d float array</strong></dt><dd><p>The frequency mesh.</p>
 </dd>
-<dt><strong>gamma_mesh</strong><span class="classifier">1d float array</span></dt><dd><p>The broadening factor, in general, it is frequency dependent.</p>
+<dt><strong>gamma_mesh: 1d float array</strong></dt><dd><p>The broadening factor, in general, it is frequency dependent.</p>
 </dd>
-<dt><strong>T</strong><span class="classifier">float (default: 1.0K)</span></dt><dd><p>Temperature (K).</p>
+<dt><strong>T: float (default: 1.0K)</strong></dt><dd><p>Temperature (K).</p>
 </dd>
-<dt><strong>fname</strong><span class="classifier">str (default: ‘spectrum.dat’)</span></dt><dd><p>File name to store spectrum.</p>
+<dt><strong>fname: str (default: ‘spectrum.dat’)</strong></dt><dd><p>File name to store spectrum.</p>
 </dd>
-<dt><strong>om_shift</strong><span class="classifier">float (default: 0.0)</span></dt><dd><p>Energy shift.</p>
+<dt><strong>om_shift: float (default: 0.0)</strong></dt><dd><p>Energy shift.</p>
 </dd>
-<dt><strong>fmt_float</strong><span class="classifier">str (default: ‘{:.15f}’)</span></dt><dd><p>Format for printing float numbers.</p>
+<dt><strong>fmt_float: str (default: ‘{:.15f}’)</strong></dt><dd><p>Format for printing float numbers.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.plot_spectrum.plot_rixs_map">
+<code class="descclassname">edrixs.plot_spectrum.</code><code class="descname">plot_rixs_map</code><span class="sig-paren">(</span><em>rixs_data</em>, <em>ominc_mesh</em>, <em>eloss_mesh</em>, <em>fname='rixsmap.pdf'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/plot_spectrum.html#plot_rixs_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.plot_spectrum.plot_rixs_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given 2d RIXS data, plot a RIXS map and save it to a pdf file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rixs_data: 2d float array</strong></dt><dd><p>Calculated RIXS data as a function of incident energy and energy loss.</p>
+</dd>
+<dt><strong>ominc_mesh: 1d float array</strong></dt><dd><p>Incident energy mesh.</p>
+</dd>
+<dt><strong>eloss_mesh: 1d float array</strong></dt><dd><p>Energy loss mesh.</p>
+</dd>
+<dt><strong>fname: string</strong></dt><dd><p>File name to save RIXS map.</p>
 </dd>
 </dl>
 </dd>

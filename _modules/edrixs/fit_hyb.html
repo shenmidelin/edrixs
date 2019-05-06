@@ -83,10 +83,9 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">EDRIXS Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -150,7 +149,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for edrixs.fit_hyb</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;fit_func&#39;</span><span class="p">,</span> <span class="s1">&#39;fit_hyb&#39;</span><span class="p">,</span> <span class="s1">&#39;get_hyb&#39;</span><span class="p">]</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">curve_fit</span>
@@ -168,17 +167,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    x : 1d float array</span>
+<span class="sd">    x: 1d float array</span>
 <span class="sd">        Frequency :math:`\\omega`, the first half is the real part and</span>
 <span class="sd">        the second half is the imaginary part.</span>
-
-<span class="sd">    args : 1d float array</span>
+<span class="sd">    args: 1d float array</span>
 <span class="sd">        The first half is the bath energy level :math:`\\epsilon_{l}` and the</span>
 <span class="sd">        second half if the hybridization strength :math:`V_{l}`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    y : 1d float array</span>
+<span class="sd">    y: 1d float array</span>
 <span class="sd">        The calculated hybridization function :math:`\\Delta(\\omega)`, the</span>
 <span class="sd">        first half is the real part and the second half is the imaginary part.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -214,25 +212,21 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    x : 1d complex array</span>
-<span class="sd">        Frequency :math:`\\omega`.</span>
-
-<span class="sd">    y : 1d complex array</span>
-<span class="sd">        Hybridization function :math:`\\Delta(\\omega)`.</span>
-
-<span class="sd">    N : int</span>
+<span class="sd">    x: 1d complex array</span>
+<span class="sd">       Frequency :math:`\\omega`.</span>
+<span class="sd">    y: 1d complex array</span>
+<span class="sd">       Hybridization function :math:`\\Delta(\\omega)`.</span>
+<span class="sd">    N: int</span>
 <span class="sd">        Number of bath sites</span>
-
-<span class="sd">    p0 : N-length 1d float array</span>
+<span class="sd">    p0: N-length 1d float array</span>
 <span class="sd">        Initial guess, the first half is :math:`\\epsilon_{l}` and</span>
 <span class="sd">        the second half is :math:`V_{l}`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    e : N-length 1d float array</span>
+<span class="sd">    e: N-length 1d float array</span>
 <span class="sd">        The fitted bath energy levels :math:`\\epsilon_{l}`.</span>
-
-<span class="sd">    v : N-length 1d float array</span>
+<span class="sd">    v: N-length 1d float array</span>
 <span class="sd">        The fitted hybridization strength :math:`V_{l}`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -257,18 +251,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    x : 1d complex array</span>
-<span class="sd">        Frequency :math:`\\omega`.</span>
-
-<span class="sd">    e :  N-length 1d float array</span>
-<span class="sd">        The fitted bath energy levels.</span>
-
-<span class="sd">    v :  N-length 1d float array</span>
+<span class="sd">    x: 1d complex array</span>
+<span class="sd">       Frequency :math:`\\omega`.</span>
+<span class="sd">    e:  N-length 1d float array</span>
+<span class="sd">       The fitted bath energy levels.</span>
+<span class="sd">    v:  N-length 1d float array</span>
 <span class="sd">        The fitted hybridization strength.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    y : 1d complex array</span>
+<span class="sd">    y: 1d complex array</span>
 <span class="sd">        The calculated hybridization function :math:`\\Delta(\\omega)`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

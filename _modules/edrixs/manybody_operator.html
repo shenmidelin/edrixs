@@ -83,10 +83,9 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">EDRIXS Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -150,7 +149,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for edrixs.manybody_operator</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;one_fermion_annihilation&#39;</span><span class="p">,</span> <span class="s1">&#39;two_fermion&#39;</span><span class="p">,</span> <span class="s1">&#39;four_fermion&#39;</span><span class="p">,</span> <span class="s1">&#39;density_matrix&#39;</span><span class="p">]</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
@@ -166,18 +165,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    iorb : int</span>
+<span class="sd">    iorb: int</span>
 <span class="sd">        Which orbital.</span>
-
-<span class="sd">    lb : list or array</span>
+<span class="sd">    lb: list or array</span>
 <span class="sd">        Left fock basis :math:`&lt;F_{l}|`.</span>
-
-<span class="sd">    rb : list of array</span>
+<span class="sd">    rb: list of array</span>
 <span class="sd">        Right fock basis :math:`|F_{r}&gt;`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    hmat : 2d complex array</span>
+<span class="sd">    hmat: 2d complex array</span>
 <span class="sd">        The matrix form of :math:`\\hat{f}_{i}`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -212,21 +209,18 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    emat : 2d complex array</span>
+<span class="sd">    emat: 2d complex array</span>
 <span class="sd">        The impurity matrix.</span>
-
-<span class="sd">    lb : list or array</span>
+<span class="sd">    lb: list or array</span>
 <span class="sd">        Left fock basis :math:`&lt;F_{l}|`.</span>
-
-<span class="sd">    rb : list of array</span>
+<span class="sd">    rb: list of array</span>
 <span class="sd">        Right fock basis :math:`|F_{r}&gt;`.</span>
-
-<span class="sd">    tol : float (default: 1E-10)</span>
+<span class="sd">    tol: float (default: 1E-10)</span>
 <span class="sd">        Only consider the elements of emat that are larger than tol.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    hmat : 2d complex array</span>
+<span class="sd">    hmat: 2d complex array</span>
 <span class="sd">        The matrix form of the two-fermionic operator.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -270,18 +264,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    umat : 4d complex array</span>
+<span class="sd">    umat: 4d complex array</span>
 <span class="sd">        The 4 index Coulomb interaction tensor.</span>
-
-<span class="sd">    basis : list or array</span>
+<span class="sd">    basis: list or array</span>
 <span class="sd">        Fock basis :math:`|F&gt;`.</span>
-
-<span class="sd">    tol : float (default: 1E-10)</span>
+<span class="sd">    tol: float (default: 1E-10)</span>
 <span class="sd">        Only consider the elements of umat that are larger than tol.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    hmat : 2d complex array</span>
+<span class="sd">    hmat: 2d complex array</span>
 <span class="sd">        The matrix form of the four-fermionic operator.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -338,21 +330,18 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    iorb : int</span>
+<span class="sd">    iorb: int</span>
 <span class="sd">        Orbital index.</span>
-
-<span class="sd">    jorb : int</span>
+<span class="sd">    jorb: int</span>
 <span class="sd">        Orbital index.</span>
-
-<span class="sd">    lb : list or array</span>
+<span class="sd">    lb: list or array</span>
 <span class="sd">        Left fock basis :math:`&lt;F_{l}|`.</span>
-
-<span class="sd">    rb : list or array</span>
+<span class="sd">    rb: list or array</span>
 <span class="sd">        Right fock basis :math:`|F_{r}&gt;`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    hmat : 2d complex array</span>
+<span class="sd">    hmat: 2d complex array</span>
 <span class="sd">        The calculated matrix form of the density operator.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

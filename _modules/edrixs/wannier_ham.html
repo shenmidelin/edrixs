@@ -83,10 +83,9 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">EDRIXS Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -150,7 +149,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for edrixs.wannier_ham</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;HR&#39;</span><span class="p">,</span> <span class="s1">&#39;KVec&#39;</span><span class="p">,</span> <span class="s1">&#39;SymKVec&#39;</span><span class="p">,</span> <span class="s1">&#39;UniKVec&#39;</span><span class="p">]</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -161,22 +160,17 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    nwann : int</span>
+<span class="sd">    nwann: int</span>
 <span class="sd">        Number of Wannier orbitals.</span>
-
-<span class="sd">    nrpt : int</span>
+<span class="sd">    nrpt: int</span>
 <span class="sd">        Number of :math:`r` points.</span>
-
-<span class="sd">    irpt0 : int</span>
+<span class="sd">    irpt0: int</span>
 <span class="sd">        Index of the point (0,0,0).</span>
-
-<span class="sd">    rpts : float array</span>
+<span class="sd">    rpts: float array</span>
 <span class="sd">        The coordinates of :math:`r` points.</span>
-
-<span class="sd">    deg_rpt : int array</span>
+<span class="sd">    deg_rpt: int array</span>
 <span class="sd">        Degenerancy of :math:`r` points.</span>
-
-<span class="sd">    hr : complex array</span>
+<span class="sd">    hr: complex array</span>
 <span class="sd">        Hamiltonian :math:`H(r)` from Wannier90.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -195,12 +189,12 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        fname : str</span>
+<span class="sd">        fname: str</span>
 <span class="sd">            The file that contains the Wannier90 output file: &quot;case_hr.dat&quot;.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        HR : HR object</span>
+<span class="sd">        HR: HR object</span>
 <span class="sd">            A HR object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -238,12 +232,12 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        other : HR object</span>
+<span class="sd">        other: HR object</span>
 <span class="sd">            A HR object to be copied.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        HR : HR object</span>
+<span class="sd">        HR: HR object</span>
 <span class="sd">            Return a new HR object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -260,12 +254,12 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        ispin : logical</span>
+<span class="sd">        ispin: logical</span>
 <span class="sd">            Whether to include spin degree of freedom or not (default: False).</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        hr : 2d complex array</span>
+<span class="sd">        hr: 2d complex array</span>
 <span class="sd">            The on-site Hamiltonian.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -284,12 +278,12 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        ispin : logical</span>
+<span class="sd">        ispin: logical</span>
 <span class="sd">            Whether to include spin degree of freedom or not (default: False)</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        hr : 3d complex array</span>
+<span class="sd">        hr: 3d complex array</span>
 <span class="sd">            The Hamiltonian :math:`H(r)`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -318,16 +312,13 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    kpt_type : str</span>
+<span class="sd">    kpt_type: str</span>
 <span class="sd">        The type of :math:`k` points, &#39;uni&#39; or &#39;sym&#39;.</span>
-
-<span class="sd">    kbase : :math:`3 \\times 3` float array</span>
+<span class="sd">    kbase: :math:`3 \\times 3` float array</span>
 <span class="sd">        The basis vectors of the primitive reciprocal space.</span>
-
-<span class="sd">    nkpt : int</span>
+<span class="sd">    nkpt: int</span>
 <span class="sd">        Number of :math:`k` points.</span>
-
-<span class="sd">    kvec : float array</span>
+<span class="sd">    kvec: float array</span>
 <span class="sd">        The :math:`k` points.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -343,7 +334,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        kbase : :math:`3 \\times 3` float array</span>
+<span class="sd">        kbase: :math:`3 \\times 3` float array</span>
 <span class="sd">            The basis with respect to the global axis.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -355,7 +346,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        fname : str</span>
+<span class="sd">        fname: str</span>
 <span class="sd">            File name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -375,13 +366,11 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    kbase : :math:`3 \\times 3` float array</span>
+<span class="sd">    kbase: :math:`3 \\times 3` float array</span>
 <span class="sd">        Basis of the primitive reciprocal lattice.</span>
-
-<span class="sd">    hsymkpt : float array</span>
+<span class="sd">    hsymkpt: float array</span>
 <span class="sd">        Starting and end :math:`k` points along high symmetry lines.</span>
-
-<span class="sd">    klen : float array</span>
+<span class="sd">    klen: float array</span>
 <span class="sd">        Length of segments of :math:`k` points line.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -417,7 +406,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        nkpt_per_path : int</span>
+<span class="sd">        nkpt_per_path: int</span>
 <span class="sd">            Number of :math:`k` points per each segment.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -437,7 +426,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        step : float</span>
+<span class="sd">        step: float</span>
 <span class="sd">            Step size.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -463,7 +452,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    grid : 3-elements tuple</span>
+<span class="sd">    grid: 3-elements tuple</span>
 <span class="sd">        Three numbers defining a uniform grid, for example: :math:`11 \\times 11 \\times 11`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

@@ -85,9 +85,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">EDRIXS Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="angular_momentum.html">angular_momentum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis_transform.html">basis_transform</a></li>
@@ -100,11 +98,13 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_spectrum.html">plot_spectrum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rixs_utils.html">rixs_utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="soc.html">soc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solvers.html">solvers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wannier_ham.html">wannier_ham</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -185,15 +185,15 @@ Y_{l_2}^{m_2}(\theta,\phi)\]</div>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>l1</strong><span class="classifier">int</span></dt><dd><p>The first quantum number of angular momentum.</p>
+<dt><strong>l1: int</strong></dt><dd><p>The first quantum number of angular momentum.</p>
 </dd>
-<dt><strong>l2</strong><span class="classifier">int</span></dt><dd><p>The second quantum number of angular momentum.</p>
+<dt><strong>l2: int</strong></dt><dd><p>The second quantum number of angular momentum.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>res: 3d float array</strong></dt><dd><p>The calculated Gaunt coefficents.</p>
+<dt>res: 3d float array</dt><dd><p>The calculated Gaunt coefficents.</p>
 <p>The 1st index (<span class="math notranslate nohighlight">\(= 0, 1, ..., l_1+l_2+1\)</span>) is the order <span class="math notranslate nohighlight">\(k\)</span>.</p>
 <p>The 2nd index (<span class="math notranslate nohighlight">\(= 0, 1, ... ,2l_1\)</span>) is the magnetic quantum
 number <span class="math notranslate nohighlight">\(m_1\)</span> plus <span class="math notranslate nohighlight">\(l_1\)</span></p>
@@ -212,7 +212,7 @@ nonvanishing only when</p>
 <p>Please see Ref. <a class="reference internal" href="#rfb9838caf51d-1" id="id1">[1]</a> p. 10 for more details.</p>
 <p class="rubric">References</p>
 <dl class="citation">
-<dt class="label" id="rfb9838caf51d-1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dt class="label" id="rfb9838caf51d-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Sugano S, Tanabe Y and Kamimura H. 1970. Multiplets of
 Transition-Metal Ions in Crystals. Academic Press, New York and London.</p>
 </dd>
@@ -224,140 +224,6 @@ Transition-Metal Ions in Crystals. Academic Press, New York and London.</p>
 <p>Get gaunt coefficients between <span class="math notranslate nohighlight">\(p\)</span>-shell and <span class="math notranslate nohighlight">\(d\)</span>-shell</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">get_gaunt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.coulomb_utensor.get_umat_kanamori">
-<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_kanamori</code><span class="sig-paren">(</span><em>norbs</em>, <em>U</em>, <em>J</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_kanamori"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_kanamori" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the Coulomb interaction tensor for a Kanamori-type interaction.
-For the <span class="math notranslate nohighlight">\(t2g\)</span>-shell case, it is parameterized by <span class="math notranslate nohighlight">\(U, J\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>norbs: int</strong></dt><dd><p>number of orbitals (including spin).</p>
-</dd>
-<dt><strong>U: float</strong></dt><dd><p>Hubbard <span class="math notranslate nohighlight">\(U\)</span> for electrons residing on the same orbital with opposite spin.</p>
-</dd>
-<dt><strong>J: float</strong></dt><dd><p>Hund’s coupling.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>umat: 4d complex array</strong></dt><dd><p>The calculated Coulomb interaction tensor</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori_ge</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_slater</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.umat_slater</span></code></p>
-</div>
-<p class="rubric">Notes</p>
-<p>The order of spin index is: up, down, up, down, …, up, down.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.coulomb_utensor.get_umat_kanamori_ge">
-<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_kanamori_ge</code><span class="sig-paren">(</span><em>norbs</em>, <em>U1</em>, <em>U2</em>, <em>J</em>, <em>Jx</em>, <em>Jp</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_kanamori_ge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_kanamori_ge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the Coulomb interaction tensor for a Kanamori-type interaction.
-For the general case, it is parameterized by <span class="math notranslate nohighlight">\(U_1, U_2, J, J_x, J_p\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>norbs: int</strong></dt><dd><p>number of orbitals (including spin).</p>
-</dd>
-<dt><strong>U1: float</strong></dt><dd><p>Hubbard <span class="math notranslate nohighlight">\(U\)</span> for electrons residing on the same orbital with opposite spin.</p>
-</dd>
-<dt><strong>U2: float</strong></dt><dd><p>Hubbard <span class="math notranslate nohighlight">\(U\)</span> for electrons residing on different orbitals.</p>
-</dd>
-<dt><strong>J: float</strong></dt><dd><p>Hund’s coupling for density-density interaction.</p>
-</dd>
-<dt><strong>Jx: float</strong></dt><dd><p>Hund’s coupling for spin flip.</p>
-</dd>
-<dt><strong>Jp: float</strong></dt><dd><p>Hund’s coupling for pair-hopping.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>umat: 4d complex array</strong></dt><dd><p>The calculated Coulomb interaction tensor</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_slater</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.umat_slater</span></code></p>
-</div>
-<p class="rubric">Notes</p>
-<p>The order of spin index is: up, down, up, down, …, up, down.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.coulomb_utensor.get_umat_slater">
-<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_slater</code><span class="sig-paren">(</span><em>case</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_slater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_slater" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convenient adapter function to return the Coulomb interaction tensor for common case.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
-<dt><strong>case: string</strong></dt><dd><p>indicates which atomic shells we will include, should be one of</p>
-<ul class="simple">
-<li><p>‘s’:    a single <span class="math notranslate nohighlight">\(s\)</span>-shell (<span class="math notranslate nohighlight">\(l=0\)</span>)</p></li>
-<li><p>‘p’:    a single <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
-<li><p>‘d’:    a single <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>)</p></li>
-<li><p>‘f’:    a single <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>)</p></li>
-<li><p>‘ps’:   a <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>) and another <span class="math notranslate nohighlight">\(s\)</span>-shell (<span class="math notranslate nohighlight">\(l=0\)</span>)</p></li>
-<li><p>‘pp’:   a <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>) and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
-<li><p>‘ds’:   a <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>) and another <span class="math notranslate nohighlight">\(s\)</span>-shell (<span class="math notranslate nohighlight">\(l=0\)</span>)</p></li>
-<li><p>‘dp’:   a <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>) and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
-<li><dl class="simple">
-<dt>‘t2gp’: a <span class="math notranslate nohighlight">\(t2g\)</span>-shell (<span class="math notranslate nohighlight">\(l_{\text{eff}}=1\)</span>)</dt><dd><p>and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p>
-</dd>
-</dl>
-</li>
-<li><p>‘dd’:   a <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>) and another <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>)</p></li>
-<li><p>‘fs’:   a <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>) and another <span class="math notranslate nohighlight">\(s\)</span>-shell (<span class="math notranslate nohighlight">\(l=0\)</span>)</p></li>
-<li><p>‘fp’:   a <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>) and another <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
-<li><p>‘fd’:   a <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>) and another <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>)</p></li>
-<li><p>‘ff’:   a <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>) and another <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>)</p></li>
-</ul>
-</dd>
-<dt><strong>args: floats</strong></dt><dd><p>Slater integrals, should be one of</p>
-<ul class="simple">
-<li><p>for case ‘s’:  F0_ss</p></li>
-<li><p>for case ‘p’:  F0_pp, F2_pp</p></li>
-<li><p>for case ‘d’:  F0_dd, F2_dd, F4_dd</p></li>
-<li><p>for case ‘f’:  F0_ff, F2_ff, F4_ff, F6_ff</p></li>
-<li><p>for case ‘ps’: F0_pp, F2_pp, F0_ps, G1_ps, F0_ss</p></li>
-<li><p>for case ‘pp’: F0_p1p1, F2_p1p1, F0_p1p2, F2_p1p2, G0_p1p2, G2_p1p2, F0_p2p2, F2_p2p2</p></li>
-<li><p>for case ‘ds’: F0_dd, F2_dd, F4_dd, F0_ds, G2_ds, F0_ss</p></li>
-<li><p>for case ‘dp’: F0_dd, F2_dd, F4_dd, F0_dp, F2_dp, G1_dp, G3_dp, F0_pp, F2_pp</p></li>
-<li><p>for case ‘t2gp’: F0_dd, F2_dd, F4_dd, F0_dp, F2_dp, G1_dp, G3_dp, F0_pp, F2_pp</p></li>
-<li><p>for case ‘dd’: F0_d1d1, F2_d1d1, F4_d1d1, F0_d1d2, F2_d1d2, F4_d1d2, G0_d1d2,
-G2_d1d2, G4_d1d2, F0_d2d2, F2_d2d2, F4_d2d2</p></li>
-<li><p>for case ‘fs’:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fs, G3_fs, F0_ss</p></li>
-<li><p>for case ‘fp’:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fp, F2_fp, G2_fp, G4_fp, F0_pp, F2_pp</p></li>
-<li><p>for case ‘fd’:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fd, F2_fd, F4_fd, G1_fd, G3_fd, G5_fd,
-F0_dd, F2_dd, F4_dd</p></li>
-<li><p>for case ‘ff’:  F0_f1f1, F2_f1f1, F4_f1f1, F6_f1f1, F0_f1f2, F2_f1f2, F4_f1f2, F6_f1f2,
-G0_f1f2, G2_f1f2, G4_f1f2, G6_f1f2, F0_f2f2, F2_f2f2, F4_f2f2, F6_f2f2</p></li>
-</ul>
-<p>The order of these arguments are important.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>umat: 4d array of complex</strong></dt><dd><p>the Coulomb interaction tensor</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.umat_slater</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori_ge</span></code></p>
 </div>
 </dd></dl>
 
@@ -392,14 +258,18 @@ where <span class="math notranslate nohighlight">\(k\)</span> is the order,
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>umat: 4d array of complex</strong></dt><dd><p>contains the Coulomb interaction tensor.</p>
+<dt>umat: 4d array of complex</dt><dd><p>contains the Coulomb interaction tensor.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_slater</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori_ge</span></code></p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_slater</span></code></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori</span></code></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori_ge</span></code></dt><dd></dd>
+</dl>
 </div>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
@@ -448,6 +318,268 @@ where <span class="math notranslate nohighlight">\(k\)</span> is the order,
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">umat_dp</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.coulomb_utensor.get_umat_kanamori_ge">
+<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_kanamori_ge</code><span class="sig-paren">(</span><em>norbs</em>, <em>U1</em>, <em>U2</em>, <em>J</em>, <em>Jx</em>, <em>Jp</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_kanamori_ge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_kanamori_ge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Coulomb interaction tensor for a Kanamori-type interaction.
+For the general case, it is parameterized by <span class="math notranslate nohighlight">\(U_1, U_2, J, J_x, J_p\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>norbs: int</strong></dt><dd><p>number of orbitals (including spin).</p>
+</dd>
+<dt><strong>U1: float</strong></dt><dd><p>Hubbard <span class="math notranslate nohighlight">\(U\)</span> for electrons residing on the same orbital with opposite spin.</p>
+</dd>
+<dt><strong>U2: float</strong></dt><dd><p>Hubbard <span class="math notranslate nohighlight">\(U\)</span> for electrons residing on different orbitals.</p>
+</dd>
+<dt><strong>J: float</strong></dt><dd><p>Hund’s coupling for density-density interaction.</p>
+</dd>
+<dt><strong>Jx: float</strong></dt><dd><p>Hund’s coupling for spin flip.</p>
+</dd>
+<dt><strong>Jp: float</strong></dt><dd><p>Hund’s coupling for pair-hopping.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>umat: 4d complex array</dt><dd><p>The calculated Coulomb interaction tensor</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori</span></code></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_slater</span></code></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.umat_slater</span></code></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>The order of spin index is: up, down, up, down, …, up, down.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.coulomb_utensor.get_umat_slater">
+<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_slater</code><span class="sig-paren">(</span><em>case</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_slater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_slater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenient adapter function to return the Coulomb interaction tensor for common case.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>case: string</strong></dt><dd><p>Indicates atomic shells, should be one of</p>
+<p>For single shell:</p>
+<ul class="simple">
+<li><p>‘s’:    single <span class="math notranslate nohighlight">\(s\)</span>-shell (<span class="math notranslate nohighlight">\(l=0\)</span>)</p></li>
+<li><p>‘p’:    single <span class="math notranslate nohighlight">\(p\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
+<li><p>‘p12’:  single <span class="math notranslate nohighlight">\(p_{1/2}\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
+<li><p>‘p32’:  single <span class="math notranslate nohighlight">\(p_{3/2}\)</span>-shell (<span class="math notranslate nohighlight">\(l=1\)</span>)</p></li>
+<li><p>‘t2g’:  single <span class="math notranslate nohighlight">\(t_{2g}\)</span>-shell (<span class="math notranslate nohighlight">\(l_{\text{eff}}=1\)</span>)</p></li>
+<li><p>‘d’:    single <span class="math notranslate nohighlight">\(d\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>)</p></li>
+<li><p>‘d32’:  single <span class="math notranslate nohighlight">\(d_{3/2}\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>)</p></li>
+<li><p>‘d52’:  single <span class="math notranslate nohighlight">\(d_{5/2}\)</span>-shell (<span class="math notranslate nohighlight">\(l=2\)</span>)</p></li>
+<li><p>‘f’:    single <span class="math notranslate nohighlight">\(f\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>)</p></li>
+<li><p>‘f52’:  single <span class="math notranslate nohighlight">\(f_{5/2}\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>)</p></li>
+<li><p>‘f72’:  single <span class="math notranslate nohighlight">\(f_{7/2}\)</span>-shell (<span class="math notranslate nohighlight">\(l=3\)</span>)</p></li>
+</ul>
+<p>For two shells:</p>
+<p>case = str1 + str2</p>
+<p>where, str1 and str2 are strings and they can be any of</p>
+<p>[‘s’, ‘p’, ‘p12’, ‘p32’, ‘t2g’, ‘d’, ‘d32’, ‘d52’, ‘f’, ‘f52’, ‘f72’]</p>
+<p>For examples,</p>
+<ul class="simple">
+<li><p>‘dp’:     1st <span class="math notranslate nohighlight">\(d\)</span>-shell and 2nd <span class="math notranslate nohighlight">\(p\)</span>-shell</p></li>
+<li><p>‘dp12’:   1st <span class="math notranslate nohighlight">\(d\)</span>-shell and 2nd <span class="math notranslate nohighlight">\(p_{1/2}\)</span>-shell</p></li>
+<li><p>‘f52p32’: 1st <span class="math notranslate nohighlight">\(f_{5/2}\)</span>-shell and 2nd <span class="math notranslate nohighlight">\(p_{3/2}\)</span>-shell</p></li>
+<li><p>‘t2gp’:   1st <span class="math notranslate nohighlight">\(t_{2g}\)</span>-shell and 2nd <span class="math notranslate nohighlight">\(p\)</span>-shell</p></li>
+</ul>
+</dd>
+<dt><strong>*args: floats</strong></dt><dd><p>Variable length argument list. Slater integrals.
+The order of these integrals shoule be</p>
+<p>For only one shell case,</p>
+<p>args = [F0, F2, F4, F6, ….]</p>
+<p>For two shells case,</p>
+<p>args = [FX_11, FX_12, GX_12, FX_22]</p>
+<p>where, 1 (2) means 1st (2nd)-shell, and X=0, 2, 4, … or X=1, 3, 5 …,
+and X should be in ascending order. The following are possible cases:</p>
+<ul class="simple">
+<li><p>‘s’:</p></li>
+</ul>
+<p>args = [F0]</p>
+<ul class="simple">
+<li><p>‘p’, ‘p12’, ‘p32’:</p></li>
+</ul>
+<p>args = [F0, F2]</p>
+<ul class="simple">
+<li><p>‘d’, ‘d32’, ‘d52’, ‘t2g’:</p></li>
+</ul>
+<p>args = [F0, F2, F4]</p>
+<ul class="simple">
+<li><p>‘f’, ‘f52’, ‘f72’:</p></li>
+</ul>
+<p>args = [F0, F2, F4, F6]</p>
+<ul class="simple">
+<li><p>‘ss’:</p></li>
+</ul>
+<p>args = [F0_11, F0_12, G0_12, F0_22]</p>
+<ul class="simple">
+<li><p>‘ps’, ‘p12s’, ‘p32s’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F0_12, G1_12, F0_22]</p>
+<ul class="simple">
+<li><p>‘ds’, ‘d32s’, ‘d52s’, ‘t2gs’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F4_11, F0_12, G2_12, F0_22]</p>
+<ul class="simple">
+<li><p>‘fs’, ‘f52s’, ‘f72s’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F4_11, F6_11, F0_12, G3_12, F0_22]</p>
+<ul class="simple">
+<li><p>‘sp’, ‘sp12’, ‘sp32’:</p></li>
+</ul>
+<p>args = [F0_11, F0_12, G1_12, F0_22, F2_22]</p>
+<ul class="simple">
+<li><p>‘pp’, ‘pp12’, ‘pp32’, ‘p12p’, ‘p12p12’, ‘p12p32’, ‘p32p’, ‘p32p12’, ‘p32p32’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F0_12, F2_12, G0_12, G2_12, F0_22, F2_22]</p>
+<ul class="simple">
+<li><p>‘dp’, ‘dp12’, ‘dp32’, ‘d32p’, ‘d32p12’, ‘d32p32’, ‘d52p’, ‘d52p12’, ‘d52p32’,
+‘t2gp’, ‘t2gp12’, t2gp32’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F4_11, F0_12, F2_12, G1_12, G3_12, F0_22, F2_22]</p>
+<ul class="simple">
+<li><p>‘fp’, ‘fp12’, ‘fp32’, ‘f52p’, ‘f52p12’, ‘f52p32’, ‘f72p’, ‘f72p12’, ‘f72p32’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F4_11, F6_11, F0_12, F2_12, G2_12, G4_12, F0_22, F2_22]</p>
+<ul class="simple">
+<li><p>‘sd’, ‘sd32’, ‘sd52’:</p></li>
+</ul>
+<p>args = [F0_11, F0_12, G2_12, F0_22, F2_22, F4_22]</p>
+<ul class="simple">
+<li><p>‘pd’, ‘pd32’, ‘pd52’, ‘p12d’, ‘p12d32’, ‘p12d52’, ‘p32d’, ‘p32d32’, ‘p32d52’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F0_12, F2_12, G1_12, G3_12, F0_22, F2_22, F4_22]</p>
+<ul class="simple">
+<li><p>‘dd’, ‘dd32’, ‘dd52’, ‘d32d’, ‘d32d32’, ‘d32d52’, ‘d52d’, ‘d52d32’, ‘d52d52’,
+‘t2gd’, ‘t2gd32’, ‘t2gd52’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F4_11, F0_12, F2_12, F4_12, G0_12, G2_12, G4_12, F0_22, F2_22, F4_22]</p>
+<ul class="simple">
+<li><p>‘fd’, ‘fd32’, ‘fd52’, ‘f52d’, ‘f52d32’, ‘f52d52’, ‘f72d’, ‘f72d32’, ‘f72d52’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F4_11, F6_11, F0_12, F2_12, F4_12, G1_12, G3_12, G5_12,
+F0_22, F2_22, F4_22]</p>
+<ul class="simple">
+<li><p>‘sf’, ‘sf52’, ‘sf72’:</p></li>
+</ul>
+<p>args = [F0_11, F0_12, G3_12, F0_22, F2_22, F4_22, F6_22]</p>
+<ul class="simple">
+<li><p>‘pf’, ‘pf52’, ‘pf72’, ‘p12f’, ‘p12f52’, ‘p12f72’, ‘p32f’, ‘p32f52’, ‘p32f72’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F0_12, F2_12, G2_12, G4_12, F0_22, F2_22, F4_22, F6_22]</p>
+<ul class="simple">
+<li><p>‘df’, ‘df52’, ‘df72’, ‘d32f’, ‘d32f52’, ‘d32f72’, ‘d52f’, ‘d52f52’, ‘d52f72’,
+‘t2gf’, ‘t2gf52’, ‘t2gf72’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F4_11, F0_12, F2_12, F4_12, G1_12, G3_12, G5_12,
+F0_22, F2_22, F4_22, F6_22]</p>
+<ul class="simple">
+<li><p>‘ff’, ‘ff52’, ‘ff72’, ‘f52f’, ‘f52f52’, ‘f52f72’, ‘f72f’, ‘f72f52’, ‘f72f72’:</p></li>
+</ul>
+<p>args = [F0_11, F2_11, F4_11, F6_11, F0_12, F2_12, F4_12, F6_12,
+G0_12, G2_12, G4_12, G6_12, F0_22, F2_22, F4_22, F6_22]</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>umat: 4d array of complex</dt><dd><p>the Coulomb interaction tensor</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.umat_slater</span></code></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori</span></code></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori_ge</span></code></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F0_dd</span><span class="p">,</span> <span class="n">F2_dd</span><span class="p">,</span> <span class="n">F4_dd</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F0_dp</span><span class="p">,</span> <span class="n">F2_dp</span><span class="p">,</span> <span class="n">G1_dp</span><span class="p">,</span> <span class="n">G3_dp</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F0_pp</span><span class="p">,</span> <span class="n">F2_pp</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slater</span> <span class="o">=</span> <span class="p">[</span><span class="n">F0_dd</span><span class="p">,</span> <span class="n">F2_dd</span><span class="p">,</span> <span class="n">F4_dd</span><span class="p">,</span> <span class="n">F0_dp</span><span class="p">,</span> <span class="n">F2_dp</span><span class="p">,</span> <span class="n">G1_dp</span><span class="p">,</span> <span class="n">G3_dp</span><span class="p">,</span> <span class="n">F0_pp</span><span class="p">,</span> <span class="n">F2_pp</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">umat_d</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">get_umat_slater</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">F0_dd</span><span class="p">,</span> <span class="n">F2_dd</span><span class="p">,</span> <span class="n">F4_dd</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">umat_dp</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">get_umat_slater</span><span class="p">(</span><span class="s1">&#39;dp&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">slater</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">umat_t2gp</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">get_umat_slater</span><span class="p">(</span><span class="s1">&#39;t2gp&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">slater</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">umat_dp32</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">get_umat_slater</span><span class="p">(</span><span class="s1">&#39;dp32&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">slater</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.coulomb_utensor.get_umat_kanamori">
+<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_kanamori</code><span class="sig-paren">(</span><em>norbs</em>, <em>U</em>, <em>J</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_kanamori"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_kanamori" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Coulomb interaction tensor for a Kanamori-type interaction.
+For the <span class="math notranslate nohighlight">\(t2g\)</span>-shell case, it is parameterized by <span class="math notranslate nohighlight">\(U, J\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>norbs: int</strong></dt><dd><p>number of orbitals (including spin).</p>
+</dd>
+<dt><strong>U: float</strong></dt><dd><p>Hubbard <span class="math notranslate nohighlight">\(U\)</span> for electrons residing on the same orbital with opposite spin.</p>
+</dd>
+<dt><strong>J: float</strong></dt><dd><p>Hund’s coupling.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>umat: 4d complex array</dt><dd><p>The calculated Coulomb interaction tensor</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_kanamori_ge</span></code></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.get_umat_slater</span></code></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">coulomb_utensor.umat_slater</span></code></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>The order of spin index is: up, down, up, down, …, up, down.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.coulomb_utensor.get_umat_slater_3shells">
+<code class="descclassname">edrixs.coulomb_utensor.</code><code class="descname">get_umat_slater_3shells</code><span class="sig-paren">(</span><em>shell_name</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/coulomb_utensor.html#get_umat_slater_3shells"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.coulomb_utensor.get_umat_slater_3shells" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given three shells, build the slater type of Coulomb tensors among
+the three shells.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>shell_name: tuple of three strings</strong></dt><dd><p>Shells names.</p>
+</dd>
+<dt><strong>*args: floats</strong></dt><dd><p>Slater integrals. The order should be</p>
+<p>FX_11, FX_12, GX_12, FX_22, FX_13, GX_13, FX_23, GX_23, FX_33</p>
+<p>where, 1, 2, 3 means 1st, 2nd, 3rd shell, and X=0, 2, 4, … or X=1, 3, 5 …,
+and X should be in ascending order.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>umat: 4d complex array</dt><dd><p>Rank-4 Coulomb tensors.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

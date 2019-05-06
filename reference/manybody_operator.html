@@ -85,9 +85,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">EDRIXS Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="angular_momentum.html">angular_momentum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis_transform.html">basis_transform</a></li>
@@ -100,11 +98,13 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_spectrum.html">plot_spectrum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rixs_utils.html">rixs_utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="soc.html">soc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solvers.html">solvers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wannier_ham.html">wannier_ham</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -174,61 +174,6 @@
   <div class="section" id="module-edrixs.manybody_operator">
 <span id="manybody-operator"></span><h1>manybody_operator<a class="headerlink" href="#module-edrixs.manybody_operator" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="edrixs.manybody_operator.density_matrix">
-<code class="descclassname">edrixs.manybody_operator.</code><code class="descname">density_matrix</code><span class="sig-paren">(</span><em>iorb</em>, <em>jorb</em>, <em>lb</em>, <em>rb</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/manybody_operator.html#density_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.manybody_operator.density_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the matrix form of density operators <span class="math notranslate nohighlight">\(\hat{f}_{i}^{\dagger}\hat{f}_{j}\)</span>
-in the given Fock basis,</p>
-<div class="math notranslate nohighlight">
-\[&lt;F_{l}|\hat{f}_{i}^{\dagger}\hat{f}_{j}|F_{r}&gt;\]</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>iorb</strong><span class="classifier">int</span></dt><dd><p>Orbital index.</p>
-</dd>
-<dt><strong>jorb</strong><span class="classifier">int</span></dt><dd><p>Orbital index.</p>
-</dd>
-<dt><strong>lb</strong><span class="classifier">list or array</span></dt><dd><p>Left fock basis <span class="math notranslate nohighlight">\(&lt;F_{l}|\)</span>.</p>
-</dd>
-<dt><strong>rb</strong><span class="classifier">list or array</span></dt><dd><p>Right fock basis <span class="math notranslate nohighlight">\(|F_{r}&gt;\)</span>.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>hmat</strong><span class="classifier">2d complex array</span></dt><dd><p>The calculated matrix form of the density operator.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.manybody_operator.four_fermion">
-<code class="descclassname">edrixs.manybody_operator.</code><code class="descname">four_fermion</code><span class="sig-paren">(</span><em>umat</em>, <em>basis</em>, <em>tol=1e-10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/manybody_operator.html#four_fermion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.manybody_operator.four_fermion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build matrix form of a four-fermionic operator in the given Fock basis,</p>
-<div class="math notranslate nohighlight">
-\[&lt;F|\sum_{ij}U_{ijkl}\hat{f}_{i}^{\dagger}\hat{f}_{j}^{\dagger}\hat{f}_{k}\hat{f}_{l}|F&gt;\]</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>umat</strong><span class="classifier">4d complex array</span></dt><dd><p>The 4 index Coulomb interaction tensor.</p>
-</dd>
-<dt><strong>basis</strong><span class="classifier">list or array</span></dt><dd><p>Fock basis <span class="math notranslate nohighlight">\(|F&gt;\)</span>.</p>
-</dd>
-<dt><strong>tol</strong><span class="classifier">float (default: 1E-10)</span></dt><dd><p>Only consider the elements of umat that are larger than tol.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>hmat</strong><span class="classifier">2d complex array</span></dt><dd><p>The matrix form of the four-fermionic operator.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
 <dt id="edrixs.manybody_operator.one_fermion_annihilation">
 <code class="descclassname">edrixs.manybody_operator.</code><code class="descname">one_fermion_annihilation</code><span class="sig-paren">(</span><em>iorb</em>, <em>lb</em>, <em>rb</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/manybody_operator.html#one_fermion_annihilation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.manybody_operator.one_fermion_annihilation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build matrix form of a fermionic annihilation operator in the given Fock basis.</p>
@@ -237,17 +182,17 @@ in the given Fock basis,</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>iorb</strong><span class="classifier">int</span></dt><dd><p>Which orbital.</p>
+<dt><strong>iorb: int</strong></dt><dd><p>Which orbital.</p>
 </dd>
-<dt><strong>lb</strong><span class="classifier">list or array</span></dt><dd><p>Left fock basis <span class="math notranslate nohighlight">\(&lt;F_{l}|\)</span>.</p>
+<dt><strong>lb: list or array</strong></dt><dd><p>Left fock basis <span class="math notranslate nohighlight">\(&lt;F_{l}|\)</span>.</p>
 </dd>
-<dt><strong>rb</strong><span class="classifier">list of array</span></dt><dd><p>Right fock basis <span class="math notranslate nohighlight">\(|F_{r}&gt;\)</span>.</p>
+<dt><strong>rb: list of array</strong></dt><dd><p>Right fock basis <span class="math notranslate nohighlight">\(|F_{r}&gt;\)</span>.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>hmat</strong><span class="classifier">2d complex array</span></dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(\hat{f}_{i}\)</span>.</p>
+<dt>hmat: 2d complex array</dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(\hat{f}_{i}\)</span>.</p>
 </dd>
 </dl>
 </dd>
@@ -263,19 +208,74 @@ in the given Fock basis,</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>emat</strong><span class="classifier">2d complex array</span></dt><dd><p>The impurity matrix.</p>
+<dt><strong>emat: 2d complex array</strong></dt><dd><p>The impurity matrix.</p>
 </dd>
-<dt><strong>lb</strong><span class="classifier">list or array</span></dt><dd><p>Left fock basis <span class="math notranslate nohighlight">\(&lt;F_{l}|\)</span>.</p>
+<dt><strong>lb: list or array</strong></dt><dd><p>Left fock basis <span class="math notranslate nohighlight">\(&lt;F_{l}|\)</span>.</p>
 </dd>
-<dt><strong>rb</strong><span class="classifier">list of array</span></dt><dd><p>Right fock basis <span class="math notranslate nohighlight">\(|F_{r}&gt;\)</span>.</p>
+<dt><strong>rb: list of array</strong></dt><dd><p>Right fock basis <span class="math notranslate nohighlight">\(|F_{r}&gt;\)</span>.</p>
 </dd>
-<dt><strong>tol</strong><span class="classifier">float (default: 1E-10)</span></dt><dd><p>Only consider the elements of emat that are larger than tol.</p>
+<dt><strong>tol: float (default: 1E-10)</strong></dt><dd><p>Only consider the elements of emat that are larger than tol.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>hmat</strong><span class="classifier">2d complex array</span></dt><dd><p>The matrix form of the two-fermionic operator.</p>
+<dt>hmat: 2d complex array</dt><dd><p>The matrix form of the two-fermionic operator.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.manybody_operator.four_fermion">
+<code class="descclassname">edrixs.manybody_operator.</code><code class="descname">four_fermion</code><span class="sig-paren">(</span><em>umat</em>, <em>basis</em>, <em>tol=1e-10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/manybody_operator.html#four_fermion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.manybody_operator.four_fermion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build matrix form of a four-fermionic operator in the given Fock basis,</p>
+<div class="math notranslate nohighlight">
+\[&lt;F|\sum_{ij}U_{ijkl}\hat{f}_{i}^{\dagger}\hat{f}_{j}^{\dagger}\hat{f}_{k}\hat{f}_{l}|F&gt;\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>umat: 4d complex array</strong></dt><dd><p>The 4 index Coulomb interaction tensor.</p>
+</dd>
+<dt><strong>basis: list or array</strong></dt><dd><p>Fock basis <span class="math notranslate nohighlight">\(|F&gt;\)</span>.</p>
+</dd>
+<dt><strong>tol: float (default: 1E-10)</strong></dt><dd><p>Only consider the elements of umat that are larger than tol.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>hmat: 2d complex array</dt><dd><p>The matrix form of the four-fermionic operator.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.manybody_operator.density_matrix">
+<code class="descclassname">edrixs.manybody_operator.</code><code class="descname">density_matrix</code><span class="sig-paren">(</span><em>iorb</em>, <em>jorb</em>, <em>lb</em>, <em>rb</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/manybody_operator.html#density_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.manybody_operator.density_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the matrix form of density operators <span class="math notranslate nohighlight">\(\hat{f}_{i}^{\dagger}\hat{f}_{j}\)</span>
+in the given Fock basis,</p>
+<div class="math notranslate nohighlight">
+\[&lt;F_{l}|\hat{f}_{i}^{\dagger}\hat{f}_{j}|F_{r}&gt;\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>iorb: int</strong></dt><dd><p>Orbital index.</p>
+</dd>
+<dt><strong>jorb: int</strong></dt><dd><p>Orbital index.</p>
+</dd>
+<dt><strong>lb: list or array</strong></dt><dd><p>Left fock basis <span class="math notranslate nohighlight">\(&lt;F_{l}|\)</span>.</p>
+</dd>
+<dt><strong>rb: list or array</strong></dt><dd><p>Right fock basis <span class="math notranslate nohighlight">\(|F_{r}&gt;\)</span>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>hmat: 2d complex array</dt><dd><p>The calculated matrix form of the density operator.</p>
 </dd>
 </dl>
 </dd>

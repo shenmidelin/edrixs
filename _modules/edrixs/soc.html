@@ -83,10 +83,9 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">EDRIXS Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -150,7 +149,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for edrixs.soc</h1><div class="highlight"><pre>
-<span></span><span class="c1"># /usr/bin/env python</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;atom_hsoc&#39;</span><span class="p">]</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -162,20 +161,19 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    case : str</span>
+<span class="sd">    case: str</span>
 <span class="sd">        String label indicating atomic shell,</span>
 
 <span class="sd">        - &#39;p&#39;: for :math:`p` -shell.</span>
 <span class="sd">        - &#39;t2g&#39;: for :math:`t_{2g}` -shell.</span>
 <span class="sd">        - &#39;d&#39;: for :math:`d` -shell.</span>
 <span class="sd">        - &#39;f&#39;: for :math:`f` -shell.</span>
-
-<span class="sd">    soc : float</span>
+<span class="sd">    soc: float</span>
 <span class="sd">        The strength of spin-orbit coupling.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    hsoc : 2d complex array</span>
+<span class="sd">    hsoc: 2d complex array</span>
 <span class="sd">        The spin-orbit coupling matrix.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

@@ -83,10 +83,9 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">EDRIXS Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -152,6 +151,11 @@
   <h1>Source code for edrixs.fock_basis</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;combination&#39;</span><span class="p">,</span> <span class="s1">&#39;fock_bin&#39;</span><span class="p">,</span> <span class="s1">&#39;get_fock_bin_by_N&#39;</span><span class="p">,</span> <span class="s1">&#39;get_fock_half_N&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;get_fock_full_N&#39;</span><span class="p">,</span> <span class="s1">&#39;get_fock_basis_by_NLz&#39;</span><span class="p">,</span> <span class="s1">&#39;get_fock_basis_by_NSz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;get_fock_basis_by_NJz&#39;</span><span class="p">,</span> <span class="s1">&#39;get_fock_basis_by_N_abelian&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;get_fock_basis_by_N_LzSz&#39;</span><span class="p">,</span> <span class="s1">&#39;write_fock_dec_by_N&#39;</span><span class="p">]</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 
@@ -166,15 +170,14 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    n : int</span>
-<span class="sd">        Number n.</span>
-
-<span class="sd">    m : int</span>
+<span class="sd">    n: int</span>
+<span class="sd">       Number n.</span>
+<span class="sd">    m: int</span>
 <span class="sd">        Number m.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    res : int</span>
+<span class="sd">    res: int</span>
 <span class="sd">        The calculated result.</span>
 
 <span class="sd">    Examples</span>
@@ -212,15 +215,14 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    n : int</span>
+<span class="sd">    n: int</span>
 <span class="sd">        Binary length :math:`n`.</span>
-
-<span class="sd">    k : int</span>
+<span class="sd">    k: int</span>
 <span class="sd">        How many digitals are set to be 1.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    res : list of int-lists</span>
+<span class="sd">    res: list of int-lists</span>
 <span class="sd">        A list of list containing the binary digitals.</span>
 
 <span class="sd">    Examples</span>
@@ -254,7 +256,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    args : ints</span>
+<span class="sd">    args: ints</span>
 <span class="sd">        args[0]: number of orbitals for 1st-shell,</span>
 
 <span class="sd">        args[1]: number of occupancy for 1st-shell,</span>
@@ -271,7 +273,7 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    result : list of int list</span>
+<span class="sd">    result: list of int list</span>
 <span class="sd">        The binary form of Fock states.</span>
 
 <span class="sd">    Examples</span>
@@ -333,15 +335,14 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    norb : int</span>
+<span class="sd">    norb: int</span>
 <span class="sd">        Number of orbitals.</span>
-
-<span class="sd">    N : int</span>
+<span class="sd">    N: int</span>
 <span class="sd">        Number of occupancy.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    res : list of int</span>
+<span class="sd">    res: list of int</span>
 <span class="sd">        The decimal digitals to represent Fock states.</span>
 
 <span class="sd">    Examples</span>
@@ -378,18 +379,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    norb : int</span>
+<span class="sd">    norb: int</span>
 <span class="sd">        Number of orbitals.</span>
-
-<span class="sd">    N : int</span>
+<span class="sd">    N: int</span>
 <span class="sd">        Number of total occupancy.</span>
-
-<span class="sd">    lz_list : list of int</span>
+<span class="sd">    lz_list: list of int</span>
 <span class="sd">        Quantum number :math:`l_{z}` for each orbital.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    res : dict</span>
+<span class="sd">    res: dict</span>
 <span class="sd">        A dictionary containing the decimal digitals, the key is good</span>
 <span class="sd">        quantum numbers :math:`L_{z}`, the value is a list of int.</span>
 
@@ -418,18 +417,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    norb : int</span>
+<span class="sd">    norb: int</span>
 <span class="sd">        Number of orbitals.</span>
-
-<span class="sd">    N : int</span>
+<span class="sd">    N: int</span>
 <span class="sd">        Number of total occupancy.</span>
-
-<span class="sd">    sz_list : list of int</span>
+<span class="sd">    sz_list: list of int</span>
 <span class="sd">        Quantum number :math:`s_{z}` for each orbital.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    res : dict</span>
+<span class="sd">    res: dict</span>
 <span class="sd">        A dictionary containing the decimal digitals, the key is good quantum</span>
 <span class="sd">        numbers :math:`S_{z}`, the value is a list of int.</span>
 
@@ -458,18 +455,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    norb : int</span>
+<span class="sd">    norb: int</span>
 <span class="sd">        Number of orbitals.</span>
-
-<span class="sd">    N : int</span>
+<span class="sd">    N: int</span>
 <span class="sd">        Number of total occupancy.</span>
-
-<span class="sd">    jz_list : list of int</span>
+<span class="sd">    jz_list: list of int</span>
 <span class="sd">        Quantum number :math:`j_{z}` for each orbital.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    res : dict</span>
+<span class="sd">    res: dict</span>
 <span class="sd">        A dictionary containing the decimal digitals, the key is good quantum</span>
 <span class="sd">        numbers :math:`j_{z}`, the value is a list of int.</span>
 
@@ -504,18 +499,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    norb : int</span>
+<span class="sd">    norb: int</span>
 <span class="sd">        Number of orbitals.</span>
-
-<span class="sd">    N : int</span>
+<span class="sd">    N: int</span>
 <span class="sd">        Number of total occupancy.</span>
-
-<span class="sd">    a_list : list of int</span>
+<span class="sd">    a_list: list of int</span>
 <span class="sd">        Quantum number of the Abelian symmetry for each orbital.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    basis : dict</span>
+<span class="sd">    basis: dict</span>
 <span class="sd">        A dictionary containing the decimal digitals, the key is good quantum numbers,</span>
 <span class="sd">        the value is a list of int.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -540,21 +533,18 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    norb : int</span>
+<span class="sd">    norb: int</span>
 <span class="sd">        Number of orbitals.</span>
-
-<span class="sd">    N : int</span>
+<span class="sd">    N: int</span>
 <span class="sd">        Number of total occupancy.</span>
-
-<span class="sd">    lz_list : list of int</span>
+<span class="sd">    lz_list: list of int</span>
 <span class="sd">        Quantum number :math:`l_{z}` for each orbital.</span>
-
-<span class="sd">    sz_list : list of int</span>
+<span class="sd">    sz_list: list of int</span>
 <span class="sd">        Quantum number :math:`s_{z}` for each orbital.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    basis : dict</span>
+<span class="sd">    basis: dict</span>
 <span class="sd">        A dictionary containing the decimal digitals, the key is a tuple containing good quantum</span>
 <span class="sd">        numbers ( :math:`l_{z}`, :math:`s_{z}`), the value is a list of int.</span>
 
@@ -611,18 +601,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    N : int</span>
-<span class="sd">        Number of orbitals.</span>
-
-<span class="sd">    r : int</span>
+<span class="sd">    N: int</span>
+<span class="sd">       Number of orbitals.</span>
+<span class="sd">    r: int</span>
 <span class="sd">        Number of occuancy.</span>
-
-<span class="sd">    fname : string</span>
+<span class="sd">    fname: string</span>
 <span class="sd">        File name.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    ndim : int</span>
+<span class="sd">    ndim: int</span>
 <span class="sd">        The dimension of the Hilbert space</span>
 
 <span class="sd">    Examples</span>

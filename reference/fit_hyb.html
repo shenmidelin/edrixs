@@ -85,9 +85,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">EDRIXS Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="angular_momentum.html">angular_momentum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis_transform.html">basis_transform</a></li>
@@ -100,11 +98,13 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_spectrum.html">plot_spectrum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rixs_utils.html">rixs_utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="soc.html">soc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solvers.html">solvers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wannier_ham.html">wannier_ham</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -184,17 +184,17 @@ return the hybridization function,</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>x</strong><span class="classifier">1d float array</span></dt><dd><p>Frequency <span class="math notranslate nohighlight">\(\omega\)</span>, the first half is the real part and
+<dt><strong>x: 1d float array</strong></dt><dd><p>Frequency <span class="math notranslate nohighlight">\(\omega\)</span>, the first half is the real part and
 the second half is the imaginary part.</p>
 </dd>
-<dt><strong>args</strong><span class="classifier">1d float array</span></dt><dd><p>The first half is the bath energy level <span class="math notranslate nohighlight">\(\epsilon_{l}\)</span> and the
+<dt><strong>args: 1d float array</strong></dt><dd><p>The first half is the bath energy level <span class="math notranslate nohighlight">\(\epsilon_{l}\)</span> and the
 second half if the hybridization strength <span class="math notranslate nohighlight">\(V_{l}\)</span>.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>y</strong><span class="classifier">1d float array</span></dt><dd><p>The calculated hybridization function <span class="math notranslate nohighlight">\(\Delta(\omega)\)</span>, the
+<dt>y: 1d float array</dt><dd><p>The calculated hybridization function <span class="math notranslate nohighlight">\(\Delta(\omega)\)</span>, the
 first half is the real part and the second half is the imaginary part.</p>
 </dd>
 </dl>
@@ -214,22 +214,22 @@ hybridization strength <span class="math notranslate nohighlight">\(V_{l}\)</spa
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>x</strong><span class="classifier">1d complex array</span></dt><dd><p>Frequency <span class="math notranslate nohighlight">\(\omega\)</span>.</p>
+<dt><strong>x: 1d complex array</strong></dt><dd><p>Frequency <span class="math notranslate nohighlight">\(\omega\)</span>.</p>
 </dd>
-<dt><strong>y</strong><span class="classifier">1d complex array</span></dt><dd><p>Hybridization function <span class="math notranslate nohighlight">\(\Delta(\omega)\)</span>.</p>
+<dt><strong>y: 1d complex array</strong></dt><dd><p>Hybridization function <span class="math notranslate nohighlight">\(\Delta(\omega)\)</span>.</p>
 </dd>
-<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Number of bath sites</p>
+<dt><strong>N: int</strong></dt><dd><p>Number of bath sites</p>
 </dd>
-<dt><strong>p0</strong><span class="classifier">N-length 1d float array</span></dt><dd><p>Initial guess, the first half is <span class="math notranslate nohighlight">\(\epsilon_{l}\)</span> and
+<dt><strong>p0: N-length 1d float array</strong></dt><dd><p>Initial guess, the first half is <span class="math notranslate nohighlight">\(\epsilon_{l}\)</span> and
 the second half is <span class="math notranslate nohighlight">\(V_{l}\)</span>.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>e</strong><span class="classifier">N-length 1d float array</span></dt><dd><p>The fitted bath energy levels <span class="math notranslate nohighlight">\(\epsilon_{l}\)</span>.</p>
+<dt>e: N-length 1d float array</dt><dd><p>The fitted bath energy levels <span class="math notranslate nohighlight">\(\epsilon_{l}\)</span>.</p>
 </dd>
-<dt><strong>v</strong><span class="classifier">N-length 1d float array</span></dt><dd><p>The fitted hybridization strength <span class="math notranslate nohighlight">\(V_{l}\)</span>.</p>
+<dt>v: N-length 1d float array</dt><dd><p>The fitted hybridization strength <span class="math notranslate nohighlight">\(V_{l}\)</span>.</p>
 </dd>
 </dl>
 </dd>
@@ -246,17 +246,17 @@ hybridization function <span class="math notranslate nohighlight">\(\Delta(\omeg
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>x</strong><span class="classifier">1d complex array</span></dt><dd><p>Frequency <span class="math notranslate nohighlight">\(\omega\)</span>.</p>
+<dt><strong>x: 1d complex array</strong></dt><dd><p>Frequency <span class="math notranslate nohighlight">\(\omega\)</span>.</p>
 </dd>
-<dt><strong>e</strong><span class="classifier">N-length 1d float array</span></dt><dd><p>The fitted bath energy levels.</p>
+<dt><strong>e:  N-length 1d float array</strong></dt><dd><p>The fitted bath energy levels.</p>
 </dd>
-<dt><strong>v</strong><span class="classifier">N-length 1d float array</span></dt><dd><p>The fitted hybridization strength.</p>
+<dt><strong>v:  N-length 1d float array</strong></dt><dd><p>The fitted hybridization strength.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>y</strong><span class="classifier">1d complex array</span></dt><dd><p>The calculated hybridization function <span class="math notranslate nohighlight">\(\Delta(\omega)\)</span>.</p>
+<dt>y: 1d complex array</dt><dd><p>The calculated hybridization function <span class="math notranslate nohighlight">\(\Delta(\omega)\)</span>.</p>
 </dd>
 </dl>
 </dd>

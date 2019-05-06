@@ -85,9 +85,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">EDRIXS Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="angular_momentum.html">angular_momentum</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">basis_transform</a></li>
@@ -100,11 +98,13 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_spectrum.html">plot_spectrum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rixs_utils.html">rixs_utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="soc.html">soc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solvers.html">solvers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wannier_ham.html">wannier_ham</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -184,9 +184,9 @@ basis <span class="math notranslate nohighlight">\(B\)</span>: <span class="math
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>oper_A</strong><span class="classifier">2d array</span></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<dt><strong>oper_A: 2d array</strong></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(A\)</span>.</p>
 </dd>
-<dt><strong>t_mat</strong><span class="classifier">2d array</span></dt><dd><p>The unitary transformation matrix from basis <span class="math notranslate nohighlight">\(A\)</span> to
+<dt><strong>t_mat: 2d array</strong></dt><dd><p>The unitary transformation matrix from basis <span class="math notranslate nohighlight">\(A\)</span> to
 basis <span class="math notranslate nohighlight">\(B\)</span>,  namely,
 <span class="math notranslate nohighlight">\(T_{ij} = &lt;\psi^{A}_{i}|\phi^{B}_{j}&gt;\)</span>.</p>
 </dd>
@@ -210,17 +210,17 @@ basis <span class="math notranslate nohighlight">\(B\)</span>,  namely,
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>oper_A</strong><span class="classifier">2d array</span></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<dt><strong>oper_A: 2d array</strong></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(A\)</span>.</p>
 </dd>
-<dt><strong>TL</strong><span class="classifier">2d array</span></dt><dd><p>The unitary transformation matrix applied on the left.</p>
+<dt><strong>TL: 2d array</strong></dt><dd><p>The unitary transformation matrix applied on the left.</p>
 </dd>
-<dt><strong>TR</strong><span class="classifier">2d array</span></dt><dd><p>The unitary transformation matrix applied on the right.</p>
+<dt><strong>TR: 2d array</strong></dt><dd><p>The unitary transformation matrix applied on the right.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>oper_B</strong><span class="classifier">2d array</span></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> after the transformation.</p>
+<dt>oper_B: 2d array</dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> after the transformation.</p>
 </dd>
 </dl>
 </dd>
@@ -228,33 +228,100 @@ basis <span class="math notranslate nohighlight">\(B\)</span>,  namely,
 </dd></dl>
 
 <dl class="function">
-<dt id="edrixs.basis_transform.fourier_hr2hk">
-<code class="descclassname">edrixs.basis_transform.</code><code class="descname">fourier_hr2hk</code><span class="sig-paren">(</span><em>norbs</em>, <em>nkpt</em>, <em>kvec</em>, <em>nrpt</em>, <em>rvec</em>, <em>deg_rpt</em>, <em>hr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#fourier_hr2hk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.fourier_hr2hk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fourier transform a tight-binding Hamiltonian <span class="math notranslate nohighlight">\(H(r)\)</span> from
-real space to <span class="math notranslate nohighlight">\(k\)</span> space <span class="math notranslate nohighlight">\(H(k)\)</span>,
-for Wannier90.</p>
+<dt id="edrixs.basis_transform.tmat_c2r">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_c2r</code><span class="sig-paren">(</span><em>case</em>, <em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_c2r"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_c2r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the unitary transformation matrix from the basis of complex
+spherical harmonics to real spherical harmonics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>norbs</strong><span class="classifier">int</span></dt><dd><p>Number of orbitals.</p>
+<dt><strong>case: string</strong></dt><dd><p>Label for different systems.</p>
+<ul class="simple">
+<li><p>‘p’: for <span class="math notranslate nohighlight">\(p\)</span>-shell</p></li>
+<li><p>‘t2g’: for <span class="math notranslate nohighlight">\(t_{2g}\)</span>-shell</p></li>
+<li><p>‘d’: for <span class="math notranslate nohighlight">\(d\)</span>-shell</p></li>
+<li><p>‘f’: for <span class="math notranslate nohighlight">\(f\)</span>-shell</p></li>
+</ul>
 </dd>
-<dt><strong>nkpt</strong><span class="classifier">int</span></dt><dd><p>Number of <span class="math notranslate nohighlight">\(k\)</span>-points.</p>
-</dd>
-<dt><strong>kvec</strong><span class="classifier">2d float array</span></dt><dd><p>Fractional coordinate for k-points.</p>
-</dd>
-<dt><strong>nrpt</strong><span class="classifier">int</span></dt><dd><p>Number of r-points.</p>
-</dd>
-<dt><strong>rvec</strong><span class="classifier">2d float array</span></dt><dd><p>Fractional coordinate for r-points.</p>
-</dd>
-<dt><strong>deg_rpt</strong><span class="classifier">int</span></dt><dd><p>The degenerancy for each r-point.</p>
-</dd>
-<dt><strong>hr</strong><span class="classifier">3d complex array</span></dt><dd><p>Hamiltonian in r-space.</p>
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>hk</strong><span class="classifier">3d complex array</span></dt><dd><p>Hamiltonian in k-space.</p>
+<dt>t_c2r: 2d complex array</dt><dd><p>The transformation matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.tmat_r2c">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_r2c</code><span class="sig-paren">(</span><em>case</em>, <em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_r2c"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_r2c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the unitary transformation matrix from the basis of complex
+spherical harmonics to real spherical harmonics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>case: string</strong></dt><dd><p>Label for different systems.</p>
+<ul class="simple">
+<li><p>‘p’: for <span class="math notranslate nohighlight">\(p\)</span>-shell</p></li>
+<li><p>‘t2g’: for <span class="math notranslate nohighlight">\(t_{2g}\)</span>-shell</p></li>
+<li><p>‘d’: for <span class="math notranslate nohighlight">\(d\)</span>-shell</p></li>
+<li><p>‘f’: for <span class="math notranslate nohighlight">\(f\)</span>-shell</p></li>
+</ul>
+</dd>
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>t_r2c: 2d complex array</dt><dd><p>The transformation matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.tmat_r2cub_f">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_r2cub_f</code><span class="sig-paren">(</span><em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_r2cub_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_r2cub_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the transformation matrix from real spherical harmonics to the
+cubic spherical harmonics that is the representation of the cubic
+point group, only for <span class="math notranslate nohighlight">\(f\)</span> system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>t_r2cub: 2d complex array</dt><dd><p>The transformation matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.tmat_cub2r_f">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_cub2r_f</code><span class="sig-paren">(</span><em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_cub2r_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_cub2r_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the transformation matrix from the cubic spherical harmonics to
+real spherical harmonics, only for <span class="math notranslate nohighlight">\(f\)</span> system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>t_cub2r: 2d complex array</dt><dd><p>The transformation matrix.</p>
 </dd>
 </dl>
 </dd>
@@ -272,114 +339,13 @@ is diagonal. The orbital order is:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>orb_l</strong><span class="classifier">int</span></dt><dd><p>Quantum number of orbital angular momentum.</p>
+<dt><strong>orb_l: int</strong></dt><dd><p>Quantum number of orbital angular momentum.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>t_c2j</strong><span class="classifier">2d complex array</span></dt><dd><p>The transformation matrix.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.basis_transform.tmat_c2r">
-<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_c2r</code><span class="sig-paren">(</span><em>case</em>, <em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_c2r"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_c2r" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the unitary transformation matrix from the basis of complex
-spherical harmonics to real spherical harmonics.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>case</strong><span class="classifier">string</span></dt><dd><p>Label for different systems.</p>
-<ul class="simple">
-<li><p>‘p’: for <span class="math notranslate nohighlight">\(p\)</span>-shell</p></li>
-<li><p>‘t2g’: for <span class="math notranslate nohighlight">\(t_{2g}\)</span>-shell</p></li>
-<li><p>‘d’: for <span class="math notranslate nohighlight">\(d\)</span>-shell</p></li>
-<li><p>‘f’: for <span class="math notranslate nohighlight">\(f\)</span>-shell</p></li>
-</ul>
-</dd>
-<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>t_c2r</strong><span class="classifier">2d complex array</span></dt><dd><p>The transformation matrix.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.basis_transform.tmat_cub2r_f">
-<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_cub2r_f</code><span class="sig-paren">(</span><em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_cub2r_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_cub2r_f" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the transformation matrix from the cubic spherical harmonics to
-real spherical harmonics, only for <span class="math notranslate nohighlight">\(f\)</span> system.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>t_cub2r</strong><span class="classifier">2d complex array</span></dt><dd><p>The transformation matrix.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.basis_transform.tmat_r2c">
-<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_r2c</code><span class="sig-paren">(</span><em>case</em>, <em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_r2c"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_r2c" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the unitary transformation matrix from the basis of complex
-spherical harmonics to real spherical harmonics.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>case</strong><span class="classifier">string</span></dt><dd><p>Label for different systems.</p>
-<ul class="simple">
-<li><p>‘p’: for <span class="math notranslate nohighlight">\(p\)</span>-shell</p></li>
-<li><p>‘t2g’: for <span class="math notranslate nohighlight">\(t_{2g}\)</span>-shell</p></li>
-<li><p>‘d’: for <span class="math notranslate nohighlight">\(d\)</span>-shell</p></li>
-<li><p>‘f’: for <span class="math notranslate nohighlight">\(f\)</span>-shell</p></li>
-</ul>
-</dd>
-<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>t_r2c</strong><span class="classifier">2d complex array</span></dt><dd><p>The transformation matrix.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.basis_transform.tmat_r2cub_f">
-<code class="descclassname">edrixs.basis_transform.</code><code class="descname">tmat_r2cub_f</code><span class="sig-paren">(</span><em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#tmat_r2cub_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.tmat_r2cub_f" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the transformation matrix from real spherical harmonics to the
-cubic spherical harmonics that is the representation of the cubic
-point group, only for <span class="math notranslate nohighlight">\(f\)</span> system.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin degree of freedom or not (default: False).</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>t_r2cub</strong><span class="classifier">2d complex array</span></dt><dd><p>The transformation matrix.</p>
+<dt>t_c2j: 2d complex array</dt><dd><p>The transformation matrix.</p>
 </dd>
 </dl>
 </dd>
@@ -394,15 +360,49 @@ another basis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>umat</strong><span class="classifier">4d array</span></dt><dd><p>Coulomb interaction tensor (rank-4).</p>
+<dt><strong>umat: 4d array</strong></dt><dd><p>Coulomb interaction tensor (rank-4).</p>
 </dd>
-<dt><strong>tmat</strong><span class="classifier">2d array</span></dt><dd><p>The transformation matrix.</p>
+<dt><strong>tmat: 2d array</strong></dt><dd><p>The transformation matrix.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>umat_new</strong><span class="classifier">4d complex array</span></dt><dd><p>The Coulomb interaction tensor in the new basis.</p>
+<dt>umat_new: 4d complex array</dt><dd><p>The Coulomb interaction tensor in the new basis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.basis_transform.fourier_hr2hk">
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">fourier_hr2hk</code><span class="sig-paren">(</span><em>norbs</em>, <em>nkpt</em>, <em>kvec</em>, <em>nrpt</em>, <em>rvec</em>, <em>deg_rpt</em>, <em>hr</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#fourier_hr2hk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.fourier_hr2hk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fourier transform a tight-binding Hamiltonian <span class="math notranslate nohighlight">\(H(r)\)</span> from
+real space to <span class="math notranslate nohighlight">\(k\)</span> space <span class="math notranslate nohighlight">\(H(k)\)</span>,
+for Wannier90.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>norbs: int</strong></dt><dd><p>Number of orbitals.</p>
+</dd>
+<dt><strong>nkpt: int</strong></dt><dd><p>Number of <span class="math notranslate nohighlight">\(k\)</span>-points.</p>
+</dd>
+<dt><strong>kvec: 2d float array</strong></dt><dd><p>Fractional coordinate for k-points.</p>
+</dd>
+<dt><strong>nrpt: int</strong></dt><dd><p>Number of r-points.</p>
+</dd>
+<dt><strong>rvec: 2d float array</strong></dt><dd><p>Fractional coordinate for r-points.</p>
+</dd>
+<dt><strong>deg_rpt: int</strong></dt><dd><p>The degenerancy for each r-point.</p>
+</dd>
+<dt><strong>hr: 3d complex array</strong></dt><dd><p>Hamiltonian in r-space.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>hk: 3d complex array</dt><dd><p>Hamiltonian in k-space.</p>
 </dd>
 </dl>
 </dd>

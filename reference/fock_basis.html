@@ -85,9 +85,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">EDRIXS Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="angular_momentum.html">angular_momentum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis_transform.html">basis_transform</a></li>
@@ -100,11 +98,13 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_spectrum.html">plot_spectrum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rixs_utils.html">rixs_utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="soc.html">soc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solvers.html">solvers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wannier_ham.html">wannier_ham</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -182,15 +182,15 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>n</strong><span class="classifier">int</span></dt><dd><p>Number n.</p>
+<dt><strong>n: int</strong></dt><dd><p>Number n.</p>
 </dd>
-<dt><strong>m</strong><span class="classifier">int</span></dt><dd><p>Number m.</p>
+<dt><strong>m: int</strong></dt><dd><p>Number m.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>res</strong><span class="classifier">int</span></dt><dd><p>The calculated result.</p>
+<dt>res: int</dt><dd><p>The calculated result.</p>
 </dd>
 </dl>
 </dd>
@@ -211,15 +211,15 @@ where <span class="math notranslate nohighlight">\(k\)</span> of <span class="ma
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>n</strong><span class="classifier">int</span></dt><dd><p>Binary length <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<dt><strong>n: int</strong></dt><dd><p>Binary length <span class="math notranslate nohighlight">\(n\)</span>.</p>
 </dd>
-<dt><strong>k</strong><span class="classifier">int</span></dt><dd><p>How many digitals are set to be 1.</p>
+<dt><strong>k: int</strong></dt><dd><p>How many digitals are set to be 1.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>res</strong><span class="classifier">list of int-lists</span></dt><dd><p>A list of list containing the binary digitals.</p>
+<dt>res: list of int-lists</dt><dd><p>A list of list containing the binary digitals.</p>
 </dd>
 </dl>
 </dd>
@@ -238,49 +238,91 @@ where <span class="math notranslate nohighlight">\(k\)</span> of <span class="ma
 </dd></dl>
 
 <dl class="function">
-<dt id="edrixs.fock_basis.get_fock_basis_by_NJz">
-<code class="descclassname">edrixs.fock_basis.</code><code class="descname">get_fock_basis_by_NJz</code><span class="sig-paren">(</span><em>norb</em>, <em>N</em>, <em>jz_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/fock_basis.html#get_fock_basis_by_NJz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.fock_basis.get_fock_basis_by_NJz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get decimal digitals to represent Fock states, use good quantum number:</p>
-<ul class="simple">
-<li><p>total angular momentum <span class="math notranslate nohighlight">\(J_{z}\)</span></p></li>
-</ul>
-<dl class="field-list simple">
+<dt id="edrixs.fock_basis.get_fock_bin_by_N">
+<code class="descclassname">edrixs.fock_basis.</code><code class="descname">get_fock_bin_by_N</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/fock_basis.html#get_fock_bin_by_N"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.fock_basis.get_fock_bin_by_N" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get binary form to represent a Fock state.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>norb</strong><span class="classifier">int</span></dt><dd><p>Number of orbitals.</p>
-</dd>
-<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Number of total occupancy.</p>
-</dd>
-<dt><strong>jz_list</strong><span class="classifier">list of int</span></dt><dd><p>Quantum number <span class="math notranslate nohighlight">\(j_{z}\)</span> for each orbital.</p>
+<dd class="field-odd"><dl>
+<dt><strong>args: ints</strong></dt><dd><p>args[0]: number of orbitals for 1st-shell,</p>
+<p>args[1]: number of occupancy for 1st-shell,</p>
+<p>args[2]: number of orbitals for 2nd-shell,</p>
+<p>args[3]: number of occupancy for 2nd-shell,</p>
+<p>…</p>
+<p>args[ <span class="math notranslate nohighlight">\(2N-2\)</span>]: number of orbitals for <span class="math notranslate nohighlight">\(N\)</span> th-shell,</p>
+<p>args[ <span class="math notranslate nohighlight">\(2N-1\)</span>]: number of occupancy for <span class="math notranslate nohighlight">\(N\)</span> th-shell.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>res</strong><span class="classifier">dict</span></dt><dd><p>A dictionary containing the decimal digitals, the key is good quantum
-numbers <span class="math notranslate nohighlight">\(j_{z}\)</span>, the value is a list of int.</p>
+<dt>result: list of int list</dt><dd><p>The binary form of Fock states.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">get_fock_basis_by_NJz</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="go">{</span>
-<span class="go"> -6: [],</span>
-<span class="go"> -5: [],</span>
-<span class="go"> -4: [5, 12],</span>
-<span class="go"> -3: [],</span>
-<span class="go"> -2: [6, 9, 20],</span>
-<span class="go"> -1: [],</span>
-<span class="go">  0: [3, 10, 17, 36, 24],</span>
-<span class="go">  1: [],</span>
-<span class="go">  2: [18, 33, 40],</span>
-<span class="go">  3: [],</span>
-<span class="go">  4: [34, 48],</span>
-<span class="go">  5: [],</span>
-<span class="go">  6: []</span>
-<span class="go">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">get_fock_bin_by_N</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">[[1, 1, 0, 0],</span>
+<span class="go"> [1, 0, 1, 0],</span>
+<span class="go"> [1, 0, 0, 1],</span>
+<span class="go"> [0, 1, 1, 0],</span>
+<span class="go"> [0, 1, 0, 1],</span>
+<span class="go"> [0, 0, 1, 1]]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">get_fock_bin_by_N</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">[[1, 1, 0, 0, 1, 0],</span>
+<span class="go"> [1, 0, 1, 0, 1, 0],</span>
+<span class="go"> [1, 0, 0, 1, 1, 0],</span>
+<span class="go"> [0, 1, 1, 0, 1, 0],</span>
+<span class="go"> [0, 1, 0, 1, 1, 0],</span>
+<span class="go"> [0, 0, 1, 1, 1, 0],</span>
+<span class="go"> [1, 1, 0, 0, 0, 1],</span>
+<span class="go"> [1, 0, 1, 0, 0, 1],</span>
+<span class="go"> [1, 0, 0, 1, 0, 1],</span>
+<span class="go"> [0, 1, 1, 0, 0, 1],</span>
+<span class="go"> [0, 1, 0, 1, 0, 1],</span>
+<span class="go"> [0, 0, 1, 1, 0, 1]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.fock_basis.get_fock_full_N">
+<code class="descclassname">edrixs.fock_basis.</code><code class="descname">get_fock_full_N</code><span class="sig-paren">(</span><em>norb</em>, <em>N</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/fock_basis.html#get_fock_full_N"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.fock_basis.get_fock_full_N" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the decimal digitals to represent Fock states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>norb: int</strong></dt><dd><p>Number of orbitals.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>Number of occupancy.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>res: list of int</dt><dd><p>The decimal digitals to represent Fock states.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">fock_bin</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">[[1, 1, 0, 0],</span>
+<span class="go"> [1, 0, 1, 0],</span>
+<span class="go"> [0, 1, 1, 0],</span>
+<span class="go"> [1, 0, 0, 1],</span>
+<span class="go"> [0, 1, 0, 1],</span>
+<span class="go"> [0, 0, 1, 1]]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">get_fock_full_N</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">[3, 5, 6, 9, 10, 12]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -295,17 +337,17 @@ numbers <span class="math notranslate nohighlight">\(j_{z}\)</span>, the value i
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>norb</strong><span class="classifier">int</span></dt><dd><p>Number of orbitals.</p>
+<dt><strong>norb: int</strong></dt><dd><p>Number of orbitals.</p>
 </dd>
-<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Number of total occupancy.</p>
+<dt><strong>N: int</strong></dt><dd><p>Number of total occupancy.</p>
 </dd>
-<dt><strong>lz_list</strong><span class="classifier">list of int</span></dt><dd><p>Quantum number <span class="math notranslate nohighlight">\(l_{z}\)</span> for each orbital.</p>
+<dt><strong>lz_list: list of int</strong></dt><dd><p>Quantum number <span class="math notranslate nohighlight">\(l_{z}\)</span> for each orbital.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>res</strong><span class="classifier">dict</span></dt><dd><p>A dictionary containing the decimal digitals, the key is good
+<dt>res: dict</dt><dd><p>A dictionary containing the decimal digitals, the key is good
 quantum numbers <span class="math notranslate nohighlight">\(L_{z}\)</span>, the value is a list of int.</p>
 </dd>
 </dl>
@@ -335,17 +377,17 @@ quantum numbers <span class="math notranslate nohighlight">\(L_{z}\)</span>, the
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>norb</strong><span class="classifier">int</span></dt><dd><p>Number of orbitals.</p>
+<dt><strong>norb: int</strong></dt><dd><p>Number of orbitals.</p>
 </dd>
-<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Number of total occupancy.</p>
+<dt><strong>N: int</strong></dt><dd><p>Number of total occupancy.</p>
 </dd>
-<dt><strong>sz_list</strong><span class="classifier">list of int</span></dt><dd><p>Quantum number <span class="math notranslate nohighlight">\(s_{z}\)</span> for each orbital.</p>
+<dt><strong>sz_list: list of int</strong></dt><dd><p>Quantum number <span class="math notranslate nohighlight">\(s_{z}\)</span> for each orbital.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>res</strong><span class="classifier">dict</span></dt><dd><p>A dictionary containing the decimal digitals, the key is good quantum
+<dt>res: dict</dt><dd><p>A dictionary containing the decimal digitals, the key is good quantum
 numbers <span class="math notranslate nohighlight">\(S_{z}\)</span>, the value is a list of int.</p>
 </dd>
 </dl>
@@ -366,6 +408,79 @@ numbers <span class="math notranslate nohighlight">\(S_{z}\)</span>, the value i
 </dd></dl>
 
 <dl class="function">
+<dt id="edrixs.fock_basis.get_fock_basis_by_NJz">
+<code class="descclassname">edrixs.fock_basis.</code><code class="descname">get_fock_basis_by_NJz</code><span class="sig-paren">(</span><em>norb</em>, <em>N</em>, <em>jz_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/fock_basis.html#get_fock_basis_by_NJz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.fock_basis.get_fock_basis_by_NJz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get decimal digitals to represent Fock states, use good quantum number:</p>
+<ul class="simple">
+<li><p>total angular momentum <span class="math notranslate nohighlight">\(J_{z}\)</span></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>norb: int</strong></dt><dd><p>Number of orbitals.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>Number of total occupancy.</p>
+</dd>
+<dt><strong>jz_list: list of int</strong></dt><dd><p>Quantum number <span class="math notranslate nohighlight">\(j_{z}\)</span> for each orbital.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>res: dict</dt><dd><p>A dictionary containing the decimal digitals, the key is good quantum
+numbers <span class="math notranslate nohighlight">\(j_{z}\)</span>, the value is a list of int.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">get_fock_basis_by_NJz</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="go">{</span>
+<span class="go"> -6: [],</span>
+<span class="go"> -5: [],</span>
+<span class="go"> -4: [5, 12],</span>
+<span class="go"> -3: [],</span>
+<span class="go"> -2: [6, 9, 20],</span>
+<span class="go"> -1: [],</span>
+<span class="go">  0: [3, 10, 17, 36, 24],</span>
+<span class="go">  1: [],</span>
+<span class="go">  2: [18, 33, 40],</span>
+<span class="go">  3: [],</span>
+<span class="go">  4: [34, 48],</span>
+<span class="go">  5: [],</span>
+<span class="go">  6: []</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.fock_basis.get_fock_basis_by_N_abelian">
+<code class="descclassname">edrixs.fock_basis.</code><code class="descname">get_fock_basis_by_N_abelian</code><span class="sig-paren">(</span><em>norb</em>, <em>N</em>, <em>a_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/fock_basis.html#get_fock_basis_by_N_abelian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.fock_basis.get_fock_basis_by_N_abelian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get decimal digitals to represent Fock states, use some Abelian good quantum number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>norb: int</strong></dt><dd><p>Number of orbitals.</p>
+</dd>
+<dt><strong>N: int</strong></dt><dd><p>Number of total occupancy.</p>
+</dd>
+<dt><strong>a_list: list of int</strong></dt><dd><p>Quantum number of the Abelian symmetry for each orbital.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>basis: dict</dt><dd><p>A dictionary containing the decimal digitals, the key is good quantum numbers,
+the value is a list of int.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="edrixs.fock_basis.get_fock_basis_by_N_LzSz">
 <code class="descclassname">edrixs.fock_basis.</code><code class="descname">get_fock_basis_by_N_LzSz</code><span class="sig-paren">(</span><em>norb</em>, <em>N</em>, <em>lz_list</em>, <em>sz_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/fock_basis.html#get_fock_basis_by_N_LzSz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.fock_basis.get_fock_basis_by_N_LzSz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get decimal digitals to represent Fock states, use good quantum number:</p>
@@ -376,19 +491,19 @@ numbers <span class="math notranslate nohighlight">\(S_{z}\)</span>, the value i
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>norb</strong><span class="classifier">int</span></dt><dd><p>Number of orbitals.</p>
+<dt><strong>norb: int</strong></dt><dd><p>Number of orbitals.</p>
 </dd>
-<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Number of total occupancy.</p>
+<dt><strong>N: int</strong></dt><dd><p>Number of total occupancy.</p>
 </dd>
-<dt><strong>lz_list</strong><span class="classifier">list of int</span></dt><dd><p>Quantum number <span class="math notranslate nohighlight">\(l_{z}\)</span> for each orbital.</p>
+<dt><strong>lz_list: list of int</strong></dt><dd><p>Quantum number <span class="math notranslate nohighlight">\(l_{z}\)</span> for each orbital.</p>
 </dd>
-<dt><strong>sz_list</strong><span class="classifier">list of int</span></dt><dd><p>Quantum number <span class="math notranslate nohighlight">\(s_{z}\)</span> for each orbital.</p>
+<dt><strong>sz_list: list of int</strong></dt><dd><p>Quantum number <span class="math notranslate nohighlight">\(s_{z}\)</span> for each orbital.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>basis</strong><span class="classifier">dict</span></dt><dd><p>A dictionary containing the decimal digitals, the key is a tuple containing good quantum
+<dt>basis: dict</dt><dd><p>A dictionary containing the decimal digitals, the key is a tuple containing good quantum
 numbers ( <span class="math notranslate nohighlight">\(l_{z}\)</span>, <span class="math notranslate nohighlight">\(s_{z}\)</span>), the value is a list of int.</p>
 </dd>
 </dl>
@@ -429,121 +544,6 @@ numbers ( <span class="math notranslate nohighlight">\(l_{z}\)</span>, <span cla
 </dd></dl>
 
 <dl class="function">
-<dt id="edrixs.fock_basis.get_fock_basis_by_N_abelian">
-<code class="descclassname">edrixs.fock_basis.</code><code class="descname">get_fock_basis_by_N_abelian</code><span class="sig-paren">(</span><em>norb</em>, <em>N</em>, <em>a_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/fock_basis.html#get_fock_basis_by_N_abelian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.fock_basis.get_fock_basis_by_N_abelian" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get decimal digitals to represent Fock states, use some Abelian good quantum number.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>norb</strong><span class="classifier">int</span></dt><dd><p>Number of orbitals.</p>
-</dd>
-<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Number of total occupancy.</p>
-</dd>
-<dt><strong>a_list</strong><span class="classifier">list of int</span></dt><dd><p>Quantum number of the Abelian symmetry for each orbital.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>basis</strong><span class="classifier">dict</span></dt><dd><p>A dictionary containing the decimal digitals, the key is good quantum numbers,
-the value is a list of int.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.fock_basis.get_fock_bin_by_N">
-<code class="descclassname">edrixs.fock_basis.</code><code class="descname">get_fock_bin_by_N</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/fock_basis.html#get_fock_bin_by_N"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.fock_basis.get_fock_bin_by_N" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get binary form to represent a Fock state.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
-<dt><strong>args</strong><span class="classifier">ints</span></dt><dd><p>args[0]: number of orbitals for 1st-shell,</p>
-<p>args[1]: number of occupancy for 1st-shell,</p>
-<p>args[2]: number of orbitals for 2nd-shell,</p>
-<p>args[3]: number of occupancy for 2nd-shell,</p>
-<p>…</p>
-<p>args[ <span class="math notranslate nohighlight">\(2N-2\)</span>]: number of orbitals for <span class="math notranslate nohighlight">\(N\)</span> th-shell,</p>
-<p>args[ <span class="math notranslate nohighlight">\(2N-1\)</span>]: number of occupancy for <span class="math notranslate nohighlight">\(N\)</span> th-shell.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>result</strong><span class="classifier">list of int list</span></dt><dd><p>The binary form of Fock states.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">get_fock_bin_by_N</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="go">[[1, 1, 0, 0],</span>
-<span class="go"> [1, 0, 1, 0],</span>
-<span class="go"> [1, 0, 0, 1],</span>
-<span class="go"> [0, 1, 1, 0],</span>
-<span class="go"> [0, 1, 0, 1],</span>
-<span class="go"> [0, 0, 1, 1]]</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">get_fock_bin_by_N</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="go">[[1, 1, 0, 0, 1, 0],</span>
-<span class="go"> [1, 0, 1, 0, 1, 0],</span>
-<span class="go"> [1, 0, 0, 1, 1, 0],</span>
-<span class="go"> [0, 1, 1, 0, 1, 0],</span>
-<span class="go"> [0, 1, 0, 1, 1, 0],</span>
-<span class="go"> [0, 0, 1, 1, 1, 0],</span>
-<span class="go"> [1, 1, 0, 0, 0, 1],</span>
-<span class="go"> [1, 0, 1, 0, 0, 1],</span>
-<span class="go"> [1, 0, 0, 1, 0, 1],</span>
-<span class="go"> [0, 1, 1, 0, 0, 1],</span>
-<span class="go"> [0, 1, 0, 1, 0, 1],</span>
-<span class="go"> [0, 0, 1, 1, 0, 1]]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.fock_basis.get_fock_full_N">
-<code class="descclassname">edrixs.fock_basis.</code><code class="descname">get_fock_full_N</code><span class="sig-paren">(</span><em>norb</em>, <em>N</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/fock_basis.html#get_fock_full_N"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.fock_basis.get_fock_full_N" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the decimal digitals to represent Fock states.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>norb</strong><span class="classifier">int</span></dt><dd><p>Number of orbitals.</p>
-</dd>
-<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Number of occupancy.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>res</strong><span class="classifier">list of int</span></dt><dd><p>The decimal digitals to represent Fock states.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">fock_bin</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="go">[[1, 1, 0, 0],</span>
-<span class="go"> [1, 0, 1, 0],</span>
-<span class="go"> [0, 1, 1, 0],</span>
-<span class="go"> [1, 0, 0, 1],</span>
-<span class="go"> [0, 1, 0, 1],</span>
-<span class="go"> [0, 0, 1, 1]]</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">get_fock_full_N</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="go">[3, 5, 6, 9, 10, 12]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
 <dt id="edrixs.fock_basis.write_fock_dec_by_N">
 <code class="descclassname">edrixs.fock_basis.</code><code class="descname">write_fock_dec_by_N</code><span class="sig-paren">(</span><em>N</em>, <em>r</em>, <em>fname='fock_i.in'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/fock_basis.html#write_fock_dec_by_N"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.fock_basis.write_fock_dec_by_N" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get decimal digitals to represent Fock states, sort them by
@@ -551,17 +551,17 @@ ascending order and then write them to file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>N</strong><span class="classifier">int</span></dt><dd><p>Number of orbitals.</p>
+<dt><strong>N: int</strong></dt><dd><p>Number of orbitals.</p>
 </dd>
-<dt><strong>r</strong><span class="classifier">int</span></dt><dd><p>Number of occuancy.</p>
+<dt><strong>r: int</strong></dt><dd><p>Number of occuancy.</p>
 </dd>
-<dt><strong>fname</strong><span class="classifier">string</span></dt><dd><p>File name.</p>
+<dt><strong>fname: string</strong></dt><dd><p>File name.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>ndim</strong><span class="classifier">int</span></dt><dd><p>The dimension of the Hilbert space</p>
+<dt>ndim: int</dt><dd><p>The dimension of the Hilbert space</p>
 </dd>
 </dl>
 </dd>

@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Release History" href="../release-history.html" />
     <link rel="prev" title="utils" href="utils.html" /> 
 </head>
 
@@ -84,9 +85,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">EDRIXS Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="angular_momentum.html">angular_momentum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis_transform.html">basis_transform</a></li>
@@ -99,11 +98,13 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_spectrum.html">plot_spectrum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rixs_utils.html">rixs_utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="soc.html">soc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solvers.html">solvers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">wannier_ham</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -179,17 +180,17 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>nwann</strong><span class="classifier">int</span></dt><dd><p>Number of Wannier orbitals.</p>
+<dt><strong>nwann: int</strong></dt><dd><p>Number of Wannier orbitals.</p>
 </dd>
-<dt><strong>nrpt</strong><span class="classifier">int</span></dt><dd><p>Number of <span class="math notranslate nohighlight">\(r\)</span> points.</p>
+<dt><strong>nrpt: int</strong></dt><dd><p>Number of <span class="math notranslate nohighlight">\(r\)</span> points.</p>
 </dd>
-<dt><strong>irpt0</strong><span class="classifier">int</span></dt><dd><p>Index of the point (0,0,0).</p>
+<dt><strong>irpt0: int</strong></dt><dd><p>Index of the point (0,0,0).</p>
 </dd>
-<dt><strong>rpts</strong><span class="classifier">float array</span></dt><dd><p>The coordinates of <span class="math notranslate nohighlight">\(r\)</span> points.</p>
+<dt><strong>rpts: float array</strong></dt><dd><p>The coordinates of <span class="math notranslate nohighlight">\(r\)</span> points.</p>
 </dd>
-<dt><strong>deg_rpt</strong><span class="classifier">int array</span></dt><dd><p>Degenerancy of <span class="math notranslate nohighlight">\(r\)</span> points.</p>
+<dt><strong>deg_rpt: int array</strong></dt><dd><p>Degenerancy of <span class="math notranslate nohighlight">\(r\)</span> points.</p>
 </dd>
-<dt><strong>hr</strong><span class="classifier">complex array</span></dt><dd><p>Hamiltonian <span class="math notranslate nohighlight">\(H(r)\)</span> from Wannier90.</p>
+<dt><strong>hr: complex array</strong></dt><dd><p>Hamiltonian <span class="math notranslate nohighlight">\(H(r)\)</span> from Wannier90.</p>
 </dd>
 </dl>
 </dd>
@@ -201,13 +202,13 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>other</strong><span class="classifier">HR object</span></dt><dd><p>A HR object to be copied.</p>
+<dt><strong>other: HR object</strong></dt><dd><p>A HR object to be copied.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>HR</strong><span class="classifier">HR object</span></dt><dd><p>Return a new HR object.</p>
+<dt>HR: HR object</dt><dd><p>Return a new HR object.</p>
 </dd>
 </dl>
 </dd>
@@ -221,13 +222,13 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>fname</strong><span class="classifier">str</span></dt><dd><p>The file that contains the Wannier90 output file: “case_hr.dat”.</p>
+<dt><strong>fname: str</strong></dt><dd><p>The file that contains the Wannier90 output file: “case_hr.dat”.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>HR</strong><span class="classifier">HR object</span></dt><dd><p>A HR object.</p>
+<dt>HR: HR object</dt><dd><p>A HR object.</p>
 </dd>
 </dl>
 </dd>
@@ -236,18 +237,18 @@
 
 <dl class="method">
 <dt id="edrixs.wannier_ham.HR.get_hr">
-<code class="descname">get_hr</code><span class="sig-paren">(</span><em>ispin</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#HR.get_hr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.HR.get_hr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_hr</code><span class="sig-paren">(</span><em>self</em>, <em>ispin</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#HR.get_hr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.HR.get_hr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the Hamiltonian of <span class="math notranslate nohighlight">\(H(r)\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether to include spin degree of freedom or not (default: False)</p>
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether to include spin degree of freedom or not (default: False)</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>hr</strong><span class="classifier">3d complex array</span></dt><dd><p>The Hamiltonian <span class="math notranslate nohighlight">\(H(r)\)</span>.</p>
+<dt>hr: 3d complex array</dt><dd><p>The Hamiltonian <span class="math notranslate nohighlight">\(H(r)\)</span>.</p>
 </dd>
 </dl>
 </dd>
@@ -256,18 +257,18 @@
 
 <dl class="method">
 <dt id="edrixs.wannier_ham.HR.get_hr0">
-<code class="descname">get_hr0</code><span class="sig-paren">(</span><em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#HR.get_hr0"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.HR.get_hr0" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_hr0</code><span class="sig-paren">(</span><em>self</em>, <em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#HR.get_hr0"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.HR.get_hr0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the on-site term <span class="math notranslate nohighlight">\(H(r=0)\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether to include spin degree of freedom or not (default: False).</p>
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether to include spin degree of freedom or not (default: False).</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>hr</strong><span class="classifier">2d complex array</span></dt><dd><p>The on-site Hamiltonian.</p>
+<dt>hr: 2d complex array</dt><dd><p>The on-site Hamiltonian.</p>
 </dd>
 </dl>
 </dd>
@@ -280,28 +281,28 @@
 <dt id="edrixs.wannier_ham.KVec">
 <em class="property">class </em><code class="descclassname">edrixs.wannier_ham.</code><code class="descname">KVec</code><span class="sig-paren">(</span><em>kpt_type='uni'</em>, <em>kbase=None</em>, <em>nkpt=None</em>, <em>kvec=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#KVec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.KVec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define <span class="math notranslate nohighlight">\(k\)</span> points in BZ, high symmetry line or uniform grid.</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
-<dt><strong>kpt_type</strong><span class="classifier">str</span></dt><dd><p>The type of <span class="math notranslate nohighlight">\(k\)</span> points, ‘uni’ or ‘sym’.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kpt_type: str</strong></dt><dd><p>The type of <span class="math notranslate nohighlight">\(k\)</span> points, ‘uni’ or ‘sym’.</p>
 </dd>
-<dt><strong>kbase</strong><span class="classifier"><span class="math notranslate nohighlight">\(3 \times 3\)</span> float array</span></dt><dd><p>The basis vectors of the primitive reciprocal space.</p>
+<dt><strong>kbase: :math:`3 times 3` float array</strong></dt><dd><p>The basis vectors of the primitive reciprocal space.</p>
 </dd>
-<dt><strong>nkpt</strong><span class="classifier">int</span></dt><dd><p>Number of <span class="math notranslate nohighlight">\(k\)</span> points.</p>
+<dt><strong>nkpt: int</strong></dt><dd><p>Number of <span class="math notranslate nohighlight">\(k\)</span> points.</p>
 </dd>
-<dt><strong>kvec</strong><span class="classifier">float array</span></dt><dd><p>The <span class="math notranslate nohighlight">\(k\)</span> points.</p>
+<dt><strong>kvec: float array</strong></dt><dd><p>The <span class="math notranslate nohighlight">\(k\)</span> points.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <dl class="method">
 <dt id="edrixs.wannier_ham.KVec.kvec_from_file">
-<code class="descname">kvec_from_file</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#KVec.kvec_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.KVec.kvec_from_file" title="Permalink to this definition">¶</a></dt>
+<code class="descname">kvec_from_file</code><span class="sig-paren">(</span><em>self</em>, <em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#KVec.kvec_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.KVec.kvec_from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read <span class="math notranslate nohighlight">\(k\)</span> points from file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>fname</strong><span class="classifier">str</span></dt><dd><p>File name.</p>
+<dt><strong>fname: str</strong></dt><dd><p>File name.</p>
 </dd>
 </dl>
 </dd>
@@ -310,12 +311,12 @@
 
 <dl class="method">
 <dt id="edrixs.wannier_ham.KVec.set_base">
-<code class="descname">set_base</code><span class="sig-paren">(</span><em>kbase</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#KVec.set_base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.KVec.set_base" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_base</code><span class="sig-paren">(</span><em>self</em>, <em>kbase</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#KVec.set_base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.KVec.set_base" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the basis of the primitive reciprocal.</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
-<dt><strong>kbase</strong><span class="classifier"><span class="math notranslate nohighlight">\(3 \times 3\)</span> float array</span></dt><dd><p>The basis with respect to the global axis.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kbase: :math:`3 times 3` float array</strong></dt><dd><p>The basis with respect to the global axis.</p>
 </dd>
 </dl>
 </dd>
@@ -328,28 +329,28 @@
 <dt id="edrixs.wannier_ham.SymKVec">
 <em class="property">class </em><code class="descclassname">edrixs.wannier_ham.</code><code class="descname">SymKVec</code><span class="sig-paren">(</span><em>kbase=None</em>, <em>hsymkpt=None</em>, <em>klen=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#SymKVec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.SymKVec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for defining <span class="math notranslate nohighlight">\(k\)</span> points in high symmetry line, derived from <a class="reference internal" href="#edrixs.wannier_ham.KVec" title="edrixs.wannier_ham.KVec"><code class="xref py py-class docutils literal notranslate"><span class="pre">KVec</span></code></a>.</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl>
-<dt><strong>kbase</strong><span class="classifier"><span class="math notranslate nohighlight">\(3 \times 3\)</span> float array</span></dt><dd><p>Basis of the primitive reciprocal lattice.</p>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kbase: :math:`3 times 3` float array</strong></dt><dd><p>Basis of the primitive reciprocal lattice.</p>
 </dd>
-<dt><strong>hsymkpt</strong><span class="classifier">float array</span></dt><dd><p>Starting and end <span class="math notranslate nohighlight">\(k\)</span> points along high symmetry lines.</p>
+<dt><strong>hsymkpt: float array</strong></dt><dd><p>Starting and end <span class="math notranslate nohighlight">\(k\)</span> points along high symmetry lines.</p>
 </dd>
-<dt><strong>klen</strong><span class="classifier">float array</span></dt><dd><p>Length of segments of <span class="math notranslate nohighlight">\(k\)</span> points line.</p>
+<dt><strong>klen: float array</strong></dt><dd><p>Length of segments of <span class="math notranslate nohighlight">\(k\)</span> points line.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <dl class="method">
 <dt id="edrixs.wannier_ham.SymKVec.from_hsymkpt">
-<code class="descname">from_hsymkpt</code><span class="sig-paren">(</span><em>nkpt_per_path=20</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#SymKVec.from_hsymkpt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.SymKVec.from_hsymkpt" title="Permalink to this definition">¶</a></dt>
+<code class="descname">from_hsymkpt</code><span class="sig-paren">(</span><em>self</em>, <em>nkpt_per_path=20</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#SymKVec.from_hsymkpt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.SymKVec.from_hsymkpt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given starting and end <span class="math notranslate nohighlight">\(k\)</span> points of each segment,
 and the number of points per each segment,
 return the high symmetry <span class="math notranslate nohighlight">\(k\)</span> points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>nkpt_per_path</strong><span class="classifier">int</span></dt><dd><p>Number of <span class="math notranslate nohighlight">\(k\)</span> points per each segment.</p>
+<dt><strong>nkpt_per_path: int</strong></dt><dd><p>Number of <span class="math notranslate nohighlight">\(k\)</span> points per each segment.</p>
 </dd>
 </dl>
 </dd>
@@ -358,12 +359,12 @@ return the high symmetry <span class="math notranslate nohighlight">\(k\)</span>
 
 <dl class="method">
 <dt id="edrixs.wannier_ham.SymKVec.from_hsymkpt_uni">
-<code class="descname">from_hsymkpt_uni</code><span class="sig-paren">(</span><em>step</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#SymKVec.from_hsymkpt_uni"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.SymKVec.from_hsymkpt_uni" title="Permalink to this definition">¶</a></dt>
+<code class="descname">from_hsymkpt_uni</code><span class="sig-paren">(</span><em>self</em>, <em>step</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#SymKVec.from_hsymkpt_uni"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.SymKVec.from_hsymkpt_uni" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a step, return high symmetry <span class="math notranslate nohighlight">\(k\)</span> points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>step</strong><span class="classifier">float</span></dt><dd><p>Step size.</p>
+<dt><strong>step: float</strong></dt><dd><p>Step size.</p>
 </dd>
 </dl>
 </dd>
@@ -372,7 +373,7 @@ return the high symmetry <span class="math notranslate nohighlight">\(k\)</span>
 
 <dl class="method">
 <dt id="edrixs.wannier_ham.SymKVec.get_klen">
-<code class="descname">get_klen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#SymKVec.get_klen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.SymKVec.get_klen" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_klen</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#SymKVec.get_klen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.SymKVec.get_klen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return length of <span class="math notranslate nohighlight">\(k\)</span> points segments.</p>
 </dd></dl>
 
@@ -385,14 +386,14 @@ return the high symmetry <span class="math notranslate nohighlight">\(k\)</span>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>grid</strong><span class="classifier">3-elements tuple</span></dt><dd><p>Three numbers defining a uniform grid, for example: <span class="math notranslate nohighlight">\(11 \times 11 \times 11\)</span>.</p>
+<dt><strong>grid: 3-elements tuple</strong></dt><dd><p>Three numbers defining a uniform grid, for example: <span class="math notranslate nohighlight">\(11 \times 11 \times 11\)</span>.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <dl class="method">
 <dt id="edrixs.wannier_ham.UniKVec.from_grid">
-<code class="descname">from_grid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#UniKVec.from_grid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.UniKVec.from_grid" title="Permalink to this definition">¶</a></dt>
+<code class="descname">from_grid</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/wannier_ham.html#UniKVec.from_grid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.wannier_ham.UniKVec.from_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return uniform <span class="math notranslate nohighlight">\(k\)</span> points.</p>
 </dd></dl>
 
@@ -407,6 +408,8 @@ return the high symmetry <span class="math notranslate nohighlight">\(k\)</span>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../release-history.html" class="btn btn-neutral float-right" title="Release History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="utils.html" class="btn btn-neutral float-left" title="utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

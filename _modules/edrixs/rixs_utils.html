@@ -83,10 +83,9 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">EDRIXS Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -150,7 +149,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for edrixs.rixs_utils</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;scattering_mat&#39;</span><span class="p">]</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
@@ -169,27 +169,22 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    eval_i : 1d float array</span>
+<span class="sd">    eval_i: 1d float array</span>
 <span class="sd">        Eigenvalues of the initial configuration without core-hole, :math:`E_i`.</span>
-
-<span class="sd">    eval_n : 1d float array</span>
+<span class="sd">    eval_n: 1d float array</span>
 <span class="sd">        Eigenvalues of the intermediate configuration with core-hole, :math:`E_n`.</span>
-
-<span class="sd">    trans_mat_abs : 3d complex array</span>
+<span class="sd">    trans_mat_abs: 3d complex array</span>
 <span class="sd">        The transition operator for absorption process, :math:`&lt;n|T_{b}|i&gt;`.</span>
-
-<span class="sd">    trans_mat_emi : 3d complex array</span>
+<span class="sd">    trans_mat_emi: 3d complex array</span>
 <span class="sd">        The transition operator for emission process, :math:`&lt;f|T_{a}|n&gt;`.</span>
-
-<span class="sd">    omega_inc : float</span>
+<span class="sd">    omega_inc: float</span>
 <span class="sd">        The energy of incident photon, :math:`\\omega_{in}`.</span>
-
-<span class="sd">    gamma_n : float</span>
+<span class="sd">    gamma_n: float</span>
 <span class="sd">        The broadening of the core-hole (eV), :math:`\\Gamma_{n}`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Ffi : 4d complex array</span>
+<span class="sd">    Ffi: 4d complex array</span>
 <span class="sd">        The calculated scattering magnitude, :math:`F^{ab}_{fi}`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

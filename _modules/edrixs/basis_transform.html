@@ -83,10 +83,9 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">EDRIXS Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -150,7 +149,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for edrixs.basis_transform</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cb_op&#39;</span><span class="p">,</span> <span class="s1">&#39;cb_op2&#39;</span><span class="p">,</span> <span class="s1">&#39;tmat_c2r&#39;</span><span class="p">,</span> <span class="s1">&#39;tmat_r2c&#39;</span><span class="p">,</span> <span class="s1">&#39;tmat_r2cub_f&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;tmat_cub2r_f&#39;</span><span class="p">,</span> <span class="s1">&#39;tmat_c2j&#39;</span><span class="p">,</span> <span class="s1">&#39;transform_utensor&#39;</span><span class="p">,</span> <span class="s1">&#39;fourier_hr2hk&#39;</span><span class="p">]</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -170,10 +170,9 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    oper_A : 2d array</span>
+<span class="sd">    oper_A: 2d array</span>
 <span class="sd">        The matrix form of operator :math:`\\hat{O}` in basis :math:`A`.</span>
-
-<span class="sd">    t_mat : 2d array</span>
+<span class="sd">    t_mat: 2d array</span>
 <span class="sd">        The unitary transformation matrix from basis :math:`A` to</span>
 <span class="sd">        basis :math:`B`,  namely,</span>
 <span class="sd">        :math:`T_{ij} = &lt;\\psi^{A}_{i}|\\phi^{B}_{j}&gt;`.</span>
@@ -199,18 +198,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    oper_A : 2d array</span>
+<span class="sd">    oper_A: 2d array</span>
 <span class="sd">        The matrix form of operator :math:`\\hat{O}` in basis :math:`A`.</span>
-
-<span class="sd">    TL : 2d array</span>
+<span class="sd">    TL: 2d array</span>
 <span class="sd">        The unitary transformation matrix applied on the left.</span>
-
-<span class="sd">    TR : 2d array</span>
+<span class="sd">    TR: 2d array</span>
 <span class="sd">        The unitary transformation matrix applied on the right.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    oper_B : 2d array</span>
+<span class="sd">    oper_B: 2d array</span>
 <span class="sd">        The matrix form of operator :math:`\\hat{O}` after the transformation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -225,20 +222,19 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    case : string</span>
+<span class="sd">    case: string</span>
 <span class="sd">        Label for different systems.</span>
 
 <span class="sd">        - &#39;p&#39;: for :math:`p`-shell</span>
 <span class="sd">        - &#39;t2g&#39;: for :math:`t_{2g}`-shell</span>
 <span class="sd">        - &#39;d&#39;: for :math:`d`-shell</span>
 <span class="sd">        - &#39;f&#39;: for :math:`f`-shell</span>
-
-<span class="sd">    ispin : logical</span>
+<span class="sd">    ispin: logical</span>
 <span class="sd">        Whether including spin degree of freedom or not (default: False).</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    t_c2r : 2d complex array</span>
+<span class="sd">    t_c2r: 2d complex array</span>
 <span class="sd">        The transformation matrix.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -344,20 +340,19 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    case : string</span>
+<span class="sd">    case: string</span>
 <span class="sd">        Label for different systems.</span>
 
 <span class="sd">        - &#39;p&#39;: for :math:`p`-shell</span>
 <span class="sd">        - &#39;t2g&#39;: for :math:`t_{2g}`-shell</span>
 <span class="sd">        - &#39;d&#39;: for :math:`d`-shell</span>
 <span class="sd">        - &#39;f&#39;: for :math:`f`-shell</span>
-
-<span class="sd">    ispin : logical</span>
+<span class="sd">    ispin: logical</span>
 <span class="sd">        Whether including spin degree of freedom or not (default: False).</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    t_r2c : 2d complex array</span>
+<span class="sd">    t_r2c: 2d complex array</span>
 <span class="sd">        The transformation matrix.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -373,12 +368,12 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    ispin : logical</span>
+<span class="sd">    ispin: logical</span>
 <span class="sd">        Whether including spin degree of freedom or not (default: False).</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    t_r2cub : 2d complex array</span>
+<span class="sd">    t_r2cub: 2d complex array</span>
 <span class="sd">        The transformation matrix.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -432,12 +427,12 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    ispin : logical</span>
+<span class="sd">    ispin: logical</span>
 <span class="sd">        Whether including spin degree of freedom or not (default: False).</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    t_cub2r : 2d complex array</span>
+<span class="sd">    t_cub2r: 2d complex array</span>
 <span class="sd">        The transformation matrix.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -457,12 +452,12 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    orb_l : int</span>
+<span class="sd">    orb_l: int</span>
 <span class="sd">        Quantum number of orbital angular momentum.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    t_c2j : 2d complex array</span>
+<span class="sd">    t_c2j: 2d complex array</span>
 <span class="sd">        The transformation matrix.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -546,15 +541,14 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    umat : 4d array</span>
+<span class="sd">    umat: 4d array</span>
 <span class="sd">        Coulomb interaction tensor (rank-4).</span>
-
-<span class="sd">    tmat : 2d array</span>
+<span class="sd">    tmat: 2d array</span>
 <span class="sd">        The transformation matrix.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    umat_new : 4d complex array</span>
+<span class="sd">    umat_new: 4d complex array</span>
 <span class="sd">        The Coulomb interaction tensor in the new basis.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -595,30 +589,24 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    norbs : int</span>
+<span class="sd">    norbs: int</span>
 <span class="sd">        Number of orbitals.</span>
-
-<span class="sd">    nkpt : int</span>
+<span class="sd">    nkpt: int</span>
 <span class="sd">        Number of :math:`k`-points.</span>
-
-<span class="sd">    kvec : 2d float array</span>
+<span class="sd">    kvec: 2d float array</span>
 <span class="sd">        Fractional coordinate for k-points.</span>
-
-<span class="sd">    nrpt : int</span>
+<span class="sd">    nrpt: int</span>
 <span class="sd">        Number of r-points.</span>
-
-<span class="sd">    rvec : 2d float array</span>
+<span class="sd">    rvec: 2d float array</span>
 <span class="sd">        Fractional coordinate for r-points.</span>
-
-<span class="sd">    deg_rpt : int</span>
+<span class="sd">    deg_rpt: int</span>
 <span class="sd">        The degenerancy for each r-point.</span>
-
-<span class="sd">    hr : 3d complex array</span>
+<span class="sd">    hr: 3d complex array</span>
 <span class="sd">        Hamiltonian in r-space.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    hk : 3d complex array</span>
+<span class="sd">    hk: 3d complex array</span>
 <span class="sd">        Hamiltonian in k-space.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

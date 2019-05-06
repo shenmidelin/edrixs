@@ -85,9 +85,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">EDRIXS Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">angular_momentum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basis_transform.html">basis_transform</a></li>
@@ -100,11 +98,13 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_spectrum.html">plot_spectrum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rixs_utils.html">rixs_utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="soc.html">soc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solvers.html">solvers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wannier_ham.html">wannier_ham</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -174,57 +174,6 @@
   <div class="section" id="module-edrixs.angular_momentum">
 <span id="angular-momentum"></span><h1>angular_momentum<a class="headerlink" href="#module-edrixs.angular_momentum" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="edrixs.angular_momentum.dmat_spinor">
-<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">dmat_spinor</code><span class="sig-paren">(</span><em>alpha</em>, <em>beta</em>, <em>gamma</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#dmat_spinor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.dmat_spinor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given three Euler angle: <span class="math notranslate nohighlight">\(\alpha, \beta, \gamma\)</span>,
-return the transformation
-matrix for <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>-spinor.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>alpha</strong><span class="classifier">float</span></dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\alpha\)</span> in radian [0, <span class="math notranslate nohighlight">\(2\pi\)</span>].</p>
-</dd>
-<dt><strong>beta</strong><span class="classifier">float</span></dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\beta\)</span> in radian [0, <span class="math notranslate nohighlight">\(\pi\)</span>].</p>
-</dd>
-<dt><strong>gamma</strong><span class="classifier">float</span></dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\gamma\)</span> in radian [0, <span class="math notranslate nohighlight">\(2\pi\)</span>].</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>dmat</strong><span class="classifier">2d complex array</span></dt><dd><p>The <span class="math notranslate nohighlight">\(2\times 2\)</span> transformation matrix.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="edrixs.angular_momentum.euler_to_rmat">
-<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">euler_to_rmat</code><span class="sig-paren">(</span><em>alpha</em>, <em>beta</em>, <em>gamma</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#euler_to_rmat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.euler_to_rmat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given Euler angle: <span class="math notranslate nohighlight">\(\alpha, \beta, \gamma\)</span>,
-generate the <span class="math notranslate nohighlight">\(3\times 3\)</span> rotational matrix <span class="math notranslate nohighlight">\(R\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>alpha</strong><span class="classifier">float</span></dt><dd><p>Euler angle, in radian, [0, <span class="math notranslate nohighlight">\(2\pi\)</span>]</p>
-</dd>
-<dt><strong>beta</strong><span class="classifier">float</span></dt><dd><p>Euler angle, in radian, [0, <span class="math notranslate nohighlight">\(\pi\)</span>]</p>
-</dd>
-<dt><strong>gamma</strong><span class="classifier">float</span></dt><dd><p>Euler angle, in radian, [0, <span class="math notranslate nohighlight">\(2\pi\)</span>]</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>rmat</strong><span class="classifier">2d float array</span></dt><dd><p>The <span class="math notranslate nohighlight">\(3\times 3\)</span> rotational matrix.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
 <dt id="edrixs.angular_momentum.get_ladd">
 <code class="descclassname">edrixs.angular_momentum.</code><code class="descname">get_ladd</code><span class="sig-paren">(</span><em>l</em>, <em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#get_ladd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.get_ladd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the matrix form of the raising operator <span class="math notranslate nohighlight">\(l^+\)</span> in the
@@ -234,16 +183,16 @@ complex spherical harmonics basis</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>l</strong><span class="classifier">int</span></dt><dd><p>Orbital angular momentum number.</p>
+<dt><strong>l: int</strong></dt><dd><p>Orbital angular momentum number.</p>
 </dd>
-<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin or not (default: False).</p>
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether including spin or not (default: False).</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>ladd</strong><span class="classifier">2d complex array</span></dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(l^+\)</span>.</p>
-<p>If ispin=True, the dimension will be <span class="math notranslate nohighlight">\(2(2l+1)\times 2(2l+1)\)</span>,</p>
+<dt>ladd: 2d complex array</dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(l^+\)</span>.</p>
+<p>If ispin=True, the dimension will be <span class="math notranslate nohighlight">\(2(2l+1) \times 2(2l+1)\)</span>,</p>
 <p>otherwise, it will be <span class="math notranslate nohighlight">\((2l+1) \times (2l+1)\)</span>.</p>
 </dd>
 </dl>
@@ -261,16 +210,16 @@ complex spherical harmonics basis</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>l</strong><span class="classifier">int</span></dt><dd><p>Orbital angular momentum number.</p>
+<dt><strong>l: int</strong></dt><dd><p>Orbital angular momentum number.</p>
 </dd>
-<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin or not (default: False).</p>
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether including spin or not (default: False).</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>lminus</strong><span class="classifier">2d complex array</span></dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(l^-\)</span>.</p>
-<p>If ispin=True, the dimension will be <span class="math notranslate nohighlight">\(2(2l+1)\times 2(2l+1)\)</span>,</p>
+<dt>lminus: 2d complex array</dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(l^-\)</span>.</p>
+<p>If ispin=True, the dimension will be <span class="math notranslate nohighlight">\(2(2l+1) \times 2(2l+1)\)</span>,</p>
 <p>otherwise, it will be <span class="math notranslate nohighlight">\((2l+1) \times (2l+1)\)</span>.</p>
 </dd>
 </dl>
@@ -288,16 +237,16 @@ operator <span class="math notranslate nohighlight">\(l_x\)</span> in the comple
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>l</strong><span class="classifier">int</span></dt><dd><p>Orbital angular momentum number.</p>
+<dt><strong>l: int</strong></dt><dd><p>Orbital angular momentum number.</p>
 </dd>
-<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin or not (default: False).</p>
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether including spin or not (default: False).</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>lx</strong><span class="classifier">2d complex array</span></dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(l_x\)</span>.</p>
-<p>If ispin=True, the dimension will be <span class="math notranslate nohighlight">\(2(2l+1)\times 2(2l+1)\)</span>,</p>
+<dt>lx: 2d complex array</dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(l_x\)</span>.</p>
+<p>If ispin=True, the dimension will be <span class="math notranslate nohighlight">\(2(2l+1) \times 2(2l+1)\)</span>,</p>
 <p>otherwise, it will be <span class="math notranslate nohighlight">\((2l+1) \times (2l+1)\)</span>.</p>
 </dd>
 </dl>
@@ -315,16 +264,16 @@ operator <span class="math notranslate nohighlight">\(l_y\)</span> in the comple
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>l</strong><span class="classifier">int</span></dt><dd><p>Orbital angular momentum number.</p>
+<dt><strong>l: int</strong></dt><dd><p>Orbital angular momentum number.</p>
 </dd>
-<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin or not (default: False).</p>
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether including spin or not (default: False).</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>ly</strong><span class="classifier">2d complex array</span></dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(l_y\)</span>.</p>
-<p>If ispin=True, the dimension will be <span class="math notranslate nohighlight">\(2(2l+1)\times 2(2l+1)\)</span>,</p>
+<dt>ly: 2d complex array</dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(l_y\)</span>.</p>
+<p>If ispin=True, the dimension will be <span class="math notranslate nohighlight">\(2(2l+1) \times 2(2l+1)\)</span>,</p>
 <p>otherwise, it will be <span class="math notranslate nohighlight">\((2l+1) \times (2l+1)\)</span>.</p>
 </dd>
 </dl>
@@ -340,15 +289,15 @@ operator <span class="math notranslate nohighlight">\(l_z\)</span> in the comple
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>l</strong><span class="classifier">int</span></dt><dd><p>Orbital angular momentum number.</p>
+<dt><strong>l: int</strong></dt><dd><p>Orbital angular momentum number.</p>
 </dd>
-<dt><strong>ispin</strong><span class="classifier">logical</span></dt><dd><p>Whether including spin or not (default: False).</p>
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether including spin or not (default: False).</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>lz</strong><span class="classifier">2d complex array</span></dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(l_z\)</span>.</p>
+<dt>lz: 2d complex array</dt><dd><p>The matrix form of <span class="math notranslate nohighlight">\(l_z\)</span>.</p>
 <p>If ispin=True, the dimension will be <span class="math notranslate nohighlight">\(2(2l+1) \times 2(2l+1)\)</span>,</p>
 <p>otherwise, it will be <span class="math notranslate nohighlight">\((2l+1) \times (2l+1)\)</span>.</p>
 </dd>
@@ -364,7 +313,7 @@ operator <span class="math notranslate nohighlight">\(l_z\)</span> in the comple
 <dl class="field-list">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><dl>
-<dt><strong>sigma</strong><span class="classifier"><span class="math notranslate nohighlight">\(3\times 2 \times 2\)</span> complex array.</span></dt><dd><p>sigma[0] is <span class="math notranslate nohighlight">\(\sigma_x\)</span>,</p>
+<dt>sigma: 3d complex array, shape=(3, 2, 2)</dt><dd><p>sigma[0] is <span class="math notranslate nohighlight">\(\sigma_x\)</span>,</p>
 <p>sigma[1] is <span class="math notranslate nohighlight">\(\sigma_y\)</span>,</p>
 <p>sigma[2] is <span class="math notranslate nohighlight">\(\sigma_z\)</span>,</p>
 </dd>
@@ -381,13 +330,13 @@ complex spherical harmonics basis.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>l</strong><span class="classifier">int</span></dt><dd><p>Quantum number of orbital angular momentum.</p>
+<dt><strong>l: int</strong></dt><dd><p>Quantum number of orbital angular momentum.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>sx</strong><span class="classifier">2d complex array.</span></dt><dd><p>Matrix form of <span class="math notranslate nohighlight">\(s_x\)</span>, the dimension
+<dt>sx: 2d complex array.</dt><dd><p>Matrix form of <span class="math notranslate nohighlight">\(s_x\)</span>, the dimension
 is <span class="math notranslate nohighlight">\(2(2l+1) \times 2(2l+1)\)</span>,</p>
 <p>Orbital order is: |-l,up&gt;, |-l,down&gt;, …,
 |+l, up&gt;, |+l,down&gt;.</p>
@@ -405,13 +354,13 @@ complex spherical harmonics basis.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>l</strong><span class="classifier">int</span></dt><dd><p>Quantum number of orbital angular momentum.</p>
+<dt><strong>l: int</strong></dt><dd><p>Quantum number of orbital angular momentum.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>sy</strong><span class="classifier">2d complex array.</span></dt><dd><p>Matrix form of <span class="math notranslate nohighlight">\(s_y\)</span>, the dimension
+<dt>sy: 2d complex array.</dt><dd><p>Matrix form of <span class="math notranslate nohighlight">\(s_y\)</span>, the dimension
 is <span class="math notranslate nohighlight">\(2(2l+1) \times 2(2l+1)\)</span>, spin order is:</p>
 <p>Orbital order is: |-l,up&gt;, |-l,down&gt;, …,
 |+l, up&gt;, |+l,down&gt;</p>
@@ -429,13 +378,13 @@ complex spherical harmonics basis.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>l</strong><span class="classifier">int</span></dt><dd><p>Quantum number of orbital angular momentum.</p>
+<dt><strong>l: int</strong></dt><dd><p>Quantum number of orbital angular momentum.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt><strong>sz</strong><span class="classifier">2d complex array.</span></dt><dd><p>Matrix form of <span class="math notranslate nohighlight">\(s_z\)</span>, the dimension
+<dt>sz: 2d complex array.</dt><dd><p>Matrix form of <span class="math notranslate nohighlight">\(s_z\)</span>, the dimension
 is <span class="math notranslate nohighlight">\(2(2l+1) \times 2(2l+1)\)</span>.</p>
 <p>Orbital order is: |-l,up&gt;, |-l,down&gt;, …,
 |+l, up&gt;, |+l,down&gt;</p>
@@ -446,24 +395,49 @@ is <span class="math notranslate nohighlight">\(2(2l+1) \times 2(2l+1)\)</span>.
 </dd></dl>
 
 <dl class="function">
-<dt id="edrixs.angular_momentum.rmat_to_euler">
-<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">rmat_to_euler</code><span class="sig-paren">(</span><em>rmat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#rmat_to_euler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.rmat_to_euler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given the <span class="math notranslate nohighlight">\(3\times 3\)</span> rotational matrix <span class="math notranslate nohighlight">\(R\)</span>, return the Euler
-angles: <span class="math notranslate nohighlight">\(\alpha, \beta, \gamma\)</span>.</p>
+<dt id="edrixs.angular_momentum.euler_to_rmat">
+<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">euler_to_rmat</code><span class="sig-paren">(</span><em>alpha</em>, <em>beta</em>, <em>gamma</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#euler_to_rmat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.euler_to_rmat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given Euler angle: <span class="math notranslate nohighlight">\(\alpha, \beta, \gamma\)</span>,
+generate the <span class="math notranslate nohighlight">\(3 \times 3\)</span> rotational matrix <span class="math notranslate nohighlight">\(R\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>rmat</strong><span class="classifier">2d float array</span></dt><dd><p>The <span class="math notranslate nohighlight">\(3\times 3\)</span> rotational matrix <span class="math notranslate nohighlight">\(R\)</span>.</p>
+<dt><strong>alpha: float</strong></dt><dd><p>Euler angle, in radian, [0, <span class="math notranslate nohighlight">\(2\pi\)</span>]</p>
+</dd>
+<dt><strong>beta: float</strong></dt><dd><p>Euler angle, in radian, [0, <span class="math notranslate nohighlight">\(\pi\)</span>]</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>Euler angle, in radian, [0, <span class="math notranslate nohighlight">\(2\pi\)</span>]</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>alpha</strong><span class="classifier">float</span></dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\alpha\)</span> in radian, [0, <span class="math notranslate nohighlight">\(2\pi\)</span>].</p>
+<dt>rmat: 2d float array</dt><dd><p>The <span class="math notranslate nohighlight">\(3 \times 3\)</span> rotational matrix.</p>
 </dd>
-<dt><strong>beta</strong><span class="classifier">float</span></dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\beta\)</span> in radian, [0, <span class="math notranslate nohighlight">\(\pi\)</span>].</p>
+</dl>
 </dd>
-<dt><strong>gamma</strong><span class="classifier">float</span></dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\gamma\)</span> in radian, [0, <span class="math notranslate nohighlight">\(2\pi\)</span>]</p>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.angular_momentum.rmat_to_euler">
+<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">rmat_to_euler</code><span class="sig-paren">(</span><em>rmat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#rmat_to_euler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.rmat_to_euler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the <span class="math notranslate nohighlight">\(3 \times 3\)</span> rotational matrix <span class="math notranslate nohighlight">\(R\)</span>, return the Euler
+angles: <span class="math notranslate nohighlight">\(\alpha, \beta, \gamma\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rmat:  2d float array</strong></dt><dd><p>The <span class="math notranslate nohighlight">\(3 \times 3\)</span> rotational matrix <span class="math notranslate nohighlight">\(R\)</span>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>alpha: float</dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\alpha\)</span> in radian, [0, <span class="math notranslate nohighlight">\(2\pi\)</span>].</p>
+</dd>
+<dt>beta: float</dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\beta\)</span> in radian, [0, <span class="math notranslate nohighlight">\(\pi\)</span>].</p>
+</dd>
+<dt>gamma: float</dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\gamma\)</span> in radian, [0, <span class="math notranslate nohighlight">\(2\pi\)</span>]</p>
 </dd>
 </dl>
 </dd>
@@ -478,15 +452,41 @@ angle <span class="math notranslate nohighlight">\(\alpha\)</span> range from [0
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>sina</strong><span class="classifier">float</span></dt><dd><p><span class="math notranslate nohighlight">\(\sin(\alpha)\)</span>.</p>
+<dt><strong>sina:  float</strong></dt><dd><p><span class="math notranslate nohighlight">\(\sin(\alpha)\)</span>.</p>
 </dd>
-<dt><strong>cosa</strong><span class="classifier">float</span></dt><dd><p><span class="math notranslate nohighlight">\(\cos(\alpha)\)</span>.</p>
+<dt><strong>cosa:  float</strong></dt><dd><p><span class="math notranslate nohighlight">\(\cos(\alpha)\)</span>.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>alpha</strong><span class="classifier">float</span></dt><dd><p>The angle <span class="math notranslate nohighlight">\(\alpha\)</span> in radian [0, <span class="math notranslate nohighlight">\(2\pi\)</span>].</p>
+<dt>alpha: float</dt><dd><p>The angle <span class="math notranslate nohighlight">\(\alpha\)</span> in radian [0, <span class="math notranslate nohighlight">\(2\pi\)</span>].</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.angular_momentum.dmat_spinor">
+<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">dmat_spinor</code><span class="sig-paren">(</span><em>alpha</em>, <em>beta</em>, <em>gamma</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#dmat_spinor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.dmat_spinor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given three Euler angle: <span class="math notranslate nohighlight">\(\alpha, \beta, \gamma\)</span>,
+return the transformation
+matrix for <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>-spinor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>alpha: float</strong></dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\alpha\)</span> in radian [0, <span class="math notranslate nohighlight">\(2\pi\)</span>].</p>
+</dd>
+<dt><strong>beta: float</strong></dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\beta\)</span> in radian [0, <span class="math notranslate nohighlight">\(\pi\)</span>].</p>
+</dd>
+<dt><strong>gamma: float</strong></dt><dd><p>Euler angle <span class="math notranslate nohighlight">\(\gamma\)</span> in radian [0, <span class="math notranslate nohighlight">\(2\pi\)</span>].</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>dmat:  2d complex array</dt><dd><p>The <span class="math notranslate nohighlight">\(2 \times 2\)</span> transformation matrix.</p>
 </dd>
 </dl>
 </dd>
@@ -498,20 +498,129 @@ angle <span class="math notranslate nohighlight">\(\alpha\)</span> range from [0
 <code class="descclassname">edrixs.angular_momentum.</code><code class="descname">zx_to_rmat</code><span class="sig-paren">(</span><em>z</em>, <em>x</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#zx_to_rmat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.zx_to_rmat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given <span class="math notranslate nohighlight">\(z\)</span> vector and <span class="math notranslate nohighlight">\(x\)</span> vector, calculate <span class="math notranslate nohighlight">\(y\)</span> vector
 which satisfies the right-hand Cartesian coordinate and normalize them to
-unit if needed, and then return the <span class="math notranslate nohighlight">\(3\times 3\)</span>
+unit if needed, and then return the <span class="math notranslate nohighlight">\(3 \times 3\)</span>
 rotational matrix <span class="math notranslate nohighlight">\(R\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>z</strong><span class="classifier">1d float array</span></dt><dd><p>The <span class="math notranslate nohighlight">\(z\)</span> vector.</p>
+<dt><strong>z: 1d float array</strong></dt><dd><p>The <span class="math notranslate nohighlight">\(z\)</span> vector.</p>
 </dd>
-<dt><strong>x</strong><span class="classifier">1d float array</span></dt><dd><p>The <span class="math notranslate nohighlight">\(x\)</span> vector.</p>
+<dt><strong>x: 1d float array</strong></dt><dd><p>The <span class="math notranslate nohighlight">\(x\)</span> vector.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>rmat</strong><span class="classifier">2d float array</span></dt><dd><p>The <span class="math notranslate nohighlight">\(3\times 3\)</span> rotational matrix <span class="math notranslate nohighlight">\(R\)</span>.</p>
+<dt>rmat: 2d float array</dt><dd><p>The <span class="math notranslate nohighlight">\(3 \times 3\)</span> rotational matrix <span class="math notranslate nohighlight">\(R\)</span>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.angular_momentum.get_wigner_dmat">
+<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">get_wigner_dmat</code><span class="sig-paren">(</span><em>quant_2j</em>, <em>alpha</em>, <em>beta</em>, <em>gamma</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#get_wigner_dmat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.get_wigner_dmat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given quantum number and Euler angles, return the Wigner-D matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>quant_2j: int</strong></dt><dd><p>Twice of the quantum number j: 2j, for example, quant_2j=1 means j=1/2,
+quant_2j=2 means j=1</p>
+</dd>
+<dt><strong>alpha: float number</strong></dt><dd><p>The first Euler angle <span class="math notranslate nohighlight">\(\alpha\)</span> in radian [0, <span class="math notranslate nohighlight">\(2\pi\)</span>].</p>
+</dd>
+<dt><strong>beta: float number</strong></dt><dd><p>The second Euler angle <span class="math notranslate nohighlight">\(\beta\)</span> in radian [0, <span class="math notranslate nohighlight">\(\pi\)</span>].</p>
+</dd>
+<dt><strong>gamma: float number</strong></dt><dd><p>The third Euler angle <span class="math notranslate nohighlight">\(\gamma\)</span> in radian [0, <span class="math notranslate nohighlight">\(2\pi\)</span>].</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>result: 2d complex array, shape(quant_2j+1, quant_2j+1)</dt><dd><p>The Wigner D-matrix.
+For <span class="math notranslate nohighlight">\(j=1/2\)</span>, the orbital order is: +1/2 (spin up), -1/2 (spin down).
+For <span class="math notranslate nohighlight">\(j&gt;1/2\)</span>, the orbital order is: <span class="math notranslate nohighlight">\(-j, -j+1, ..., +j\)</span></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
+<span class="go">spin-1/2 D-matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">get_wigner_dmat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">array([[-0.224845-0.491295j, -0.454649-0.708073j],</span>
+<span class="go">       [ 0.454649-0.708073j, -0.224845+0.491295j]])</span>
+<span class="go">j=1 D-matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edrixs</span><span class="o">.</span><span class="n">get_wigner_dmat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">array([[-0.190816-0.220931j,  0.347398+0.541041j, -0.294663-0.643849j],</span>
+<span class="go">       [ 0.636536-0.090736j, -0.416147+0.j      , -0.636536-0.090736j],</span>
+<span class="go">       [-0.294663+0.643849j, -0.347398+0.541041j, -0.190816+0.220931j]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.angular_momentum.cf_cubic_d">
+<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">cf_cubic_d</code><span class="sig-paren">(</span><em>ten_dq</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#cf_cubic_d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.cf_cubic_d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given 10Dq, return cubic crystal field matrix for d orbitals
+in the complex harmonics basis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ten_dq: float scalar</strong></dt><dd><p>The splitting between <span class="math notranslate nohighlight">\(eg\)</span> and <span class="math notranslate nohighlight">\(t2g\)</span> orbitals.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>cf: 2d complex array, shape=(10, 10)</dt><dd><p>The matrix form of crystal field Hamiltonian in complex harmonics basis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.angular_momentum.cf_tetragonal_d">
+<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">cf_tetragonal_d</code><span class="sig-paren">(</span><em>ten_dq</em>, <em>d1</em>, <em>d3</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#cf_tetragonal_d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.cf_tetragonal_d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given 10Dq, d1, d3, return tetragonal crystal field matrix for d orbitals
+in the complex harmonics basis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ten_dq: float scalar</strong></dt><dd><p>Parameter used to label cubic crystal splitting.</p>
+</dd>
+<dt><strong>d1: float scalar</strong></dt><dd><p>Paramter used to label tetragonal splitting.</p>
+</dd>
+<dt><strong>d3: float scalar</strong></dt><dd><p>Paramter used to label tetragonal splitting.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>cf: 2d complex array, shape=(10, 10)</dt><dd><p>The matrix form of crystal field Hamiltonian in complex harmonics basis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.angular_momentum.cf_trigonal_t2g">
+<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">cf_trigonal_t2g</code><span class="sig-paren">(</span><em>delta</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#cf_trigonal_t2g"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.cf_trigonal_t2g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given delta, return trigonal crystal field matrix for t2g orbitals
+in the complex harmonics basis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>delta: float scalar</strong></dt><dd><p>Parameter used to label trigonal crystal splitting.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>cf: 2d complex array, shape=(6, 6)</dt><dd><p>The matrix form of crystal field Hamiltonian in complex harmonics basis.</p>
 </dd>
 </dl>
 </dd>

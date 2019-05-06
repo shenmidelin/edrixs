@@ -83,10 +83,9 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/index.html">EDRIXS User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">EDRIXS Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
 </ul>
 
             
@@ -150,11 +149,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for edrixs.coulomb_utensor</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;get_gaunt&#39;</span><span class="p">,</span> <span class="s1">&#39;umat_slater&#39;</span><span class="p">,</span> <span class="s1">&#39;get_umat_kanamori_ge&#39;</span><span class="p">,</span> <span class="s1">&#39;get_F0&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;get_umat_slater&#39;</span><span class="p">,</span> <span class="s1">&#39;get_umat_kanamori&#39;</span><span class="p">,</span> <span class="s1">&#39;get_umat_slater_3shells&#39;</span><span class="p">]</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">.basis_transform</span> <span class="k">import</span> <span class="n">tmat_c2r</span><span class="p">,</span> <span class="n">tmat_r2c</span><span class="p">,</span> <span class="n">transform_utensor</span>
 <span class="kn">from</span> <span class="nn">sympy.physics.wigner</span> <span class="k">import</span> <span class="n">gaunt</span>
+<span class="kn">from</span> <span class="nn">.basis_transform</span> <span class="k">import</span> <span class="n">tmat_c2r</span><span class="p">,</span> <span class="n">tmat_r2c</span><span class="p">,</span> <span class="n">tmat_c2j</span><span class="p">,</span> <span class="n">transform_utensor</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">info_atomic_shell</span><span class="p">,</span> <span class="n">case_to_shell_name</span><span class="p">,</span> <span class="n">slater_integrals_name</span>
 
 
 <div class="viewcode-block" id="get_gaunt"><a class="viewcode-back" href="../../reference/coulomb_utensor.html#edrixs.coulomb_utensor.get_gaunt">[docs]</a><span class="k">def</span> <span class="nf">get_gaunt</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">):</span>
@@ -170,9 +171,9 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    l1 : int</span>
+<span class="sd">    l1: int</span>
 <span class="sd">        The first quantum number of angular momentum.</span>
-<span class="sd">    l2 : int</span>
+<span class="sd">    l2: int</span>
 <span class="sd">        The second quantum number of angular momentum.</span>
 
 <span class="sd">    Returns</span>
@@ -263,12 +264,6 @@
 <span class="sd">    umat: 4d array of complex</span>
 <span class="sd">        contains the Coulomb interaction tensor.</span>
 
-<span class="sd">    See also</span>
-<span class="sd">    --------</span>
-<span class="sd">    coulomb_utensor.get_umat_slater</span>
-<span class="sd">    coulomb_utensor.get_umat_kanamori</span>
-<span class="sd">    coulomb_utensor.get_umat_kanamori_ge</span>
-
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; import edrixs</span>
@@ -310,8 +305,13 @@
 <span class="sd">    &gt;&gt;&gt; fk[(2,2,2,2,2)] = F2_pp</span>
 
 <span class="sd">    &gt;&gt;&gt; umat_dp = edrixs.umat_slater(l_list, fk)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    coulomb_utensor.get_umat_slater</span>
+<span class="sd">    coulomb_utensor.get_umat_kanamori</span>
+<span class="sd">    coulomb_utensor.get_umat_kanamori_ge</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">k_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">l_list</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
     <span class="n">ck</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">orb_label</span> <span class="o">=</span> <span class="p">[]</span>
@@ -359,334 +359,6 @@
 
     <span class="n">umat</span> <span class="o">=</span> <span class="n">umat</span> <span class="o">/</span> <span class="mf">2.0</span>
     <span class="k">return</span> <span class="n">umat</span></div>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_s</span><span class="p">(</span><span class="n">F0</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0</span>
-    <span class="n">umat</span> <span class="o">=</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">umat</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_p</span><span class="p">(</span><span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2</span>
-    <span class="n">umat</span> <span class="o">=</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">umat</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_d</span><span class="p">(</span><span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4</span>
-    <span class="n">umat</span> <span class="o">=</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">umat</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_t2g</span><span class="p">(</span><span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span><span class="p">):</span>
-    <span class="n">umat</span> <span class="o">=</span> <span class="n">get_umat_slater_d</span><span class="p">(</span><span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span><span class="p">)</span>
-    <span class="c1"># c to r</span>
-    <span class="n">umat</span> <span class="o">=</span> <span class="n">transform_utensor</span><span class="p">(</span><span class="n">umat</span><span class="p">,</span> <span class="n">tmat_c2r</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
-    <span class="n">t2g_indx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
-    <span class="n">umat_t2g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
-    <span class="n">umat_t2g</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">umat</span><span class="p">[</span><span class="n">t2g_indx</span><span class="p">][:,</span> <span class="n">t2g_indx</span><span class="p">][:,</span> <span class="p">:,</span> <span class="n">t2g_indx</span><span class="p">][:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">t2g_indx</span><span class="p">]</span>
-    <span class="c1"># t2g to c</span>
-    <span class="n">umat_t2g</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">transform_utensor</span><span class="p">(</span><span class="n">umat_t2g</span><span class="p">,</span> <span class="n">tmat_r2c</span><span class="p">(</span><span class="s1">&#39;t2g&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">umat_t2g</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_f</span><span class="p">(</span><span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span><span class="p">,</span> <span class="n">F6</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F6</span>
-    <span class="n">umat</span> <span class="o">=</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">umat</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_ps</span><span class="p">(</span><span class="n">F0_pp</span><span class="p">,</span> <span class="n">F2_pp</span><span class="p">,</span>
-                       <span class="n">F0_ps</span><span class="p">,</span>
-                       <span class="n">G1_ps</span><span class="p">,</span>
-                       <span class="n">F0_ss</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_pp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_pp</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_ps</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_ps</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G1_ps</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G1_ps</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_ss</span>
-
-    <span class="k">return</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_pp</span><span class="p">(</span><span class="n">F0_p1p1</span><span class="p">,</span> <span class="n">F2_p1p1</span><span class="p">,</span>
-                       <span class="n">F0_p1p2</span><span class="p">,</span> <span class="n">F2_p1p2</span><span class="p">,</span>
-                       <span class="n">G0_p1p2</span><span class="p">,</span> <span class="n">G2_p1p2</span><span class="p">,</span>
-                       <span class="n">F0_p2p2</span><span class="p">,</span> <span class="n">F2_p2p2</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_p1p1</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_p1p1</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_p1p2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_p1p2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_p1p2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_p1p2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G0_p1p2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G0_p1p2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G2_p1p2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G2_p1p2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_p2p2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_p2p2</span>
-
-    <span class="k">return</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_ds</span><span class="p">(</span><span class="n">F0_dd</span><span class="p">,</span> <span class="n">F2_dd</span><span class="p">,</span> <span class="n">F4_dd</span><span class="p">,</span>
-                       <span class="n">F0_ds</span><span class="p">,</span>
-                       <span class="n">G2_ds</span><span class="p">,</span>
-                       <span class="n">F0_ss</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_dd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_dd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_dd</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_ds</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_ds</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G2_ds</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G2_ds</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_ss</span>
-
-    <span class="k">return</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_dp</span><span class="p">(</span><span class="n">F0_dd</span><span class="p">,</span> <span class="n">F2_dd</span><span class="p">,</span> <span class="n">F4_dd</span><span class="p">,</span>
-                       <span class="n">F0_dp</span><span class="p">,</span> <span class="n">F2_dp</span><span class="p">,</span>
-                       <span class="n">G1_dp</span><span class="p">,</span> <span class="n">G3_dp</span><span class="p">,</span>
-                       <span class="n">F0_pp</span><span class="p">,</span> <span class="n">F2_pp</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_dd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_dd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_dd</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_dp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_dp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_dp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_dp</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G1_dp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G1_dp</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G3_dp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G3_dp</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_pp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_pp</span>
-
-    <span class="k">return</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_t2gp</span><span class="p">(</span><span class="n">F0_dd</span><span class="p">,</span> <span class="n">F2_dd</span><span class="p">,</span> <span class="n">F4_dd</span><span class="p">,</span>
-                         <span class="n">F0_dp</span><span class="p">,</span> <span class="n">F2_dp</span><span class="p">,</span>
-                         <span class="n">G1_dp</span><span class="p">,</span> <span class="n">G3_dp</span><span class="p">,</span>
-                         <span class="n">F0_pp</span><span class="p">,</span> <span class="n">F2_pp</span><span class="p">):</span>
-
-    <span class="n">umat</span> <span class="o">=</span> <span class="n">get_umat_slater_dp</span><span class="p">(</span>
-        <span class="n">F0_dd</span><span class="p">,</span> <span class="n">F2_dd</span><span class="p">,</span> <span class="n">F4_dd</span><span class="p">,</span>
-        <span class="n">F0_dp</span><span class="p">,</span> <span class="n">F2_dp</span><span class="p">,</span> <span class="n">G1_dp</span><span class="p">,</span> <span class="n">G3_dp</span><span class="p">,</span>
-        <span class="n">F0_pp</span><span class="p">,</span> <span class="n">F2_pp</span><span class="p">)</span>
-    <span class="n">tmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
-    <span class="n">tmat</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmat_c2r</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="n">umat</span> <span class="o">=</span> <span class="n">transform_utensor</span><span class="p">(</span><span class="n">umat</span><span class="p">,</span> <span class="n">tmat</span><span class="p">)</span>
-    <span class="n">umat_t2gp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
-    <span class="n">indx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
-    <span class="n">umat_t2gp</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">umat</span><span class="p">[</span><span class="n">indx</span><span class="p">][:,</span> <span class="n">indx</span><span class="p">][:,</span> <span class="p">:,</span> <span class="n">indx</span><span class="p">][:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">indx</span><span class="p">]</span>
-    <span class="n">tmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
-    <span class="n">tmat</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmat_r2c</span><span class="p">(</span><span class="s1">&#39;t2g&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="n">umat_t2gp</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">transform_utensor</span><span class="p">(</span><span class="n">umat_t2gp</span><span class="p">,</span> <span class="n">tmat</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">umat_t2gp</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_dd</span><span class="p">(</span><span class="n">F0_d1d1</span><span class="p">,</span> <span class="n">F2_d1d1</span><span class="p">,</span> <span class="n">F4_d1d1</span><span class="p">,</span>
-                       <span class="n">F0_d1d2</span><span class="p">,</span> <span class="n">F2_d1d2</span><span class="p">,</span> <span class="n">F4_d1d2</span><span class="p">,</span>
-                       <span class="n">G0_d1d2</span><span class="p">,</span> <span class="n">G2_d1d2</span><span class="p">,</span> <span class="n">G4_d1d2</span><span class="p">,</span>
-                       <span class="n">F0_d2d2</span><span class="p">,</span> <span class="n">F2_d2d2</span><span class="p">,</span> <span class="n">F4_d2d2</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_d1d1</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_d1d1</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_d1d1</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_d1d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_d1d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_d1d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_d1d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_d1d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_d1d2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G0_d1d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G0_d1d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G2_d1d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G2_d1d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G4_d1d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G4_d1d2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_d2d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_d2d2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_d2d2</span>
-
-    <span class="k">return</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_fs</span><span class="p">(</span><span class="n">F0_ff</span><span class="p">,</span> <span class="n">F2_ff</span><span class="p">,</span> <span class="n">F4_ff</span><span class="p">,</span> <span class="n">F6_ff</span><span class="p">,</span>
-                       <span class="n">F0_fs</span><span class="p">,</span>
-                       <span class="n">G3_fs</span><span class="p">,</span>
-                       <span class="n">F0_ss</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_ff</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_ff</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_ff</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_ff</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_fs</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_fs</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G3_fs</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G3_fs</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_ss</span>
-
-    <span class="k">return</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_fp</span><span class="p">(</span><span class="n">F0_ff</span><span class="p">,</span> <span class="n">F2_ff</span><span class="p">,</span> <span class="n">F4_ff</span><span class="p">,</span> <span class="n">F6_ff</span><span class="p">,</span>
-                       <span class="n">F0_fp</span><span class="p">,</span> <span class="n">F2_fp</span><span class="p">,</span>
-                       <span class="n">G2_fp</span><span class="p">,</span> <span class="n">G4_fp</span><span class="p">,</span>
-                       <span class="n">F0_pp</span><span class="p">,</span> <span class="n">F2_pp</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_ff</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_ff</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_ff</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_ff</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_fp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_fp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_fp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_fp</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G2_fp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G2_fp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G4_fp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G4_fp</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_pp</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_pp</span>
-
-    <span class="k">return</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_fd</span><span class="p">(</span><span class="n">F0_ff</span><span class="p">,</span> <span class="n">F2_ff</span><span class="p">,</span> <span class="n">F4_ff</span><span class="p">,</span> <span class="n">F6_ff</span><span class="p">,</span>
-                       <span class="n">F0_fd</span><span class="p">,</span> <span class="n">F2_fd</span><span class="p">,</span> <span class="n">F4_fd</span><span class="p">,</span>
-                       <span class="n">G1_fd</span><span class="p">,</span> <span class="n">G3_fd</span><span class="p">,</span> <span class="n">G5_fd</span><span class="p">,</span>
-                       <span class="n">F0_dd</span><span class="p">,</span> <span class="n">F2_dd</span><span class="p">,</span> <span class="n">F4_dd</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_ff</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_ff</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_ff</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F6_ff</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_fd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_fd</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_fd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_fd</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_fd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_fd</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G1_fd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G1_fd</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G3_fd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G3_fd</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G5_fd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G5_fd</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_dd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_dd</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_dd</span>
-
-    <span class="k">return</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">get_umat_slater_ff</span><span class="p">(</span><span class="n">F0_f1f1</span><span class="p">,</span> <span class="n">F2_f1f1</span><span class="p">,</span> <span class="n">F4_f1f1</span><span class="p">,</span> <span class="n">F6_f1f1</span><span class="p">,</span>
-                       <span class="n">F0_f1f2</span><span class="p">,</span> <span class="n">F2_f1f2</span><span class="p">,</span> <span class="n">F4_f1f2</span><span class="p">,</span> <span class="n">F6_f1f2</span><span class="p">,</span>
-                       <span class="n">G0_f1f2</span><span class="p">,</span> <span class="n">G2_f1f2</span><span class="p">,</span> <span class="n">G4_f1f2</span><span class="p">,</span> <span class="n">G6_f1f2</span><span class="p">,</span>
-                       <span class="n">F0_f2f2</span><span class="p">,</span> <span class="n">F2_f2f2</span><span class="p">,</span> <span class="n">F4_f2f2</span><span class="p">,</span> <span class="n">F6_f2f2</span><span class="p">):</span>
-    <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-    <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_f1f1</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_f1f1</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_f1f1</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F6_f1f1</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_f1f2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_f1f2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_f1f2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_f1f2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_f1f2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_f1f2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F6_f1f2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F6_f1f2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G0_f1f2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G0_f1f2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G2_f1f2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G2_f1f2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G4_f1f2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G4_f1f2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G6_f1f2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">G6_f1f2</span>
-
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F0_f2f2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F2_f2f2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F4_f2f2</span>
-    <span class="n">fk</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">F6_f2f2</span>
-
-    <span class="k">return</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="get_umat_kanamori_ge"><a class="viewcode-back" href="../../reference/coulomb_utensor.html#edrixs.coulomb_utensor.get_umat_kanamori_ge">[docs]</a><span class="k">def</span> <span class="nf">get_umat_kanamori_ge</span><span class="p">(</span><span class="n">norbs</span><span class="p">,</span> <span class="n">U1</span><span class="p">,</span> <span class="n">U2</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">Jx</span><span class="p">,</span> <span class="n">Jp</span><span class="p">):</span>
@@ -830,25 +502,6 @@
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;error in get_F0():  Unknown case name:&quot;</span><span class="p">,</span> <span class="n">case</span><span class="p">)</span>
 
 
-<span class="n">umat_func_dict</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_s</span><span class="p">,</span>
-    <span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_p</span><span class="p">,</span>
-    <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_d</span><span class="p">,</span>
-    <span class="s1">&#39;t2g&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_t2g</span><span class="p">,</span>
-    <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_f</span><span class="p">,</span>
-    <span class="s1">&#39;ps&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_ps</span><span class="p">,</span>
-    <span class="s1">&#39;pp&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_pp</span><span class="p">,</span>
-    <span class="s1">&#39;ds&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_ds</span><span class="p">,</span>
-    <span class="s1">&#39;dp&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_dp</span><span class="p">,</span>
-    <span class="s1">&#39;t2gp&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_t2gp</span><span class="p">,</span>
-    <span class="s1">&#39;dd&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_dd</span><span class="p">,</span>
-    <span class="s1">&#39;fs&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_fs</span><span class="p">,</span>
-    <span class="s1">&#39;fp&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_fp</span><span class="p">,</span>
-    <span class="s1">&#39;fd&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_fd</span><span class="p">,</span>
-    <span class="s1">&#39;ff&#39;</span><span class="p">:</span> <span class="n">get_umat_slater_ff</span>
-<span class="p">}</span>
-
-
 <div class="viewcode-block" id="get_umat_slater"><a class="viewcode-back" href="../../reference/coulomb_utensor.html#edrixs.coulomb_utensor.get_umat_slater">[docs]</a><span class="k">def</span> <span class="nf">get_umat_slater</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convenient adapter function to return the Coulomb interaction tensor for common case.</span>
@@ -856,51 +509,154 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    case: string</span>
-<span class="sd">        indicates which atomic shells we will include, should be one of</span>
+<span class="sd">        Indicates atomic shells, should be one of</span>
 
-<span class="sd">        - &#39;s&#39;:    a single :math:`s`-shell (:math:`l=0`)</span>
-<span class="sd">        - &#39;p&#39;:    a single :math:`p`-shell (:math:`l=1`)</span>
-<span class="sd">        - &#39;d&#39;:    a single :math:`d`-shell (:math:`l=2`)</span>
-<span class="sd">        - &#39;f&#39;:    a single :math:`f`-shell (:math:`l=3`)</span>
-<span class="sd">        - &#39;ps&#39;:   a :math:`p`-shell (:math:`l=1`) and another :math:`s`-shell (:math:`l=0`)</span>
-<span class="sd">        - &#39;pp&#39;:   a :math:`p`-shell (:math:`l=1`) and another :math:`p`-shell (:math:`l=1`)</span>
-<span class="sd">        - &#39;ds&#39;:   a :math:`d`-shell (:math:`l=2`) and another :math:`s`-shell (:math:`l=0`)</span>
-<span class="sd">        - &#39;dp&#39;:   a :math:`d`-shell (:math:`l=2`) and another :math:`p`-shell (:math:`l=1`)</span>
-<span class="sd">        - &#39;t2gp&#39;: a :math:`t2g`-shell (:math:`l_{\\text{eff}}=1`)</span>
-<span class="sd">                  and another :math:`p`-shell (:math:`l=1`)</span>
-<span class="sd">        - &#39;dd&#39;:   a :math:`d`-shell (:math:`l=2`) and another :math:`d`-shell (:math:`l=2`)</span>
-<span class="sd">        - &#39;fs&#39;:   a :math:`f`-shell (:math:`l=3`) and another :math:`s`-shell (:math:`l=0`)</span>
-<span class="sd">        - &#39;fp&#39;:   a :math:`f`-shell (:math:`l=3`) and another :math:`p`-shell (:math:`l=1`)</span>
-<span class="sd">        - &#39;fd&#39;:   a :math:`f`-shell (:math:`l=3`) and another :math:`d`-shell (:math:`l=2`)</span>
-<span class="sd">        - &#39;ff&#39;:   a :math:`f`-shell (:math:`l=3`) and another :math:`f`-shell (:math:`l=3`)</span>
+<span class="sd">        For single shell:</span>
 
-<span class="sd">    args: floats</span>
-<span class="sd">        Slater integrals, should be one of</span>
+<span class="sd">        - &#39;s&#39;:    single :math:`s`-shell (:math:`l=0`)</span>
+<span class="sd">        - &#39;p&#39;:    single :math:`p`-shell (:math:`l=1`)</span>
+<span class="sd">        - &#39;p12&#39;:  single :math:`p_{1/2}`-shell (:math:`l=1`)</span>
+<span class="sd">        - &#39;p32&#39;:  single :math:`p_{3/2}`-shell (:math:`l=1`)</span>
+<span class="sd">        - &#39;t2g&#39;:  single :math:`t_{2g}`-shell (:math:`l_{\\text{eff}}=1`)</span>
+<span class="sd">        - &#39;d&#39;:    single :math:`d`-shell (:math:`l=2`)</span>
+<span class="sd">        - &#39;d32&#39;:  single :math:`d_{3/2}`-shell (:math:`l=2`)</span>
+<span class="sd">        - &#39;d52&#39;:  single :math:`d_{5/2}`-shell (:math:`l=2`)</span>
+<span class="sd">        - &#39;f&#39;:    single :math:`f`-shell (:math:`l=3`)</span>
+<span class="sd">        - &#39;f52&#39;:  single :math:`f_{5/2}`-shell (:math:`l=3`)</span>
+<span class="sd">        - &#39;f72&#39;:  single :math:`f_{7/2}`-shell (:math:`l=3`)</span>
 
-<span class="sd">        - for case &#39;s&#39;:  F0_ss</span>
-<span class="sd">        - for case &#39;p&#39;:  F0_pp, F2_pp</span>
-<span class="sd">        - for case &#39;d&#39;:  F0_dd, F2_dd, F4_dd</span>
-<span class="sd">        - for case &#39;f&#39;:  F0_ff, F2_ff, F4_ff, F6_ff</span>
-<span class="sd">        - for case &#39;ps&#39;: F0_pp, F2_pp, F0_ps, G1_ps, F0_ss</span>
-<span class="sd">        - for case &#39;pp&#39;: F0_p1p1, F2_p1p1, F0_p1p2, F2_p1p2, G0_p1p2, G2_p1p2, F0_p2p2, F2_p2p2</span>
-<span class="sd">        - for case &#39;ds&#39;: F0_dd, F2_dd, F4_dd, F0_ds, G2_ds, F0_ss</span>
-<span class="sd">        - for case &#39;dp&#39;: F0_dd, F2_dd, F4_dd, F0_dp, F2_dp, G1_dp, G3_dp, F0_pp, F2_pp</span>
-<span class="sd">        - for case &#39;t2gp&#39;: F0_dd, F2_dd, F4_dd, F0_dp, F2_dp, G1_dp, G3_dp, F0_pp, F2_pp</span>
-<span class="sd">        - for case &#39;dd&#39;: F0_d1d1, F2_d1d1, F4_d1d1, F0_d1d2, F2_d1d2, F4_d1d2, G0_d1d2,</span>
-<span class="sd">          G2_d1d2, G4_d1d2, F0_d2d2, F2_d2d2, F4_d2d2</span>
-<span class="sd">        - for case &#39;fs&#39;:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fs, G3_fs, F0_ss</span>
-<span class="sd">        - for case &#39;fp&#39;:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fp, F2_fp, G2_fp, G4_fp, F0_pp, F2_pp</span>
-<span class="sd">        - for case &#39;fd&#39;:  F0_ff, F2_ff, F4_ff, F6_ff, F0_fd, F2_fd, F4_fd, G1_fd, G3_fd, G5_fd,</span>
-<span class="sd">          F0_dd, F2_dd, F4_dd</span>
-<span class="sd">        - for case &#39;ff&#39;:  F0_f1f1, F2_f1f1, F4_f1f1, F6_f1f1, F0_f1f2, F2_f1f2, F4_f1f2, F6_f1f2,</span>
-<span class="sd">          G0_f1f2, G2_f1f2, G4_f1f2, G6_f1f2, F0_f2f2, F2_f2f2, F4_f2f2, F6_f2f2</span>
+<span class="sd">        For two shells:</span>
 
-<span class="sd">        The order of these arguments are important.</span>
+<span class="sd">        case = str1 + str2</span>
+
+<span class="sd">        where, str1 and str2 are strings and they can be any of</span>
+
+<span class="sd">        [&#39;s&#39;, &#39;p&#39;, &#39;p12&#39;, &#39;p32&#39;, &#39;t2g&#39;, &#39;d&#39;, &#39;d32&#39;, &#39;d52&#39;, &#39;f&#39;, &#39;f52&#39;, &#39;f72&#39;]</span>
+
+<span class="sd">        For examples,</span>
+
+<span class="sd">        - &#39;dp&#39;:     1st :math:`d`-shell and 2nd :math:`p`-shell</span>
+<span class="sd">        - &#39;dp12&#39;:   1st :math:`d`-shell and 2nd :math:`p_{1/2}`-shell</span>
+<span class="sd">        - &#39;f52p32&#39;: 1st :math:`f_{5/2}`-shell and 2nd :math:`p_{3/2}`-shell</span>
+<span class="sd">        - &#39;t2gp&#39;:   1st :math:`t_{2g}`-shell and 2nd :math:`p`-shell</span>
+
+<span class="sd">    *args: floats</span>
+<span class="sd">        Variable length argument list. Slater integrals.</span>
+<span class="sd">        The order of these integrals shoule be</span>
+
+<span class="sd">        For only one shell case,</span>
+
+<span class="sd">        args = [F0, F2, F4, F6, ....]</span>
+
+<span class="sd">        For two shells case,</span>
+
+<span class="sd">        args = [FX_11, FX_12, GX_12, FX_22]</span>
+
+<span class="sd">        where, 1 (2) means 1st (2nd)-shell, and X=0, 2, 4, ... or X=1, 3, 5 ...,</span>
+<span class="sd">        and X should be in ascending order. The following are possible cases:</span>
+
+<span class="sd">        - &#39;s&#39;:</span>
+
+<span class="sd">        args = [F0]</span>
+
+<span class="sd">        - &#39;p&#39;, &#39;p12&#39;, &#39;p32&#39;:</span>
+
+<span class="sd">        args = [F0, F2]</span>
+
+<span class="sd">        - &#39;d&#39;, &#39;d32&#39;, &#39;d52&#39;, &#39;t2g&#39;:</span>
+
+<span class="sd">        args = [F0, F2, F4]</span>
+
+<span class="sd">        - &#39;f&#39;, &#39;f52&#39;, &#39;f72&#39;:</span>
+
+<span class="sd">        args = [F0, F2, F4, F6]</span>
+
+<span class="sd">        - &#39;ss&#39;:</span>
+
+<span class="sd">        args = [F0_11, F0_12, G0_12, F0_22]</span>
+
+<span class="sd">        - &#39;ps&#39;, &#39;p12s&#39;, &#39;p32s&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F0_12, G1_12, F0_22]</span>
+
+<span class="sd">        - &#39;ds&#39;, &#39;d32s&#39;, &#39;d52s&#39;, &#39;t2gs&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F4_11, F0_12, G2_12, F0_22]</span>
+
+<span class="sd">        - &#39;fs&#39;, &#39;f52s&#39;, &#39;f72s&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F4_11, F6_11, F0_12, G3_12, F0_22]</span>
+
+<span class="sd">        - &#39;sp&#39;, &#39;sp12&#39;, &#39;sp32&#39;:</span>
+
+<span class="sd">        args = [F0_11, F0_12, G1_12, F0_22, F2_22]</span>
+
+<span class="sd">        - &#39;pp&#39;, &#39;pp12&#39;, &#39;pp32&#39;, &#39;p12p&#39;, &#39;p12p12&#39;, &#39;p12p32&#39;, &#39;p32p&#39;, &#39;p32p12&#39;, &#39;p32p32&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F0_12, F2_12, G0_12, G2_12, F0_22, F2_22]</span>
+
+<span class="sd">        - &#39;dp&#39;, &#39;dp12&#39;, &#39;dp32&#39;, &#39;d32p&#39;, &#39;d32p12&#39;, &#39;d32p32&#39;, &#39;d52p&#39;, &#39;d52p12&#39;, &#39;d52p32&#39;,</span>
+<span class="sd">          &#39;t2gp&#39;, &#39;t2gp12&#39;, t2gp32&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F4_11, F0_12, F2_12, G1_12, G3_12, F0_22, F2_22]</span>
+
+<span class="sd">        - &#39;fp&#39;, &#39;fp12&#39;, &#39;fp32&#39;, &#39;f52p&#39;, &#39;f52p12&#39;, &#39;f52p32&#39;, &#39;f72p&#39;, &#39;f72p12&#39;, &#39;f72p32&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F4_11, F6_11, F0_12, F2_12, G2_12, G4_12, F0_22, F2_22]</span>
+
+<span class="sd">        - &#39;sd&#39;, &#39;sd32&#39;, &#39;sd52&#39;:</span>
+
+<span class="sd">        args = [F0_11, F0_12, G2_12, F0_22, F2_22, F4_22]</span>
+
+<span class="sd">        - &#39;pd&#39;, &#39;pd32&#39;, &#39;pd52&#39;, &#39;p12d&#39;, &#39;p12d32&#39;, &#39;p12d52&#39;, &#39;p32d&#39;, &#39;p32d32&#39;, &#39;p32d52&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F0_12, F2_12, G1_12, G3_12, F0_22, F2_22, F4_22]</span>
+
+<span class="sd">        - &#39;dd&#39;, &#39;dd32&#39;, &#39;dd52&#39;, &#39;d32d&#39;, &#39;d32d32&#39;, &#39;d32d52&#39;, &#39;d52d&#39;, &#39;d52d32&#39;, &#39;d52d52&#39;,</span>
+<span class="sd">          &#39;t2gd&#39;, &#39;t2gd32&#39;, &#39;t2gd52&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F4_11, F0_12, F2_12, F4_12, G0_12, G2_12, G4_12, F0_22, F2_22, F4_22]</span>
+
+<span class="sd">        - &#39;fd&#39;, &#39;fd32&#39;, &#39;fd52&#39;, &#39;f52d&#39;, &#39;f52d32&#39;, &#39;f52d52&#39;, &#39;f72d&#39;, &#39;f72d32&#39;, &#39;f72d52&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F4_11, F6_11, F0_12, F2_12, F4_12, G1_12, G3_12, G5_12,</span>
+<span class="sd">        F0_22, F2_22, F4_22]</span>
+
+<span class="sd">        - &#39;sf&#39;, &#39;sf52&#39;, &#39;sf72&#39;:</span>
+
+<span class="sd">        args = [F0_11, F0_12, G3_12, F0_22, F2_22, F4_22, F6_22]</span>
+
+<span class="sd">        - &#39;pf&#39;, &#39;pf52&#39;, &#39;pf72&#39;, &#39;p12f&#39;, &#39;p12f52&#39;, &#39;p12f72&#39;, &#39;p32f&#39;, &#39;p32f52&#39;, &#39;p32f72&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F0_12, F2_12, G2_12, G4_12, F0_22, F2_22, F4_22, F6_22]</span>
+
+<span class="sd">        - &#39;df&#39;, &#39;df52&#39;, &#39;df72&#39;, &#39;d32f&#39;, &#39;d32f52&#39;, &#39;d32f72&#39;, &#39;d52f&#39;, &#39;d52f52&#39;, &#39;d52f72&#39;,</span>
+<span class="sd">          &#39;t2gf&#39;, &#39;t2gf52&#39;, &#39;t2gf72&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F4_11, F0_12, F2_12, F4_12, G1_12, G3_12, G5_12,</span>
+<span class="sd">        F0_22, F2_22, F4_22, F6_22]</span>
+
+<span class="sd">        - &#39;ff&#39;, &#39;ff52&#39;, &#39;ff72&#39;, &#39;f52f&#39;, &#39;f52f52&#39;, &#39;f52f72&#39;, &#39;f72f&#39;, &#39;f72f52&#39;, &#39;f72f72&#39;:</span>
+
+<span class="sd">        args = [F0_11, F2_11, F4_11, F6_11, F0_12, F2_12, F4_12, F6_12,</span>
+<span class="sd">        G0_12, G2_12, G4_12, G6_12, F0_22, F2_22, F4_22, F6_22]</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    umat: 4d array of complex</span>
 <span class="sd">        the Coulomb interaction tensor</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import edrixs</span>
+<span class="sd">    &gt;&gt;&gt; F0_dd, F2_dd, F4_dd = 3.0, 1.0, 0.5</span>
+<span class="sd">    &gt;&gt;&gt; F0_dp, F2_dp, G1_dp, G3_dp = 2.0, 1.0, 0.2, 0.1</span>
+<span class="sd">    &gt;&gt;&gt; F0_pp, F2_pp = 0.0, 0.0</span>
+<span class="sd">    &gt;&gt;&gt; slater = [F0_dd, F2_dd, F4_dd, F0_dp, F2_dp, G1_dp, G3_dp, F0_pp, F2_pp]</span>
+<span class="sd">    &gt;&gt;&gt; umat_d = edrixs.get_umat_slater(&#39;d&#39;, F0_dd, F2_dd, F4_dd)</span>
+<span class="sd">    &gt;&gt;&gt; umat_dp = edrixs.get_umat_slater(&#39;dp&#39;, *slater)</span>
+<span class="sd">    &gt;&gt;&gt; umat_t2gp = edrixs.get_umat_slater(&#39;t2gp&#39;, *slater)</span>
+<span class="sd">    &gt;&gt;&gt; umat_dp32 = edrixs.get_umat_slater(&#39;dp32&#39;, *slater)</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
@@ -909,7 +665,200 @@
 <span class="sd">    coulomb_utensor.get_umat_kanamori_ge</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">umat_func_dict</span><span class="p">[</span><span class="n">case</span><span class="o">.</span><span class="n">strip</span><span class="p">()](</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">info_atomic_shell</span><span class="p">()</span>
+    <span class="n">shells</span> <span class="o">=</span> <span class="n">case_to_shell_name</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
+    <span class="n">nslat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">slater_integrals_name</span><span class="p">(</span><span class="n">shells</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">nslat</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Number of Slater integrals&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot; is not equal to &quot;</span><span class="p">,</span> <span class="n">nslat</span><span class="p">)</span>
+
+    <span class="n">special_shell</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;t2g&#39;</span><span class="p">,</span> <span class="s1">&#39;p12&#39;</span><span class="p">,</span> <span class="s1">&#39;p32&#39;</span><span class="p">,</span> <span class="s1">&#39;d32&#39;</span><span class="p">,</span> <span class="s1">&#39;d52&#39;</span><span class="p">,</span> <span class="s1">&#39;f52&#39;</span><span class="p">,</span> <span class="s1">&#39;f72&#39;</span><span class="p">]</span>
+    <span class="n">orb_indx</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">special_shell</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+        <span class="n">special_shell</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">special_shell</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="n">special_shell</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="n">special_shell</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+        <span class="n">special_shell</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+        <span class="n">special_shell</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">]</span>
+    <span class="p">}</span>
+    <span class="c1"># only one shell</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shells</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">orbl</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="n">shells</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">orbl</span><span class="p">]</span>
+        <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">orbl</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">fk</span><span class="p">[(</span><span class="n">rank</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
+            <span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">umat</span> <span class="o">=</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
+        <span class="c1"># truncate to a sub-shell if necessary</span>
+        <span class="k">if</span> <span class="n">shells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">special_shell</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">shells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;t2g&#39;</span><span class="p">:</span>
+                <span class="n">tmat</span> <span class="o">=</span> <span class="n">tmat_c2r</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tmat</span> <span class="o">=</span> <span class="n">tmat_c2j</span><span class="p">(</span><span class="n">orbl</span><span class="p">)</span>
+            <span class="n">umat</span> <span class="o">=</span> <span class="n">transform_utensor</span><span class="p">(</span><span class="n">umat</span><span class="p">,</span> <span class="n">tmat</span><span class="p">)</span>
+            <span class="n">indx</span> <span class="o">=</span> <span class="n">orb_indx</span><span class="p">[</span><span class="n">shells</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="n">umat_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">)</span>
+            <span class="n">umat_tmp</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">umat</span><span class="p">[</span><span class="n">indx</span><span class="p">][:,</span> <span class="n">indx</span><span class="p">][:,</span> <span class="p">:,</span> <span class="n">indx</span><span class="p">][:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">indx</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">shells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;t2g&#39;</span><span class="p">:</span>
+                <span class="n">umat_tmp</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">transform_utensor</span><span class="p">(</span><span class="n">umat_tmp</span><span class="p">,</span> <span class="n">tmat_r2c</span><span class="p">(</span><span class="s1">&#39;t2g&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+            <span class="n">umat</span> <span class="o">=</span> <span class="n">umat_tmp</span>
+    <span class="c1"># two shells</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">shells</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">name1</span><span class="p">,</span> <span class="n">name2</span> <span class="o">=</span> <span class="n">shells</span>
+        <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="n">name1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="n">name2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">l1</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">l2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ntot</span> <span class="o">=</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span>
+        <span class="n">l_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">]</span>
+        <span class="n">fk</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">l1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">fk</span><span class="p">[(</span><span class="n">rank</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
+            <span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">l1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">l2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">fk</span><span class="p">[(</span><span class="n">rank</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
+            <span class="n">fk</span><span class="p">[(</span><span class="n">rank</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
+            <span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">l1</span> <span class="o">-</span> <span class="n">l2</span><span class="p">),</span> <span class="n">l1</span> <span class="o">+</span> <span class="n">l2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">fk</span><span class="p">[(</span><span class="n">rank</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
+            <span class="n">fk</span><span class="p">[(</span><span class="n">rank</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
+            <span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">l2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">fk</span><span class="p">[(</span><span class="n">rank</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">it</span><span class="p">]</span>
+            <span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">umat</span> <span class="o">=</span> <span class="n">umat_slater</span><span class="p">(</span><span class="n">l_list</span><span class="p">,</span> <span class="n">fk</span><span class="p">)</span>
+        <span class="c1"># truncate to a sub-shell if necessary</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">name1</span> <span class="ow">in</span> <span class="n">special_shell</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">name2</span> <span class="ow">in</span> <span class="n">special_shell</span><span class="p">):</span>
+            <span class="n">tmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">ntot</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">)</span>
+            <span class="n">indx1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n1</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">name1</span> <span class="ow">in</span> <span class="n">special_shell</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">name1</span> <span class="o">==</span> <span class="s1">&#39;t2g&#39;</span><span class="p">:</span>
+                    <span class="n">tmat</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">n1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">n1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmat_c2r</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">tmat</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">n1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">n1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmat_c2j</span><span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+                <span class="n">indx1</span> <span class="o">=</span> <span class="n">orb_indx</span><span class="p">[</span><span class="n">name1</span><span class="p">]</span>
+
+            <span class="n">indx2</span> <span class="o">=</span> <span class="p">[</span><span class="n">n1</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n2</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">name2</span> <span class="ow">in</span> <span class="n">special_shell</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">name2</span> <span class="o">==</span> <span class="s1">&#39;t2g&#39;</span><span class="p">:</span>
+                    <span class="n">tmat</span><span class="p">[</span><span class="n">n1</span><span class="p">:</span><span class="n">ntot</span><span class="p">,</span> <span class="n">n1</span><span class="p">:</span><span class="n">ntot</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmat_c2r</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">tmat</span><span class="p">[</span><span class="n">n1</span><span class="p">:</span><span class="n">ntot</span><span class="p">,</span> <span class="n">n1</span><span class="p">:</span><span class="n">ntot</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmat_c2j</span><span class="p">(</span><span class="n">l2</span><span class="p">)</span>
+                <span class="n">indx2</span> <span class="o">=</span> <span class="p">[</span><span class="n">n1</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">orb_indx</span><span class="p">[</span><span class="n">name2</span><span class="p">]]</span>
+
+            <span class="n">indx</span> <span class="o">=</span> <span class="n">indx1</span> <span class="o">+</span> <span class="n">indx2</span>
+            <span class="n">umat</span> <span class="o">=</span> <span class="n">transform_utensor</span><span class="p">(</span><span class="n">umat</span><span class="p">,</span> <span class="n">tmat</span><span class="p">)</span>
+            <span class="n">umat_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">)</span>
+            <span class="n">umat_tmp</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">umat</span><span class="p">[</span><span class="n">indx</span><span class="p">][:,</span> <span class="n">indx</span><span class="p">][:,</span> <span class="p">:,</span> <span class="n">indx</span><span class="p">][:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">indx</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">name1</span> <span class="o">==</span> <span class="s1">&#39;t2g&#39;</span> <span class="ow">or</span> <span class="n">name2</span> <span class="o">==</span> <span class="s1">&#39;t2g&#39;</span><span class="p">:</span>
+                <span class="n">tmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indx</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">name1</span> <span class="o">==</span> <span class="s1">&#39;t2g&#39;</span><span class="p">:</span>
+                    <span class="n">tmat</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmat_r2c</span><span class="p">(</span><span class="s1">&#39;t2g&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">name2</span> <span class="o">==</span> <span class="s1">&#39;t2g&#39;</span><span class="p">:</span>
+                    <span class="n">tmat</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:,</span> <span class="o">-</span><span class="mi">6</span><span class="p">:]</span> <span class="o">=</span> <span class="n">tmat_r2c</span><span class="p">(</span><span class="s1">&#39;t2g&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="n">umat_tmp</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">transform_utensor</span><span class="p">(</span><span class="n">umat_tmp</span><span class="p">,</span> <span class="n">tmat</span><span class="p">)</span>
+            <span class="n">umat</span> <span class="o">=</span> <span class="n">umat_tmp</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Not implemented for this case: &quot;</span><span class="p">,</span> <span class="n">shells</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">umat</span></div>
+
+
+<div class="viewcode-block" id="get_umat_slater_3shells"><a class="viewcode-back" href="../../reference/coulomb_utensor.html#edrixs.coulomb_utensor.get_umat_slater_3shells">[docs]</a><span class="k">def</span> <span class="nf">get_umat_slater_3shells</span><span class="p">(</span><span class="n">shell_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given three shells, build the slater type of Coulomb tensors among</span>
+<span class="sd">    the three shells.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shell_name: tuple of three strings</span>
+<span class="sd">        Shells names.</span>
+<span class="sd">    *args: floats</span>
+<span class="sd">        Slater integrals. The order should be</span>
+
+<span class="sd">        FX_11, FX_12, GX_12, FX_22, FX_13, GX_13, FX_23, GX_23, FX_33</span>
+
+<span class="sd">        where, 1, 2, 3 means 1st, 2nd, 3rd shell, and X=0, 2, 4, ... or X=1, 3, 5 ...,</span>
+<span class="sd">        and X should be in ascending order.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    umat: 4d complex array</span>
+<span class="sd">        Rank-4 Coulomb tensors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">v1_name</span> <span class="o">=</span> <span class="n">shell_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">v2_name</span> <span class="o">=</span> <span class="n">shell_name</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">v3_name</span> <span class="o">=</span> <span class="n">shell_name</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">info_shell</span> <span class="o">=</span> <span class="n">info_atomic_shell</span><span class="p">()</span>
+
+    <span class="n">v1_orbl</span> <span class="o">=</span> <span class="n">info_shell</span><span class="p">[</span><span class="n">v1_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">v2_orbl</span> <span class="o">=</span> <span class="n">info_shell</span><span class="p">[</span><span class="n">v2_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">v3_orbl</span> <span class="o">=</span> <span class="n">info_shell</span><span class="p">[</span><span class="n">v3_name</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">v1_norb</span> <span class="o">=</span> <span class="n">info_shell</span><span class="p">[</span><span class="n">v1_name</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">v2_norb</span> <span class="o">=</span> <span class="n">info_shell</span><span class="p">[</span><span class="n">v2_name</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">v3_norb</span> <span class="o">=</span> <span class="n">info_shell</span><span class="p">[</span><span class="n">v3_name</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># total number of orbitals</span>
+    <span class="n">ntot</span> <span class="o">=</span> <span class="n">v1_norb</span> <span class="o">+</span> <span class="n">v2_norb</span> <span class="o">+</span> <span class="n">v3_norb</span>
+    <span class="n">v1v2_norb</span> <span class="o">=</span> <span class="n">v1_norb</span> <span class="o">+</span> <span class="n">v2_norb</span>
+
+    <span class="n">indx</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">it</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">v1_orbl</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">indx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+    <span class="n">it</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">v1_orbl</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">v2_orbl</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">it</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">v1_orbl</span><span class="o">-</span><span class="n">v2_orbl</span><span class="p">),</span> <span class="n">v1_orbl</span><span class="o">+</span><span class="n">v2_orbl</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">indx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+    <span class="n">it</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">v2_orbl</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">indx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+    <span class="n">it</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">v1_orbl</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">v3_orbl</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">it</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">v1_orbl</span><span class="o">-</span><span class="n">v3_orbl</span><span class="p">),</span> <span class="n">v1_orbl</span><span class="o">+</span><span class="n">v3_orbl</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">indx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+    <span class="n">it</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">v2_orbl</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">v3_orbl</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">it</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">v2_orbl</span><span class="o">-</span><span class="n">v3_orbl</span><span class="p">),</span> <span class="n">v2_orbl</span><span class="o">+</span><span class="n">v3_orbl</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">indx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+    <span class="n">it</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">v3_orbl</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">indx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">it</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Number of Slater integrals&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="s2">&quot; is not equal to &quot;</span><span class="p">,</span> <span class="n">it</span><span class="p">)</span>
+
+    <span class="n">umat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">ntot</span><span class="p">,</span> <span class="n">ntot</span><span class="p">,</span> <span class="n">ntot</span><span class="p">,</span> <span class="n">ntot</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">)</span>
+
+    <span class="c1"># v1-v2</span>
+    <span class="n">case</span> <span class="o">=</span> <span class="n">v1_name</span> <span class="o">+</span> <span class="n">v2_name</span>
+    <span class="n">arg_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">indx</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">indx</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">indx</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">indx</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">indx</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">umat_tmp</span> <span class="o">=</span> <span class="n">get_umat_slater</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="o">*</span><span class="n">arg_list</span><span class="p">)</span>
+    <span class="n">umat</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">v1v2_norb</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">v1v2_norb</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">v1v2_norb</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">v1v2_norb</span><span class="p">]</span> <span class="o">=</span> <span class="n">umat_tmp</span>
+
+    <span class="c1"># v1-v3</span>
+    <span class="n">case</span> <span class="o">=</span> <span class="n">v1_name</span> <span class="o">+</span> <span class="n">v3_name</span>
+    <span class="n">arg_list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">indx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">indx</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span><span class="n">indx</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">indx</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span><span class="n">indx</span><span class="p">[</span><span class="mi">5</span><span class="p">]])</span>
+    <span class="n">umat_tmp</span> <span class="o">=</span> <span class="n">get_umat_slater</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="o">*</span><span class="n">arg_list</span><span class="p">)</span>
+    <span class="n">aa</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">v1_norb</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">v1v2_norb</span><span class="p">,</span> <span class="n">ntot</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">v1_norb</span> <span class="o">+</span> <span class="n">v3_norb</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">v1_norb</span> <span class="o">+</span> <span class="n">v3_norb</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">v1_norb</span> <span class="o">+</span> <span class="n">v3_norb</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">v1_norb</span> <span class="o">+</span> <span class="n">v3_norb</span><span class="p">):</span>
+                    <span class="n">umat</span><span class="p">[</span><span class="n">aa</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">aa</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">aa</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">aa</span><span class="p">[</span><span class="n">l</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">umat_tmp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">]</span>
+
+    <span class="c1"># v2-v3</span>
+    <span class="n">case</span> <span class="o">=</span> <span class="n">v2_name</span> <span class="o">+</span> <span class="n">v3_name</span>
+    <span class="n">arg_list</span> <span class="o">=</span> <span class="p">([</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">indx</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">indx</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+                <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">indx</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span><span class="n">indx</span><span class="p">[</span><span class="mi">4</span><span class="p">]])</span> <span class="o">+</span>
+                <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">indx</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">indx</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+    <span class="n">umat_tmp</span> <span class="o">=</span> <span class="n">get_umat_slater</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="o">*</span><span class="n">arg_list</span><span class="p">)</span>
+    <span class="n">aa</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">v1_norb</span><span class="p">,</span> <span class="n">ntot</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">v2_norb</span> <span class="o">+</span> <span class="n">v3_norb</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">v2_norb</span> <span class="o">+</span> <span class="n">v3_norb</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">v2_norb</span> <span class="o">+</span> <span class="n">v3_norb</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">v2_norb</span> <span class="o">+</span> <span class="n">v3_norb</span><span class="p">):</span>
+                    <span class="n">umat</span><span class="p">[</span><span class="n">aa</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">aa</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">aa</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">aa</span><span class="p">[</span><span class="n">l</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">umat_tmp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">umat</span></div>
 
 
 <div class="viewcode-block" id="get_umat_kanamori"><a class="viewcode-back" href="../../reference/coulomb_utensor.html#edrixs.coulomb_utensor.get_umat_kanamori">[docs]</a><span class="k">def</span> <span class="nf">get_umat_kanamori</span><span class="p">(</span><span class="n">norbs</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">J</span><span class="p">):</span>
