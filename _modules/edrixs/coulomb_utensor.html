@@ -403,13 +403,13 @@
         <span class="k">for</span> <span class="n">beta</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">alpha</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">norbs</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">norbs</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">delta</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">gamma</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">norbs</span><span class="p">):</span>
-                    <span class="n">aband</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span>
+                    <span class="n">aband</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">//</span> <span class="mi">2</span>
                     <span class="n">aspin</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">%</span> <span class="mi">2</span>
-                    <span class="n">bband</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">/</span> <span class="mi">2</span>
+                    <span class="n">bband</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">//</span> <span class="mi">2</span>
                     <span class="n">bspin</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">%</span> <span class="mi">2</span>
-                    <span class="n">gband</span> <span class="o">=</span> <span class="n">gamma</span> <span class="o">/</span> <span class="mi">2</span>
+                    <span class="n">gband</span> <span class="o">=</span> <span class="n">gamma</span> <span class="o">//</span> <span class="mi">2</span>
                     <span class="n">gspin</span> <span class="o">=</span> <span class="n">gamma</span> <span class="o">%</span> <span class="mi">2</span>
-                    <span class="n">dband</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">/</span> <span class="mi">2</span>
+                    <span class="n">dband</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">//</span> <span class="mi">2</span>
                     <span class="n">dspin</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">%</span> <span class="mi">2</span>
 
                     <span class="n">dtmp</span> <span class="o">=</span> <span class="mf">0.0</span>
