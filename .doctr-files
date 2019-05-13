@@ -38,6 +38,7 @@
 ./_sources/user/index.rst.txt
 ./_sources/user/installation.rst.txt
 ./_sources/user/quickstart.rst.txt
+./_sources/user/usedocker.rst.txt
 ./_sources/user/whatisedrixs.rst.txt
 ./_static/basic.css
 ./_static/copy-button.svg
@@ -128,4 +129,5 @@
 ./user/index.html
 ./user/installation.html
 ./user/quickstart.html
+./user/usedocker.html
 ./user/whatisedrixs.html
