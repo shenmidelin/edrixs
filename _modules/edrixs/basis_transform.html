@@ -155,51 +155,82 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="cb_op"><a class="viewcode-back" href="../../reference/basis_transform.html#edrixs.basis_transform.cb_op">[docs]</a><span class="k">def</span> <span class="nf">cb_op</span><span class="p">(</span><span class="n">oper_A</span><span class="p">,</span> <span class="n">t_mat</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Change the basis of an operator :math:`\\hat{O}` from one</span>
-<span class="sd">    basis :math:`A`: :math:`\\psi^{A}_{i}` to another</span>
-<span class="sd">    basis :math:`B`: :math:`\\phi^{B}_{j}`.</span>
-
-<span class="sd">    .. math::</span>
-
-<span class="sd">        O^{\\prime} = T^{\\dagger} O T,</span>
-
-<span class="sd">        T_{ij} = &lt;\\psi^{A}_{i}|\\phi^{B}_{j}&gt;.</span>
-
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    oper_A: 2d array</span>
-<span class="sd">        The matrix form of operator :math:`\\hat{O}` in basis :math:`A`.</span>
-<span class="sd">    t_mat: 2d array</span>
-<span class="sd">        The unitary transformation matrix from basis :math:`A` to</span>
-<span class="sd">        basis :math:`B`,  namely,</span>
-<span class="sd">        :math:`T_{ij} = &lt;\\psi^{A}_{i}|\\phi^{B}_{j}&gt;`.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    oper_B : 2d array</span>
-<span class="sd">        The matrix form of operator :math:`\\hat{O}` in basis :math:`B`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">oper_B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">t_mat</span><span class="p">)),</span> <span class="n">oper_A</span><span class="p">),</span> <span class="n">t_mat</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">oper_B</span></div>
-
-
-<div class="viewcode-block" id="cb_op2"><a class="viewcode-back" href="../../reference/basis_transform.html#edrixs.basis_transform.cb_op2">[docs]</a><span class="k">def</span> <span class="nf">cb_op2</span><span class="p">(</span><span class="n">oper_A</span><span class="p">,</span> <span class="n">TL</span><span class="p">,</span> <span class="n">TR</span><span class="p">):</span>
+<div class="viewcode-block" id="cb_op"><a class="viewcode-back" href="../../reference/basis_transform.html#edrixs.basis_transform.cb_op">[docs]</a><span class="k">def</span> <span class="nf">cb_op</span><span class="p">(</span><span class="n">oper_O</span><span class="p">,</span> <span class="n">TL</span><span class="p">,</span> <span class="n">TR</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Change the basis of an operator :math:`\\hat{O}`.</span>
 
 <span class="sd">    .. math::</span>
 
-<span class="sd">        O^{\\prime} = (TL)^{\\dagger} O (TR),</span>
+<span class="sd">        O^{\\prime} = (T_L)^{\\dagger} O (T_R),</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    oper_O: array-like</span>
+<span class="sd">        At least 2-dimension, the last 2-dimension is the dimension of the</span>
+<span class="sd">        matrix form of operator :math:`\\hat{O}` in basis :math:`A`.</span>
+<span class="sd">        For example:</span>
+
+<span class="sd">        - oper_O.shape = (3, 10, 10), means 3 operatos with dimension :math:`10 \\times 10`</span>
+
+<span class="sd">        - oper_O.shape = (2, 3, 10, 10), means :math:`2 \\times 3=6` operators with</span>
+<span class="sd">          dimension :math:`10 \\times 10`</span>
+<span class="sd">    TL: 2d array</span>
+<span class="sd">        The unitary transformation matrix from basis :math:`A` to</span>
+<span class="sd">        basis :math:`B`,  namely,</span>
+
+<span class="sd">        :math:`TL_{ij} = &lt;\\psi^{A}_{i}|\\phi^{B}_{j}&gt;`.</span>
+
+<span class="sd">    TR: 2d array</span>
+<span class="sd">        The unitary transformation matrix from basis :math:`A` to</span>
+<span class="sd">        basis :math:`B`,  namely,</span>
+
+<span class="sd">        :math:`TR_{ij} = &lt;\\psi^{A}_{i}|\\phi^{B}_{j}&gt;`.</span>
+
+<span class="sd">        if TR = None, TR = TL</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    res: same shape as oper_O</span>
+<span class="sd">        The matrices form of operators :math:`\\hat{O}` in new basis.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">oper_O</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">oper_O</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="n">oper_O</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">TR</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">TR</span> <span class="o">=</span> <span class="n">TL</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Dimension of oper_O should be at least 2&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">TL</span><span class="p">)),</span> <span class="n">oper_O</span><span class="p">),</span> <span class="n">TR</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">tmp_oper</span> <span class="o">=</span> <span class="n">oper_O</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">tot</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tot</span><span class="p">):</span>
+            <span class="n">tmp_oper</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">TL</span><span class="p">)),</span> <span class="n">tmp_oper</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">TR</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">tmp_oper</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="cb_op2"><a class="viewcode-back" href="../../reference/basis_transform.html#edrixs.basis_transform.cb_op2">[docs]</a><span class="k">def</span> <span class="nf">cb_op2</span><span class="p">(</span><span class="n">oper_O</span><span class="p">,</span> <span class="n">TL</span><span class="p">,</span> <span class="n">TR</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Change the basis of an operator :math:`\\hat{O}`.</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        O^{\\prime} = (T_L)^{\\dagger} O (T_R),</span>
 
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    oper_A: 2d array</span>
-<span class="sd">        The matrix form of operator :math:`\\hat{O}` in basis :math:`A`.</span>
+<span class="sd">    oper_O: array-like</span>
+<span class="sd">        At least 2-dimension, the last 2-dimension is the dimension of the</span>
+<span class="sd">        matrix form of operator :math:`\\hat{O}` in basis :math:`A`.</span>
+<span class="sd">        For example:</span>
+
+<span class="sd">        - oper_O.shape = (3, 10, 10), means 3 operatos with dimension :math:`10 \\times 10`</span>
+
+<span class="sd">        - oper_O.shape = (2, 3, 10, 10), means :math:`2 \\times 3=6` operators with</span>
+<span class="sd">          dimension :math:`10 \\times 10`</span>
 <span class="sd">    TL: 2d array</span>
 <span class="sd">        The unitary transformation matrix applied on the left.</span>
 <span class="sd">    TR: 2d array</span>
@@ -207,12 +238,23 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    oper_B: 2d array</span>
-<span class="sd">        The matrix form of operator :math:`\\hat{O}` after the transformation.</span>
+<span class="sd">    res: same shape as oper_O</span>
+<span class="sd">        The matrices form of operators :math:`\\hat{O}` in new basis.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">oper_O</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">oper_O</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="n">oper_O</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Dimension of oper_O should be at least 2&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">TL</span><span class="p">)),</span> <span class="n">oper_O</span><span class="p">),</span> <span class="n">TR</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">tmp_oper</span> <span class="o">=</span> <span class="n">oper_O</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">tot</span><span class="p">,</span> <span class="n">dim</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">dim</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tot</span><span class="p">):</span>
+            <span class="n">tmp_oper</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">TL</span><span class="p">)),</span> <span class="n">tmp_oper</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">TR</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">tmp_oper</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
 
-    <span class="n">oper_B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">TL</span><span class="p">)),</span> <span class="n">oper_A</span><span class="p">),</span> <span class="n">TR</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">oper_B</span></div>
+    <span class="k">return</span> <span class="n">res</span></div>
 
 
 <div class="viewcode-block" id="tmat_c2r"><a class="viewcode-back" href="../../reference/basis_transform.html#edrixs.basis_transform.tmat_c2r">[docs]</a><span class="k">def</span> <span class="nf">tmat_c2r</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="n">ispin</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>

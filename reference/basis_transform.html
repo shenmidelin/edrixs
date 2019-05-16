@@ -175,26 +175,36 @@
 <span id="basis-transform"></span><h1>basis_transform<a class="headerlink" href="#module-edrixs.basis_transform" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="edrixs.basis_transform.cb_op">
-<code class="descclassname">edrixs.basis_transform.</code><code class="descname">cb_op</code><span class="sig-paren">(</span><em>oper_A</em>, <em>t_mat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#cb_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.cb_op" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change the basis of an operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> from one
-basis <span class="math notranslate nohighlight">\(A\)</span>: <span class="math notranslate nohighlight">\(\psi^{A}_{i}\)</span> to another
-basis <span class="math notranslate nohighlight">\(B\)</span>: <span class="math notranslate nohighlight">\(\phi^{B}_{j}\)</span>.</p>
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">cb_op</code><span class="sig-paren">(</span><em>oper_O</em>, <em>TL</em>, <em>TR=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#cb_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.cb_op" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the basis of an operator <span class="math notranslate nohighlight">\(\hat{O}\)</span>.</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}O^{\prime} = T^{\dagger} O T,\\T_{ij} = &lt;\psi^{A}_{i}|\phi^{B}_{j}&gt;.\end{aligned}\end{align} \]</div>
-<dl class="field-list simple">
+\[O^{\prime} = (T_L)^{\dagger} O (T_R),\]</div>
+<dl class="field-list">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>oper_A: 2d array</strong></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<dd class="field-odd"><dl>
+<dt><strong>oper_O: array-like</strong></dt><dd><p>At least 2-dimension, the last 2-dimension is the dimension of the
+matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(A\)</span>.
+For example:</p>
+<ul class="simple">
+<li><p>oper_O.shape = (3, 10, 10), means 3 operatos with dimension <span class="math notranslate nohighlight">\(10 \times 10\)</span></p></li>
+<li><p>oper_O.shape = (2, 3, 10, 10), means <span class="math notranslate nohighlight">\(2 \times 3=6\)</span> operators with
+dimension <span class="math notranslate nohighlight">\(10 \times 10\)</span></p></li>
+</ul>
 </dd>
-<dt><strong>t_mat: 2d array</strong></dt><dd><p>The unitary transformation matrix from basis <span class="math notranslate nohighlight">\(A\)</span> to
-basis <span class="math notranslate nohighlight">\(B\)</span>,  namely,
-<span class="math notranslate nohighlight">\(T_{ij} = &lt;\psi^{A}_{i}|\phi^{B}_{j}&gt;\)</span>.</p>
+<dt><strong>TL: 2d array</strong></dt><dd><p>The unitary transformation matrix from basis <span class="math notranslate nohighlight">\(A\)</span> to
+basis <span class="math notranslate nohighlight">\(B\)</span>,  namely,</p>
+<p><span class="math notranslate nohighlight">\(TL_{ij} = &lt;\psi^{A}_{i}|\phi^{B}_{j}&gt;\)</span>.</p>
+</dd>
+<dt><strong>TR: 2d array</strong></dt><dd><p>The unitary transformation matrix from basis <span class="math notranslate nohighlight">\(A\)</span> to
+basis <span class="math notranslate nohighlight">\(B\)</span>,  namely,</p>
+<p><span class="math notranslate nohighlight">\(TR_{ij} = &lt;\psi^{A}_{i}|\phi^{B}_{j}&gt;\)</span>.</p>
+<p>if TR = None, TR = TL</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>oper_B</strong><span class="classifier">2d array</span></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<dt>res: same shape as oper_O</dt><dd><p>The matrices form of operators <span class="math notranslate nohighlight">\(\hat{O}\)</span> in new basis.</p>
 </dd>
 </dl>
 </dd>
@@ -203,14 +213,21 @@ basis <span class="math notranslate nohighlight">\(B\)</span>,  namely,
 
 <dl class="function">
 <dt id="edrixs.basis_transform.cb_op2">
-<code class="descclassname">edrixs.basis_transform.</code><code class="descname">cb_op2</code><span class="sig-paren">(</span><em>oper_A</em>, <em>TL</em>, <em>TR</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#cb_op2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.cb_op2" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">edrixs.basis_transform.</code><code class="descname">cb_op2</code><span class="sig-paren">(</span><em>oper_O</em>, <em>TL</em>, <em>TR</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/basis_transform.html#cb_op2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.basis_transform.cb_op2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the basis of an operator <span class="math notranslate nohighlight">\(\hat{O}\)</span>.</p>
 <div class="math notranslate nohighlight">
-\[O^{\prime} = (TL)^{\dagger} O (TR),\]</div>
+\[O^{\prime} = (T_L)^{\dagger} O (T_R),\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>oper_A: 2d array</strong></dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<dt><strong>oper_O: array-like</strong></dt><dd><p>At least 2-dimension, the last 2-dimension is the dimension of the
+matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> in basis <span class="math notranslate nohighlight">\(A\)</span>.
+For example:</p>
+<ul class="simple">
+<li><p>oper_O.shape = (3, 10, 10), means 3 operatos with dimension <span class="math notranslate nohighlight">\(10 \times 10\)</span></p></li>
+<li><p>oper_O.shape = (2, 3, 10, 10), means <span class="math notranslate nohighlight">\(2 \times 3=6\)</span> operators with
+dimension <span class="math notranslate nohighlight">\(10 \times 10\)</span></p></li>
+</ul>
 </dd>
 <dt><strong>TL: 2d array</strong></dt><dd><p>The unitary transformation matrix applied on the left.</p>
 </dd>
@@ -220,7 +237,7 @@ basis <span class="math notranslate nohighlight">\(B\)</span>,  namely,
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt>oper_B: 2d array</dt><dd><p>The matrix form of operator <span class="math notranslate nohighlight">\(\hat{O}\)</span> after the transformation.</p>
+<dt>res: same shape as oper_O</dt><dd><p>The matrices form of operators <span class="math notranslate nohighlight">\(\hat{O}\)</span> in new basis.</p>
 </dd>
 </dl>
 </dd>

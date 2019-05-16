@@ -40,7 +40,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="edrixs basics" href="basics.html" />
-    <link rel="prev" title="Run edrixs in docker" href="usedocker.html" /> 
+    <link rel="prev" title="edrixs and docker" href="usedocker.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,7 +88,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">edrixs User Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="whatisedrixs.html">What is edrixs?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usedocker.html">Run edrixs in docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usedocker.html">edrixs and docker</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Quickstart tutorial</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#use-edrixs-as-an-ed-calculator">Use edrixs as an ED calculator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hello-rixs">Hello RIXS!</a></li>
@@ -170,31 +170,26 @@
 <div class="section" id="use-edrixs-as-an-ed-calculator">
 <h2>Use edrixs as an ED calculator<a class="headerlink" href="#use-edrixs-as-an-ed-calculator" title="Permalink to this headline">¶</a></h2>
 <p>edrixs can be used as a simple ED calculator to get eigenvalues (eigenvectors) of a many-body Hamiltonian with small size dimension (<span class="math notranslate nohighlight">\(&lt; 1,000\)</span>).
-We will give an example to get eigenvalues for a <span class="math notranslate nohighlight">\(p\)</span>-orbital system (<span class="math notranslate nohighlight">\(l=1\)</span>). There are 6 orbitals including spin.</p>
+We will give an example to get eigenvalues for a <span class="math notranslate nohighlight">\(t_{2g}\)</span>-orbital system (<span class="math notranslate nohighlight">\(l_{eff}=1\)</span>). There are 6 orbitals including spin.</p>
 <p>Launch your favorite python terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">edrixs</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">norb</span> <span class="o">=</span> <span class="mi">6</span>    <span class="c1"># number of orbitals</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="p">,</span> <span class="n">J</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">1.0</span>    <span class="c1"># Coulomb U and Hund&#39;s coupling J</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mu</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">U</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">J</span><span class="p">)</span>    <span class="c1"># chemical potential, particle-hole symmetry</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">emat</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">norb</span><span class="p">)</span> <span class="o">*</span> <span class="n">mu</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">umat</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">get_umat_kanamori</span><span class="p">(</span><span class="n">norb</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>    <span class="c1"># Kanamori type of Coulomb interaction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">eigval</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">eigvec</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">noccu</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">norb</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>    <span class="c1"># loop over all the possible occupancy</span>
-<span class="gp">... </span>    <span class="n">basis</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">get_fock_bin_by_N</span><span class="p">(</span><span class="n">norb</span><span class="p">,</span> <span class="n">noccu</span><span class="p">)</span>    <span class="c1"># Fock basis</span>
-<span class="gp">... </span>    <span class="n">H</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">two_fermion</span><span class="p">(</span><span class="n">emat</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">basis</span><span class="p">)</span>    <span class="c1"># Hamiltonian, two fermion terms</span>
-<span class="gp">... </span>    <span class="n">H</span> <span class="o">+=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">four_fermion</span><span class="p">(</span><span class="n">umat</span><span class="p">,</span> <span class="n">basis</span><span class="p">)</span>    <span class="c1"># Hamiltonian, four fermion terms</span>
-<span class="gp">... </span>    <span class="n">e</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>  <span class="c1"># do ED</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">noccu</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">eigval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">eigvec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-<span class="go">0 [0.]</span>
-<span class="go">1 [-5. -5. -5. -5. -5. -5.]</span>
-<span class="go">2 [-9. -9. -9. -9. -9. -9. -9. -9. -9. -7. -7. -7. -7. -7. -4.]</span>
-<span class="go">3 [-12. -12. -12. -12.  -9.  -9.  -9.  -9.  -9.  -9.  -9.  -9.  -9.  -9.  -7.  -7.  -7.  -7.  -7.  -7.]</span>
-<span class="go">4 [-9. -9. -9. -9. -9. -9. -9. -9. -9. -7. -7. -7. -7. -7. -4.]</span>
-<span class="go">5 [-5. -5. -5. -5. -5. -5.]</span>
-<span class="go">6 [0.]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">norb</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">noccu</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Ud</span><span class="p">,</span> <span class="n">JH</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">UJ_to_UdJH</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">UdJH_to_F0F2F4</span><span class="p">(</span><span class="n">Ud</span><span class="p">,</span> <span class="n">JH</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">umat</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">get_umat_slater</span><span class="p">(</span><span class="s1">&#39;t2g&#39;</span><span class="p">,</span> <span class="n">F0</span><span class="p">,</span> <span class="n">F2</span><span class="p">,</span> <span class="n">F4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">emat</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">atom_hsoc</span><span class="p">(</span><span class="s1">&#39;t2g&#39;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">basis</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">get_fock_bin_by_N</span><span class="p">(</span><span class="n">norb</span><span class="p">,</span> <span class="n">noccu</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">build_opers</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">umat</span><span class="p">,</span> <span class="n">basis</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e1</span><span class="p">,</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">+=</span> <span class="n">edrixs</span><span class="o">.</span><span class="n">build_opers</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">emat</span><span class="p">,</span> <span class="n">basis</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e2</span><span class="p">,</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span>
+<span class="go">[1. 1. 1. 1. 1. 1. 1. 1. 1. 3. 3. 3. 3. 3. 6.]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span>
+<span class="go">[0.890519 0.890519 0.890519 0.890519 0.890519 1.1      1.1      1.1</span>
+<span class="go"> 1.183391 3.009481 3.009481 3.009481 3.009481 3.009481 6.016609]</span>
 </pre></div>
 </div>
 </div>
@@ -341,7 +336,7 @@ We will give an example to get eigenvalues for a <span class="math notranslate n
         <a href="basics.html" class="btn btn-neutral float-right" title="edrixs basics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="usedocker.html" class="btn btn-neutral float-left" title="Run edrixs in docker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="usedocker.html" class="btn btn-neutral float-left" title="edrixs and docker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

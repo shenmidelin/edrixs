@@ -307,15 +307,47 @@ operator <span class="math notranslate nohighlight">\(l_z\)</span> in the comple
 </dd></dl>
 
 <dl class="function">
+<dt id="edrixs.angular_momentum.get_orb_momentum">
+<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">get_orb_momentum</code><span class="sig-paren">(</span><em>l</em>, <em>ispin=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#get_orb_momentum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.get_orb_momentum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the matrix form of the orbital angular momentum
+operator <span class="math notranslate nohighlight">\(l_x, l_y, l_z\)</span> in the complex spherical harmonics basis.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>l: int</strong></dt><dd><p>Orbital angular momentum number.</p>
+</dd>
+<dt><strong>ispin: logical</strong></dt><dd><p>Whether including spin or not (default: False).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt>res: 3d complex array</dt><dd><p>The matrix form of</p>
+<ul class="simple">
+<li><p>res[0]: <span class="math notranslate nohighlight">\(l_x\)</span></p></li>
+<li><p>res[1]: <span class="math notranslate nohighlight">\(l_y\)</span></p></li>
+<li><p>res[2]: <span class="math notranslate nohighlight">\(l_z\)</span></p></li>
+</ul>
+<p>If ispin=True, the dimension will be <span class="math notranslate nohighlight">\(3 \times 2(2l+1) \times 2(2l+1)\)</span>,</p>
+<p>otherwise, it will be <span class="math notranslate nohighlight">\(3 \times (2l+1) \times (2l+1)\)</span>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="edrixs.angular_momentum.get_pauli">
 <code class="descclassname">edrixs.angular_momentum.</code><code class="descname">get_pauli</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#get_pauli"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.get_pauli" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the Pauli matrix</p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><dl>
-<dt>sigma: 3d complex array, shape=(3, 2, 2)</dt><dd><p>sigma[0] is <span class="math notranslate nohighlight">\(\sigma_x\)</span>,</p>
-<p>sigma[1] is <span class="math notranslate nohighlight">\(\sigma_y\)</span>,</p>
-<p>sigma[2] is <span class="math notranslate nohighlight">\(\sigma_z\)</span>,</p>
+<dd class="field-odd"><dl class="simple">
+<dt>sigma: 3d complex array, shape=(3, 2, 2)</dt><dd><ul class="simple">
+<li><p>sigma[0] is <span class="math notranslate nohighlight">\(\sigma_x\)</span>,</p></li>
+<li><p>sigma[1] is <span class="math notranslate nohighlight">\(\sigma_y\)</span>,</p></li>
+<li><p>sigma[2] is <span class="math notranslate nohighlight">\(\sigma_z\)</span>,</p></li>
+</ul>
 </dd>
 </dl>
 </dd>
@@ -386,6 +418,35 @@ complex spherical harmonics basis.</p>
 <dd class="field-even"><dl>
 <dt>sz: 2d complex array.</dt><dd><p>Matrix form of <span class="math notranslate nohighlight">\(s_z\)</span>, the dimension
 is <span class="math notranslate nohighlight">\(2(2l+1) \times 2(2l+1)\)</span>.</p>
+<p>Orbital order is: |-l,up&gt;, |-l,down&gt;, …,
+|+l, up&gt;, |+l,down&gt;</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="edrixs.angular_momentum.get_spin_momentum">
+<code class="descclassname">edrixs.angular_momentum.</code><code class="descname">get_spin_momentum</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/edrixs/angular_momentum.html#get_spin_momentum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#edrixs.angular_momentum.get_spin_momentum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the matrix form of the spin angular momentum
+operator <span class="math notranslate nohighlight">\(s_x, s_y, s_z\)</span> in the complex spherical harmonics basis.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>l: int</strong></dt><dd><p>Orbital angular momentum number.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt>res: 3d complex array</dt><dd><p>The matrix form of</p>
+<ul class="simple">
+<li><p>res[0]: <span class="math notranslate nohighlight">\(s_x\)</span></p></li>
+<li><p>res[1]: <span class="math notranslate nohighlight">\(s_y\)</span></p></li>
+<li><p>res[2]: <span class="math notranslate nohighlight">\(s_z\)</span></p></li>
+</ul>
+<p>the dimension is <span class="math notranslate nohighlight">\(3 \times 2(2l+1) \times 2(2l+1)\)</span>,</p>
 <p>Orbital order is: |-l,up&gt;, |-l,down&gt;, …,
 |+l, up&gt;, |+l,down&gt;</p>
 </dd>

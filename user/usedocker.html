@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Run edrixs in docker &mdash; edrixs  documentation</title>
+  <title>edrixs and docker &mdash; edrixs  documentation</title>
   
 
   
@@ -88,7 +88,11 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">edrixs User Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="whatisedrixs.html">What is edrixs?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Run edrixs in docker</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">edrixs and docker</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#run-edrixs-in-a-docker-container">Run edrixs in a docker container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connect-to-docker-python-session-with-jupyter">Connect to docker python session with Jupyter</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html">Quickstart tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basics.html">edrixs basics</a></li>
 </ul>
@@ -142,7 +146,7 @@
         
           <li><a href="index.html">edrixs User Guide</a> &raquo;</li>
         
-      <li>Run edrixs in docker</li>
+      <li>edrixs and docker</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -161,8 +165,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="run-edrixs-in-docker">
-<h1>Run edrixs in docker<a class="headerlink" href="#run-edrixs-in-docker" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="edrixs-and-docker">
+<h1>edrixs and docker<a class="headerlink" href="#edrixs-and-docker" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="run-edrixs-in-a-docker-container">
+<h2>Run edrixs in a docker container<a class="headerlink" href="#run-edrixs-in-a-docker-container" title="Permalink to this headline">¶</a></h2>
 <p>To make life easier, we have built a docker image based on Ubuntu Linux (18.04) for edrixs, so you don’t need to struggle with the installation anymore.
 The docker image can be used on any OS as long as the <a class="reference external" href="https://www.docker.com/">docker</a> application are available.
 Follow these steps to use the docker image:</p>
@@ -199,6 +205,23 @@ Play with edrixs ...
 </div>
 </li>
 </ul>
+</div>
+<div class="section" id="connect-to-docker-python-session-with-jupyter">
+<h2>Connect to docker python session with Jupyter<a class="headerlink" href="#connect-to-docker-python-session-with-jupyter" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://jupyter.org/">Jupyter</a>  is a popular way to integrate your code with rich output including plots. You may find this working mode particularly useful for exploratory work, when you try many different approaches to calculations or analysis.</p>
+<ul>
+<li><p>To use this follow the steps above, but pass an additional command <code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">8888</span></code> when you launch the container i.e.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run -it -p 8888 -u rixs -w /home/rixs -v /dir/on/your/host/os:/home/rixs/data laowang2017/edrixs
+</pre></div>
+</div>
+<p>from within the container initiate the jupyter session as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter lab --ip=0.0.0.0 --port=8888 --no-browser
+</pre></div>
+</div>
+<p>This will return a URL that you can enter in a browser on your machine.</p>
+</li>
+</ul>
+</div>
 </div>
 
 
