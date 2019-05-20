@@ -170,11 +170,11 @@
 <div class="section" id="run-edrixs-in-a-docker-container">
 <h2>Run edrixs in a docker container<a class="headerlink" href="#run-edrixs-in-a-docker-container" title="Permalink to this headline">¶</a></h2>
 <p>To make life easier, we have built a docker image based on Ubuntu Linux (18.04) for edrixs, so you don’t need to struggle with the installation anymore.
-The docker image can be used on any OS as long as the <a class="reference external" href="https://www.docker.com/">docker</a> application are available.
+The docker image can be used on any OS as long as the <a class="reference external" href="https://www.docker.com/">docker</a> application is available.
 Follow these steps to use the docker image:</p>
 <ul>
 <li><p>Install the <a class="reference external" href="https://www.docker.com/">docker</a> application on your system and <a class="reference external" href="https://docs.docker.com/get-started/">learn how to use it</a>.</p></li>
-<li><p>Once the docker is running, create a directory to store data in your host OS and launch a container to run edrixs:</p>
+<li><p>Once Docker is running, create a directory to store data in your host OS and launch a container to run edrixs:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir /dir/on/your/host/os   # A directory on your host OS
 $ docker pull edrixs/edrixs    # pull latest version
 $ docker run -it -u rixs -w /home/rixs -v /dir/on/your/host/os:/home/rixs/data edrixs/edrixs
@@ -219,7 +219,7 @@ Play with edrixs ...
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
 </pre></div>
 </div>
-<p>This will return a URL that you can enter in a browser on your host machine.</p>
+<p>This will return a URL that you can enter in a browser on your host machine. If you want to use interactive <a class="reference external" href="https://ipywidgets.readthedocs.io/en/stable/">ipython widgets</a> and <a class="reference external" href="https://github.com/matplotlib/jupyter-matplotlib">plotting</a>, replace <code class="docutils literal notranslate"><span class="pre">edrixs/edrixs</span></code> with <code class="docutils literal notranslate"><span class="pre">edrixs/edrixs_interactive</span></code>. This downloads a (larger) container with the required additional packages.</p>
 </li>
 </ul>
 </div>
