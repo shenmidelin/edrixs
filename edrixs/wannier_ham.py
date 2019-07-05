@@ -5,25 +5,28 @@ import numpy as np
 
 class HR():
     """
-    Class for post-process of the Wannier90 tight-binding (TB) Hamiltonian in real space.
-
-    Parameters
-    ----------
-    nwann: int
-        Number of Wannier orbitals.
-    nrpt: int
-        Number of :math:`r` points.
-    irpt0: int
-        Index of the point (0,0,0).
-    rpts: float array
-        The coordinates of :math:`r` points.
-    deg_rpt: int array
-        Degenerancy of :math:`r` points.
-    hr: complex array
-        Hamiltonian :math:`H(r)` from Wannier90.
+    Class for post-processing of the `Wannier90 <http://www.wannier.org/>`_ 
+    tight-binding (TB) Hamiltonian in real space.
     """
 
     def __init__(self, nwann, nrpt, irpt0, rpts, deg_rpt, hr):
+
+        """
+        Parameters
+        ----------
+        nwann: int
+            Number of Wannier orbitals.
+        nrpt: int
+            Number of :math:`r` points.
+        irpt0: int
+            Index of the origin :math:`r`-point :math:`(0, 0, 0)`.
+        rpts: 3 elements of 1d float array
+            The fractional coordinates of :math:`r`-points wrt. primitive lattice vectors.
+        deg_rpt: 1d int array
+            Degenerancy of :math:`r`-points.
+        hr: 3d complex array
+            TB Hamiltonian :math:`H(r)` from Wannier90.
+        """
         self.nwann = nwann
         self.nrpt = nrpt
         self.irpt0 = irpt0
@@ -34,17 +37,17 @@ class HR():
     @staticmethod
     def from_file(fname='wannier90_hr.dat'):
         """
-        Generate a TB Hamiltonian from Wannier90 output file "case_hr.dat".
+        Generate a TB Hamiltonian from Wannier90 output file ``case_hr.dat``.
 
         Parameters
         ----------
-        fname: str
-            The file that contains the Wannier90 output file: "case_hr.dat".
+        fname: string
+            The file that contains the Wannier90 output file ``case_hr.dat``.
 
         Returns
         -------
         HR: HR object
-            A HR object.
+            An instance of HR object.
         """
 
         with open(fname, 'r') as f:
@@ -69,15 +72,14 @@ class HR():
                         rpts[i, :] = int(rx), int(ry), int(rz)
                         if int(rx) == 0 and int(ry) == 0 and int(rz) == 0:
                             irpt0 = i
-                        hr[i, k, j] = np.float64(
-                            hr_real) + np.float64(hr_imag) * 1j
+                        hr[i, k, j] = np.float64(hr_real) + np.float64(hr_imag) * 1j
             # construct the HR instance
             return HR(nwann, nrpt, irpt0, rpts, deg_rpt, hr)
 
     @staticmethod
     def copy_hr(other):
         """
-        Copy instance of HR.
+        Copy an instance of HR.
 
         Parameters
         ----------
@@ -97,38 +99,64 @@ class HR():
                   np.copy(other.deg_rpt),
                   np.copy(other.hr))
 
-    def get_hr0(self, ispin=False):
+    def get_hr0(self, ispin=0):
         """
         Return the on-site term :math:`H(r=0)`.
 
         Parameters
         ----------
-        ispin: logical
-            Whether to include spin degree of freedom or not (default: False).
+        ispin: int
+            How to include spin degree of freedom:
+
+            - 0: do not include spin degree of freedom manually
+
+            - 1: include spin degree of freedom manually,
+
+            spin order: up, dn, up, dn, ..., up, dn
+
+            - 2: include spin degree of freedom manually,
+
+            spin order: up, up, up, ..., dn, dn, dn, ...
 
         Returns
         -------
-        hr: 2d complex array
+        hr0: 2d complex array
             The on-site Hamiltonian.
         """
 
-        if ispin:
+        if ispin == 1:
             norbs = 2 * self.nwann
-            hr0_spin = np.zeros((norbs, norbs), dtype=np.complex128)
-            hr0_spin[0:norbs:2, 0:norbs:2] = self.hr[self.irpt0, :, :]
-            hr0_spin[1:norbs:2, 1:norbs:2] = self.hr[self.irpt0, :, :]
-            return hr0_spin
+            hr0 = np.zeros((norbs, norbs), dtype=np.complex128)
+            hr0[0:norbs:2, 0:norbs:2] = self.hr[self.irpt0, :, :]
+            hr0[1:norbs:2, 1:norbs:2] = self.hr[self.irpt0, :, :]
+            return hr0
+        elif ispin == 2:
+            norbs = 2 * self.nwann
+            hr0 = np.zeros((norbs, norbs), dtype=np.complex128)
+            hr0[0:self.nwann, 0:self.nwann] = self.hr[self.irpt0, :, :]
+            hr0[self.nwann:norbs, self.nwann:norbs] = self.hr[self.irpt0, :, :]
+            return hr0
         else:
             return self.hr[self.irpt0, :, :]
 
     def get_hr(self, ispin):
         """
-        Return the Hamiltonian of :math:`H(r)`.
+        Return TB Hamiltonian of :math:`H(r)`.
 
         Parameters
         ----------
-        ispin: logical
-            Whether to include spin degree of freedom or not (default: False)
+        ispin: int
+            How to include spin degree of freedom:
+
+            - 0: do not include spin degree of freedom manually
+
+            - 1: include spin degree of freedom manually,
+
+            spin order: up, dn, up, dn, ..., up, dn
+
+            - 2: include spin degree of freedom manually,
+
+            spin order: up, up, up, ..., dn, dn, dn, ...
 
         Returns
         -------
@@ -158,26 +186,35 @@ class HR():
 class KVec():
     """
     Define :math:`k` points in BZ, high symmetry line or uniform grid.
-
-    Parameters
-    ----------
-    kpt_type: str
-        The type of :math:`k` points, 'uni' or 'sym'.
-    kbase: :math:`3 \\times 3` float array
-        The basis vectors of the primitive reciprocal space.
-    nkpt: int
-        Number of :math:`k` points.
-    kvec: float array
-        The :math:`k` points.
+    The coordinates are fractional w.r.t. the primitive reciprocal lattice vectors. 
     """
 
-    def __init__(self, kpt_type='uni', kbase=None, nkpt=None, kvec=None):
+    def __init__(self, kpt_type='uni', kbase=None, nkpt=None, kvec=None, weights=None,
+                 with_twopi=False):
+        """
+        Parameters
+        ----------
+        kpt_type: string
+            The type of :math:`k` points, 'uni' or 'sym'.
+        kbase: :math:`3 \\times 3` float array
+            The basis vectors of the primitive reciprocal space.
+        nkpt: int
+            Number of :math:`k` points.
+        kvec: 2d float array
+            The fractional coordinates of :math:`k` points.
+        weights: 1d float array
+            The weights of :math:`k` points.
+        with_twopi: logical
+            Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
+        """
         self.nkpt = nkpt
         self.kbase = np.array(kbase, dtype=np.float64)
         self.kvec = np.array(kvec, dtype=np.float64)
+        self.weights = np.array(weights)
         self.kpt_type = kpt_type
+        self.with_twopi = with_twopi
 
-    def set_base(self, kbase):
+    def set_base(self, kbase, with_twopi=False):
         """
         Set the basis of the primitive reciprocal.
 
@@ -185,48 +222,79 @@ class KVec():
         ----------
         kbase: :math:`3 \\times 3` float array
             The basis with respect to the global axis.
+        with_twopi: logical
+            Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         """
 
         self.kbase = np.array(kbase, dtype=np.float64)
+        self.with_twopi = with_twopi
 
     def kvec_from_file(self, fname):
         """
-        Read :math:`k` points from file.
+        Read the fractional coordinates and weights of :math:`k` points from a file.
 
         Parameters
         ----------
-        fname: str
+        fname: string
             File name.
         """
 
-        tmp = []
+        k_tmp = []
+        w_tmp = []
         with open(fname, 'r') as f:
             for line in f:
                 line = line.strip().split()
                 if line != []:
-                    tmp.append(line)
-            self.kvec = np.array(tmp, dtype=np.float64)
-            self.nkpt = len(tmp)
+                    k_tmp.append(line[0:3])
+                    w_tmp.append(line[3])
+            self.kvec = np.array(k_tmp, dtype=np.float64)
+            self.weights = np.array(w_tmp, dtype=np.float64)
+            self.nkpt = len(k_tmp)
+
+     def write_kvec(self, fname, with_weights=False):
+         """
+         Write the fractional coordinates of :math:`k` points to a file.
+
+         Parameters
+         ----------
+         fname: string
+             File name.
+         with_weights: logical
+             Whether to write the weights of each :math:`k` point. 
+         """
+         with open(fname, 'w') as f:
+             for i in range(len(self.kvec)):
+                 if with_weights:
+                     fmt = "{:20.10f}"*4 + str("\n")
+                     line=fmt.format(self.kvec[i, 0], self.kvec[i, 1], self.kvec[i, 2], self.weights[i]) 
+                 else:
+                     fmt = "{:20.10f}"*3 + str("\n")
+                     line=fmt.format(self.kvec[i, 0], self.kvec[i, 1], self.kvec[i, 2]) 
+                 f.write(line)
 
 
 class SymKVec(KVec):
     """
     Class for defining :math:`k` points in high symmetry line, derived from :class:`KVec`.
 
-    Parameters
-    ----------
-    kbase: :math:`3 \\times 3` float array
-        Basis of the primitive reciprocal lattice.
-    hsymkpt: float array
-        Starting and end :math:`k` points along high symmetry lines.
-    klen: float array
-        Length of segments of :math:`k` points line.
     """
 
-    def __init__(self, kbase=None, hsymkpt=None, klen=None):
+    def __init__(self, kbase=None, with_twopi=False, hsymkpt=None, klen=None, ):
+        """
+        Parameters
+        ----------
+        kbase: :math:`3 \\times 3` float array
+            Basis of the primitive reciprocal lattice.
+        with_twopi: logical
+            Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
+        hsymkpt: float array
+            Starting and end :math:`k` points along high symmetry lines.
+        klen: float array
+            Length of segments of :math:`k` points line.
+        """
         self.klen = np.array(klen, dtype=np.float64)
         self.hsymkpt = np.array(hsymkpt, dtype=np.float64)
-        KVec.__init__(self, 'sym', kbase)
+        KVec.__init__(self, kpt_type='sym', kbase=kbase, with_twopi=with_twopi)
 
     def get_klen(self):
         """
@@ -247,7 +315,7 @@ class SymKVec(KVec):
                 np.sqrt(np.dot((kx, ky, kz), (kx, ky, kz)))
             prev_kpt = curr_kpt
 
-    def from_hsymkpt(self, nkpt_per_path=20):
+    def from_hsymkpt_npt(self, nkpt_per_path=20):
         """
         Given starting and end :math:`k` points of each segment,
         and the number of points per each segment,
@@ -261,6 +329,7 @@ class SymKVec(KVec):
 
         self.nkpt = nkpt_per_path * (len(self.hsymkpt) - 1)
         self.kvec = np.zeros((self.nkpt, 3), dtype=np.float64)
+        self.weights = np.ones(self.nkpt) / self.nkpt
         for i in range(1, len(self.hsymkpt)):
             kpt_prev = self.hsymkpt[i - 1, :]
             kpt_curr = self.hsymkpt[i, :]
@@ -269,7 +338,7 @@ class SymKVec(KVec):
                 self.kvec[ikpt, :] = (float(j) / float(nkpt_per_path - 1) *
                                       (kpt_curr - kpt_prev) + kpt_prev)
 
-    def from_hsymkpt_uni(self, step):
+    def from_hsymkpt_step(self, step):
         """
         Given a step, return high symmetry :math:`k` points.
 
@@ -293,31 +362,38 @@ class SymKVec(KVec):
                 kvec.append(ipt * (kpt_curr - kpt_prev) + kpt_prev)
         self.kvec = np.array(kvec, dtype=np.float64)
         self.nkpt = len(self.kvec)
+        self.weights = np.ones(self.nkpt) / self.nkpt
 
 
 class UniKVec(KVec):
     """
     Class for defining uniform :math:`k` points grid, derived from :class:`KVec`.
-
-    Parameters
-    ----------
-    grid: 3-elements tuple
-        Three numbers defining a uniform grid, for example: :math:`11 \\times 11 \\times 11`.
     """
 
     def __init__(self, grid=None):
+        """
+        Parameters
+        ----------
+        grid: 3-elements tuple
+            Three numbers defining a uniform grid, for example: :math:`11 \\times 11 \\times 11`.
+        """
         self.grid = grid
-        KVec.__init__(self, 'uni')
+        KVec.__init__(self, kpt_type='uni')
 
-    def from_grid(self):
+    def from_grid(self, shift_delta=0.0):
         """
         Return uniform :math:`k` points.
+        
+        Parameters
+        ----------
+        shift_delta: float
+            A small shift. 
         """
 
-        delta = 0.001
         nx, ny, nz = self.grid
         self.nkpt = nx * ny * nz
         self.kvec = np.zeros((self.nkpt, 3), dtype=np.float64)
+        self.weights = np.ones(self.nkpt) / self.nkpt
         ikpt = 0
         for i in range(nx):
             if nx == 1:
@@ -335,4 +411,4 @@ class UniKVec(KVec):
                     else:
                         kz = float(k) / float(nz)
                     ikpt = ikpt + 1
-                    self.kvec[ikpt - 1, :] = kx + delta, ky + delta, kz + delta
+                    self.kvec[ikpt - 1, :] = kx + shift_delta, ky + shift_delta, kz + shift_delta
