@@ -5,7 +5,7 @@ import numpy as np
 
 class HR():
     """
-    Class for post-processing of the `Wannier90 <http://www.wannier.org/>`_ 
+    Class for post-processing of the `Wannier90 <http://www.wannier.org/>`_
     tight-binding (TB) Hamiltonian in real space.
     """
 
@@ -186,26 +186,26 @@ class HR():
 class KVec():
     """
     Define :math:`k` points in BZ, high symmetry line or uniform grid.
-    The coordinates are fractional w.r.t. the primitive reciprocal lattice vectors. 
+    The coordinates are fractional w.r.t. the primitive reciprocal lattice vectors.
     """
 
-    def __init__(self, kpt_type='uni', kbase=None, nkpt=None, kvec=None, weights=None,
-                 with_twopi=False):
+    def __init__(self, kpt_type='uni', kbase=None, with_twopi=False, nkpt=None,
+                 kvec=None, weights=None):
         """
         Parameters
         ----------
         kpt_type: string
             The type of :math:`k` points, 'uni' or 'sym'.
-        kbase: :math:`3 \\times 3` float array
+        kbase: a :math:`3 \\times 3` float array
             The basis vectors of the primitive reciprocal space.
+        with_twopi: logical
+            Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         nkpt: int
             Number of :math:`k` points.
         kvec: 2d float array
             The fractional coordinates of :math:`k` points.
         weights: 1d float array
             The weights of :math:`k` points.
-        with_twopi: logical
-            Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         """
         self.nkpt = nkpt
         self.kbase = np.array(kbase, dtype=np.float64)
@@ -220,7 +220,7 @@ class KVec():
 
         Parameters
         ----------
-        kbase: :math:`3 \\times 3` float array
+        kbase: a :math:`3 \\times 3` float array
             The basis with respect to the global axis.
         with_twopi: logical
             Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
@@ -255,28 +255,29 @@ class KVec():
             if read_weights:
                 self.weights = np.array(w_tmp, dtype=np.float64)
             else:
-                self.weights = np.ones(self.nkpt) / self.nkpt                
+                self.weights = np.ones(self.nkpt) / self.nkpt
 
-     def write_kvec(self, fname, write_weights=False):
-         """
-         Write the fractional coordinates of :math:`k` points to a file.
+    def write_kvec(self, fname, write_weights=False):
+        """
+        Write the fractional coordinates of :math:`k` points to a file.
 
-         Parameters
-         ----------
-         fname: string
-             File name.
-         write_weights: logical
-             Whether to write the weights of each :math:`k` point. 
-         """
-         with open(fname, 'w') as f:
-             for i in range(len(self.kvec)):
-                 if write_weights:
-                     fmt = "{:20.10f}"*4 + str("\n")
-                     line=fmt.format(self.kvec[i, 0], self.kvec[i, 1], self.kvec[i, 2], self.weights[i]) 
-                 else:
-                     fmt = "{:20.10f}"*3 + str("\n")
-                     line=fmt.format(self.kvec[i, 0], self.kvec[i, 1], self.kvec[i, 2]) 
-                 f.write(line)
+        Parameters
+        ----------
+        fname: string
+            File name.
+        write_weights: logical
+            Whether to write the weights of each :math:`k` point.
+        """
+        with open(fname, 'w') as f:
+            for i in range(len(self.kvec)):
+                if write_weights:
+                    fmt = "{:20.10f}"*4 + str("\n")
+                    line = fmt.format(self.kvec[i, 0], self.kvec[i, 1], self.kvec[i, 2],
+                                      self.weights[i])
+                else:
+                    fmt = "{:20.10f}"*3 + str("\n")
+                    line = fmt.format(self.kvec[i, 0], self.kvec[i, 1], self.kvec[i, 2])
+                f.write(line)
 
 
 class SymKVec(KVec):
@@ -289,7 +290,7 @@ class SymKVec(KVec):
         """
         Parameters
         ----------
-        kbase: :math:`3 \\times 3` float array
+        kbase: a :math:`3 \\times 3` float array
             Basis of the primitive reciprocal lattice.
         with_twopi: logical
             Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
@@ -379,7 +380,7 @@ class UniKVec(KVec):
         """
         Parameters
         ----------
-        kbase: :math:`3 \\times 3` float array
+        kbase: a :math:`3 \\times 3` float array
             Basis of the primitive reciprocal lattice.
         with_twopi: logical
             Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
@@ -392,11 +393,11 @@ class UniKVec(KVec):
     def from_grid(self, shift_delta=0.0):
         """
         Return uniform :math:`k` points.
-        
+
         Parameters
         ----------
         shift_delta: float
-            A small shift. 
+            A small shift.
         """
 
         nx, ny, nz = self.grid
