@@ -210,7 +210,7 @@ class KVec():
         self.nkpt = nkpt
         self.kbase = np.array(kbase, dtype=np.float64)
         self.kvec = np.array(kvec, dtype=np.float64)
-        self.weights = np.array(weights)
+        self.weights = np.array(weights, dtype=np.float64)
         self.kpt_type = kpt_type
         self.with_twopi = with_twopi
 
@@ -229,7 +229,7 @@ class KVec():
         self.kbase = np.array(kbase, dtype=np.float64)
         self.with_twopi = with_twopi
 
-    def kvec_from_file(self, fname):
+    def kvec_from_file(self, fname, read_weights=False):
         """
         Read the fractional coordinates and weights of :math:`k` points from a file.
 
@@ -237,6 +237,8 @@ class KVec():
         ----------
         fname: string
             File name.
+        read_weights: logical
+            Whether to read the weights.
         """
 
         k_tmp = []
@@ -246,12 +248,16 @@ class KVec():
                 line = line.strip().split()
                 if line != []:
                     k_tmp.append(line[0:3])
-                    w_tmp.append(line[3])
+                    if read_weights:
+                        w_tmp.append(line[3])
             self.kvec = np.array(k_tmp, dtype=np.float64)
-            self.weights = np.array(w_tmp, dtype=np.float64)
             self.nkpt = len(k_tmp)
+            if read_weights:
+                self.weights = np.array(w_tmp, dtype=np.float64)
+            else:
+                self.weights = np.ones(self.nkpt) / self.nkpt                
 
-     def write_kvec(self, fname, with_weights=False):
+     def write_kvec(self, fname, write_weights=False):
          """
          Write the fractional coordinates of :math:`k` points to a file.
 
@@ -259,12 +265,12 @@ class KVec():
          ----------
          fname: string
              File name.
-         with_weights: logical
+         write_weights: logical
              Whether to write the weights of each :math:`k` point. 
          """
          with open(fname, 'w') as f:
              for i in range(len(self.kvec)):
-                 if with_weights:
+                 if write_weights:
                      fmt = "{:20.10f}"*4 + str("\n")
                      line=fmt.format(self.kvec[i, 0], self.kvec[i, 1], self.kvec[i, 2], self.weights[i]) 
                  else:
@@ -279,7 +285,7 @@ class SymKVec(KVec):
 
     """
 
-    def __init__(self, kbase=None, with_twopi=False, hsymkpt=None, klen=None, ):
+    def __init__(self, kbase=None, with_twopi=False, hsymkpt=None, klen=None):
         """
         Parameters
         ----------
@@ -298,7 +304,7 @@ class SymKVec(KVec):
 
     def get_klen(self):
         """
-        Return length of :math:`k` points segments.
+        Calculate the length of :math:`k` points segments.
         """
 
         self.klen = np.zeros(self.nkpt, dtype=np.float64)
@@ -311,15 +317,13 @@ class SymKVec(KVec):
             kx = np.dot(tmp_kpt, self.kbase[:, 0])
             ky = np.dot(tmp_kpt, self.kbase[:, 1])
             kz = np.dot(tmp_kpt, self.kbase[:, 2])
-            self.klen[i] = self.klen[i - 1] + \
-                np.sqrt(np.dot((kx, ky, kz), (kx, ky, kz)))
+            self.klen[i] = self.klen[i - 1] + np.sqrt(np.dot((kx, ky, kz), (kx, ky, kz)))
             prev_kpt = curr_kpt
 
     def from_hsymkpt_npt(self, nkpt_per_path=20):
         """
-        Given starting and end :math:`k` points of each segment,
-        and the number of points per each segment,
-        return the high symmetry :math:`k` points.
+        Given the number of points per each segment,
+        calculate the franctional coordinates of high symmetry :math:`k` points.
 
         Parameters
         ----------
@@ -340,7 +344,8 @@ class SymKVec(KVec):
 
     def from_hsymkpt_step(self, step):
         """
-        Given a step, return high symmetry :math:`k` points.
+        Given a step,
+        calculate the franctional coordinates of high symmetry :math:`k` points.
 
         Parameters
         ----------
@@ -370,15 +375,19 @@ class UniKVec(KVec):
     Class for defining uniform :math:`k` points grid, derived from :class:`KVec`.
     """
 
-    def __init__(self, grid=None):
+    def __init__(self, kbase=None, with_twopi=False, grid=None):
         """
         Parameters
         ----------
+        kbase: :math:`3 \\times 3` float array
+            Basis of the primitive reciprocal lattice.
+        with_twopi: logical
+            Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         grid: 3-elements tuple
             Three numbers defining a uniform grid, for example: :math:`11 \\times 11 \\times 11`.
         """
         self.grid = grid
-        KVec.__init__(self, kpt_type='uni')
+        KVec.__init__(self, kpt_type='uni', kbase=kbase, with_twopi=with_twopi)
 
     def from_grid(self, shift_delta=0.0):
         """
@@ -411,4 +420,4 @@ class UniKVec(KVec):
                     else:
                         kz = float(k) / float(nz)
                     ikpt = ikpt + 1
-                    self.kvec[ikpt - 1, :] = kx + shift_delta, ky + shift_delta, kz + shift_delta
+                    self.kvec[ikpt-1, :] = kx + shift_delta, ky + shift_delta, kz + shift_delta
