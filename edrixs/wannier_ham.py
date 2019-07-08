@@ -196,8 +196,14 @@ class KVec():
         ----------
         kpt_type: string
             The type of :math:`k` points, 'uni' or 'sym'.
-        kbase: a :math:`3 \\times 3` float array
+        kbase: 2d float array
             The basis vectors of the primitive reciprocal space.
+
+            - kbase[:, 0]  for :math:`b_{1}`
+
+            - kbase[:, 1]  for :math:`b_{2}`
+
+            - kbase[:, 2]  for :math:`b_{3}`
         with_twopi: logical
             Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         nkpt: int
@@ -220,8 +226,14 @@ class KVec():
 
         Parameters
         ----------
-        kbase: a :math:`3 \\times 3` float array
-            The basis with respect to the global axis.
+        kbase: 2d float array
+            The basis vectors of the primitive reciprocal space.
+
+            - kbase[:, 0]  for :math:`b_{1}`
+
+            - kbase[:, 1]  for :math:`b_{2}`
+
+            - kbase[:, 2]  for :math:`b_{3}`
         with_twopi: logical
             Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         """
@@ -290,8 +302,14 @@ class SymKVec(KVec):
         """
         Parameters
         ----------
-        kbase: a :math:`3 \\times 3` float array
-            Basis of the primitive reciprocal lattice.
+        kbase: 2d float array
+            Basis vectors of the primitive reciprocal lattice.
+
+            - kbase[:, 0]  for :math:`b_{1}`
+
+            - kbase[:, 1]  for :math:`b_{2}`
+
+            - kbase[:, 2]  for :math:`b_{3}`
         with_twopi: logical
             Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         hsymkpt: float array
@@ -380,8 +398,14 @@ class UniKVec(KVec):
         """
         Parameters
         ----------
-        kbase: a :math:`3 \\times 3` float array
-            Basis of the primitive reciprocal lattice.
+        kbase: 2d float array
+            Basis vectors of the primitive reciprocal lattice.
+
+            - kbase[:, 0]  for :math:`b_{1}`
+
+            - kbase[:, 1]  for :math:`b_{2}`
+
+            - kbase[:, 2]  for :math:`b_{3}`
         with_twopi: logical
             Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         grid: 3-elements tuple
