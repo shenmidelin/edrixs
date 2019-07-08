@@ -189,7 +189,7 @@ class KVec():
     The coordinates are fractional w.r.t. the primitive reciprocal lattice vectors.
     """
 
-    def __init__(self, kpt_type='uni', kbase=None, with_twopi=False, nkpt=None,
+    def __init__(self, kpt_type='uni', kbase=None, nkpt=None,
                  kvec=None, weights=None):
         """
         Parameters
@@ -198,14 +198,22 @@ class KVec():
             The type of :math:`k` points, 'uni' or 'sym'.
         kbase: 2d float array
             The basis vectors of the primitive reciprocal space.
+           
+            .. math:: 
+
+                \\vec{b}_{1} = \\frac{2\\pi}{V_{cell}} \\vec{a}_{2} \\times \\vec{a}_{3}
+
+                \\vec{b}_{2} = \\frac{2\\pi}{V_{cell}} \\vec{a}_{3} \\times \\vec{a}_{1}
+
+                \\vec{b}_{3} = \\frac{2\\pi}{V_{cell}} \\vec{a}_{1} \\times \\vec{a}_{2}
+
+            where, :math:`V_{cell}=\\vec{a}_{1} \\times \\vec{a}_{2} \\cdot \\vec{a}_{3}`
 
             - kbase[:, 0]  for :math:`b_{1}`
 
             - kbase[:, 1]  for :math:`b_{2}`
 
             - kbase[:, 2]  for :math:`b_{3}`
-        with_twopi: logical
-            Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         nkpt: int
             Number of :math:`k` points.
         kvec: 2d float array
@@ -218,9 +226,8 @@ class KVec():
         self.kvec = np.array(kvec, dtype=np.float64)
         self.weights = np.array(weights, dtype=np.float64)
         self.kpt_type = kpt_type
-        self.with_twopi = with_twopi
 
-    def set_base(self, kbase, with_twopi=False):
+    def set_base(self, kbase):
         """
         Set the basis of the primitive reciprocal.
 
@@ -234,12 +241,9 @@ class KVec():
             - kbase[:, 1]  for :math:`b_{2}`
 
             - kbase[:, 2]  for :math:`b_{3}`
-        with_twopi: logical
-            Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         """
 
         self.kbase = np.array(kbase, dtype=np.float64)
-        self.with_twopi = with_twopi
 
     def kvec_from_file(self, fname, read_weights=False):
         """
@@ -298,7 +302,7 @@ class SymKVec(KVec):
 
     """
 
-    def __init__(self, kbase=None, with_twopi=False, hsymkpt=None, klen=None):
+    def __init__(self, kbase=None, hsymkpt=None, klen=None):
         """
         Parameters
         ----------
@@ -310,8 +314,6 @@ class SymKVec(KVec):
             - kbase[:, 1]  for :math:`b_{2}`
 
             - kbase[:, 2]  for :math:`b_{3}`
-        with_twopi: logical
-            Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         hsymkpt: float array
             Starting and end :math:`k` points along high symmetry lines.
         klen: float array
@@ -319,7 +321,7 @@ class SymKVec(KVec):
         """
         self.klen = np.array(klen, dtype=np.float64)
         self.hsymkpt = np.array(hsymkpt, dtype=np.float64)
-        KVec.__init__(self, kpt_type='sym', kbase=kbase, with_twopi=with_twopi)
+        KVec.__init__(self, kpt_type='sym', kbase=kbase)
 
     def get_klen(self):
         """
@@ -394,7 +396,7 @@ class UniKVec(KVec):
     Class for defining uniform :math:`k` points grid, derived from :class:`KVec`.
     """
 
-    def __init__(self, kbase=None, with_twopi=False, grid=None):
+    def __init__(self, kbase=None, grid=None):
         """
         Parameters
         ----------
@@ -406,13 +408,11 @@ class UniKVec(KVec):
             - kbase[:, 1]  for :math:`b_{2}`
 
             - kbase[:, 2]  for :math:`b_{3}`
-        with_twopi: logical
-            Whether the basis vector ``kbase`` including the :math:`2\\pi` factor.
         grid: 3-elements tuple
             Three numbers defining a uniform grid, for example: :math:`11 \\times 11 \\times 11`.
         """
         self.grid = grid
-        KVec.__init__(self, kpt_type='uni', kbase=kbase, with_twopi=with_twopi)
+        KVec.__init__(self, kpt_type='uni', kbase=kbase)
 
     def from_grid(self, shift_delta=0.0):
         """
