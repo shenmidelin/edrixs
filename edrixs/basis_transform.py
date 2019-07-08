@@ -472,11 +472,10 @@ def transform_utensor(umat, tmat):
     return umat_new
 
 
-def fourier_hr2hk(norbs, nkpt, kvec, nrpt, rvec, deg_rpt, hr, with_twopi=True):
+def fourier_hr2hk(norbs, nkpt, kvec, nrpt, rvec, deg_rpt, hr):
     """
-    Fourier transform a tight-binding Hamiltonian :math:`H(r)` from
-    real space to :math:`k` space :math:`H(k)`,
-    for Wannier90.
+    Fourier transform a tight-binding Hamiltonian :math:`H(R)` from
+    real space to :math:`k` space :math:`H(k)`, for Wannier90.
 
     Parameters
     ----------
@@ -485,31 +484,26 @@ def fourier_hr2hk(norbs, nkpt, kvec, nrpt, rvec, deg_rpt, hr, with_twopi=True):
     nkpt: int
         Number of :math:`k`-points.
     kvec: 2d float array
-        Fractional coordinate for k-points.
+        Fractional coordinates of k-points.
     nrpt: int
-        Number of r-points.
+        Number of R-points.
     rvec: 2d float array
-        Fractional coordinate for r-points.
+        Coordinates of R-points.
     deg_rpt: int
-        The degenerancy for each r-point.
+        The degenerancy for each R-point.
     hr: 3d complex array
         Hamiltonian in r-space.
-    with_twopi: logical
-        Whether the ``kvec`` including a :math:`2\\pi` factor.
 
     Returns
     -------
     hk: 3d complex array
         Hamiltonian in k-space.
     """
-    if with_twopi:
-        pre_fact = 2 * np.pi
-    else:
-        pre_fact = 1.0
+
     hk = np.zeros((nkpt, norbs, norbs), dtype=np.complex128)
     for i in range(nkpt):
         for j in range(nrpt):
-            coef = -pre_fact * np.dot(kvec[i, :], rvec[j, :])
+            coef = -2 * np.pi * np.dot(kvec[i, :], rvec[j, :])
             ratio = (np.cos(coef) + np.sin(coef) * 1j) / float(deg_rpt[j])
             hk[i, :, :] = hk[i, :, :] + ratio * hr[j, :, :]
     return hk
