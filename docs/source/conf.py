@@ -51,6 +51,8 @@ plot_html_show_source_link = True
 plot_html_show_formats = False
 plot_include_source = True
 
+autoclass_content = 'both'
+
 # Generate the API documentation when building
 autosummary_generate = True
 numpydoc_show_class_members = False
