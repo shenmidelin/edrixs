@@ -62,19 +62,18 @@ class HR():
                 tmp.extend(f.readline().strip().split())
             tmp = [np.int(item) for item in tmp]
             deg_rpt = np.array(tmp, dtype=np.int)
-            # read hr for each r-point
-            rpts = np.zeros((nrpt, 3), dtype=np.int)
-            hr = np.zeros((nrpt, nwann, nwann), dtype=np.complex128)
-            for i in range(nrpt):
-                for j in range(nwann):
-                    for k in range(nwann):
-                        rx, ry, rz, hr_i, hr_j, hr_real, hr_imag = f.readline().strip().split()
-                        rpts[i, :] = int(rx), int(ry), int(rz)
-                        if int(rx) == 0 and int(ry) == 0 and int(rz) == 0:
-                            irpt0 = i
-                        hr[i, k, j] = np.float64(hr_real) + np.float64(hr_imag) * 1j
-            # construct the HR instance
-            return HR(nwann, nrpt, irpt0, rpts, deg_rpt, hr)
+
+        num_skip = nline + 3
+        data = np.loadtxt(fname, skiprows=num_skip)
+        # read hr for each r-point
+        rpts = np.array(data[0::nwann**2, 0:3], dtype=np.int)
+        hr = (data[:, 5].reshape((nrpt, nwann, nwann))
+              + 1j * data[:, 6].reshape((nrpt, nwann, nwann)))
+        for i, (rx, ry, rz) in enumerate(rpts):
+            if rx == 0 and ry == 0 and rz == 0:
+                irpt0 = i
+        # construct the HR instance
+        return HR(nwann, nrpt, irpt0, rpts, deg_rpt, hr)
 
     @staticmethod
     def copy_hr(other):
@@ -198,8 +197,8 @@ class KVec():
             The type of :math:`k` points, 'uni' or 'sym'.
         kbase: 2d float array
             The basis vectors of the primitive reciprocal space.
-           
-            .. math:: 
+
+            .. math::
 
                 \\vec{b}_{1} = \\frac{2\\pi}{V_{cell}} \\vec{a}_{2} \\times \\vec{a}_{3}
 
