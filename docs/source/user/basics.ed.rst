@@ -28,6 +28,6 @@ and the rank-4 tensor
     U_{\alpha,\beta,\gamma,\delta}=<\alpha|<\beta|\hat{U}|\gamma>|\delta>
 
 in the single-particle basis :math:`|\alpha>,|\beta>,|\gamma>,|\delta>`. Thus, the most important thing to perform calculations with edrixs is to define a single particle basis
-with particle orbital ordering and then write all the matrix or 4-rank tensor in the same single-particle basis.
+with particular orbital ordering and then write all the matrix or 4-rank tensor in the same single-particle basis.
 
 
