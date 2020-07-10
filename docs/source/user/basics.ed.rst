@@ -7,8 +7,8 @@ Introduction to Exact-diagonalization (ED)
 1. Second quantization
 ======================
 
-A. Many-body Operators
-----------------------
+1.1. Many-body Operators
+------------------------
 
 The exact-diagonalization (ED) algorithms implemented in edrixs are based on the second quantization language. In this framework, any many-body operator can be written as
 
@@ -31,8 +31,8 @@ and the rank-4 tensor
 
 in the single-particle basis :math:`|\alpha>,|\beta>,|\gamma>,|\delta>`. Thus, the most important thing to perform calculations with edrixs is to define a single particle basis with particular orbital ordering and then write all the matrix or 4-rank tensor in the same single-particle basis.
 
-B. Fock basis
--------------
+1.2. Fock basis
+---------------
 
 The Fock basis can then be defined in the given single particle basis with specific orbital ordering. A Fock basis describes which orbital is occupied or empty. It can be written as a binary number with digital 1 representing occupied status and 0 empty, for example,
 
