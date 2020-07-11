@@ -56,7 +56,7 @@ where, in :math:`(-1)^2` and :math:`(-1)^3`, 2 (3) means that it passes two (thr
 ==============================================
 
 2.1. Spin basis :math:`|s_z>`
-----------------------------
+-----------------------------
 
 In edrixs, we use a following convention of the spin ordering,
 
@@ -65,7 +65,7 @@ In edrixs, we use a following convention of the spin ordering,
     |\uparrow>, |\downarrow>, |\uparrow>, |\downarrow>, ..., |\uparrow>, |\downarrow>
 
 2.2. Complex spherical harmonics :math:`|l_z, s_z>`
---------------------------------------------------
+---------------------------------------------------
 
 For an orbital angular momentum :math:`l`, the orbital ordering are:
 
@@ -75,8 +75,8 @@ For an orbital angular momentum :math:`l`, the orbital ordering are:
     l=1: &|-1, \uparrow>, |-1, \downarrow>, |0, \uparrow>, |0, \downarrow>, |+1, \uparrow>, |+1, \downarrow>\\
     l=2: &|-2, \uparrow>, |-2, \downarrow>, |-1, \uparrow>, |-1, \downarrow>, |0, \uparrow>, |0, \downarrow>, |+1, \uparrow>, |+1, \downarrow>,\\
          &|+2, \uparrow>, |+2, \downarrow>\\
-    l=3: &|-3, \uparrow>, |-3, \downarrow>, |-2, \uparrow>, |-2, \downarrow>, |-1, \uparrow>, |-1, \downarrow>, |0, \uparrow>, |0, \downarrow>, |+1, \uparrow>, |+1, \downarrow>,\\
-         &|+2, \uparrow>, |+2, \downarrow>, |+3, \uparrow>, |+3, \downarrow>
+    l=3: &|-3, \uparrow>, |-3, \downarrow>, |-2, \uparrow>, |-2, \downarrow>, |-1, \uparrow>, |-1, \downarrow>,\\
+         &|0, \uparrow>, |0, \downarrow>, |+1, \uparrow>, |+1, \downarrow>,|+2, \uparrow>, |+2, \downarrow>, |+3, \uparrow>, |+3, \downarrow>
 
 2.3. Real harmonics
 -------------------
@@ -85,11 +85,12 @@ For an orbital angular momentum :math:`l`, the orbital ordering are:
 
     p: &|p_x, \uparrow>, |p_x, \downarrow>, |p_y, \uparrow>, |p_y, \downarrow>, |p_z, \uparrow>, |p_z, \downarrow>\\
     t_{2g}: &|d_{xz}, \uparrow>, |d_{xz}, \downarrow>, |d_{yz}, \uparrow>, |d_{yz}, \downarrow>, |d_{xy}, \uparrow>, |d_{xy}, \downarrow>\\
-    d: &|d_{3z^2-r^2, \uparrow>, |d_{3z^2-r^2, \downarrow}, |d_{xz}, \uparrow>, |d_{xz}, \downarrow>, |d_{yz}, \uparrow>, |d_{yz}, \downarrow>,\\
-       &|d_{x^2-y^2}, \uparrow>, |d_{x^2-y^2}, \downarrow>, |d_{xy}, \uparrow>, |d_{xy}, \downarrow>\\
+    d: &|d_{3z^2-r^2}, \uparrow>, |d_{3z^2-r^2}, \downarrow>, |d_{xz}, \uparrow>, |d_{xz}, \downarrow>, |d_{yz}, \uparrow>, |d_{yz}, ..\downarrow>,\\
+    &|d_{x^2-y^2}, \uparrow>, |d_{x^2-y^2}, \downarrow>, |d_{xy}, \uparrow>, |d_{xy}, \downarrow>\\
     f: &|f_{z^3}, \uparrow>, |f_{z^3}, \downarrow>, |f_{xz^2}, \uparrow>, |f_{xz^2}, \downarrow>, |f_{yz^2}, \uparrow>, |f_{yz^2}, \downarrow>\\
-       &|f_{z(x^2-y^2)}, \uparrow>, |f_{z(x^2-y^2)}, \downarrow>, |f_{xyz}, \uparrow>, |f_{xyz}, \downarrow>,\\
-       &|f_{x(x^2-3y^2)}, \uparrow>, |f_{x(x^2-3y^2)}, \downarrow>, |f_{y(3x^2-y^2)}, \uparrow>, |f_{y(3x^2-y^2)}, \uparrow>
+    &|f_{z(x^2-y^2)}, \uparrow>, |f_{z(x^2-y^2)}, \downarrow>, |f_{xyz}, \uparrow>, |f_{xyz}, \downarrow>,\\
+    &|f_{x(x^2-3y^2)}, \uparrow>, |f_{x(x^2-3y^2)}, \downarrow>, |f_{y(3x^2-y^2)}, \uparrow>, |f_{y(3x^2-y^2)}, \uparrow>
+    
 
 2.4. Real cubic harmonics
 -------------------------
@@ -98,10 +99,44 @@ The real cubic harmonics basis is the irreducible representation of the cubic po
 
 .. math::
 
+    E_{g}: &\{d_{3z^2-r^2}, d_{x^2-y^2}\}\\
+    T_{2g}: &\{d_{xz}, d_{yz}, d_{xy}\}\\
     T_{1u}: &\{p_x, p_y, p_z\},\\
             &\{-\frac{\sqrt{6}}{4}f_{xz^2}+\frac{\sqrt{10}}{4}f_{x(x^2-3y^2)}, -\frac{\sqrt{6}}{4}f_{yz^2}-\frac{\sqrt{10}}{4}f_{y(3x^2-y^2)},f_{z^3}\}\\
-    T_{2u}: &\{-\frac{\sqrt{10}}{4}f_{xz^2}-\frac{\sqrt{6}}{4}f_{x(x^2-3y^2)}, \frac{\sqrt{10}}{4}f_{yz^2}-\frac{\sqrt{6}}{4}f_{y(3x^2-y^2)},f_{z(x^2-y^2)}\}
+    T_{2u}: &\{-\frac{\sqrt{10}}{4}f_{xz^2}-\frac{\sqrt{6}}{4}f_{x(x^2-3y^2)}, \frac{\sqrt{10}}{4}f_{yz^2}-\frac{\sqrt{6}}{4}f_{y(3x^2-y^2)},f_{z(x^2-y^2)}\}\\
+    A_{2u}: &\{f_{xyz}\}
 
+2.5. Spin-orbital coupled basis :math:`|j,j_z>`
+-----------------------------------------------
 
+The spin-orbital coupled (SOC) basis on which the SOC Hamiltonian is diagonal, :math:`j=l+1/2, |l-1/2|`.
+
+.. math::
+
+    p\rightarrow p_{1/2}+p_{3/2}: &|\frac{1}{2}, -\frac{1}{2}>, |\frac{1}{2}, +\frac{1}{2}>,\\
+     &|\frac{3}{2}, -\frac{3}{2}>, |\frac{3}{2}, -\frac{1}{2}>, |\frac{3}{2}, +\frac{1}{2}>, |\frac{3}{2}, +\frac{3}{2}>\\
+    d\rightarrow d_{3/2}+d_{5/2}: &|\frac{3}{2}, -\frac{3}{2}>, |\frac{3}{2}, -\frac{1}{2}>, |\frac{3}{2}, +\frac{1}{2}>, |\frac{3}{2}, +\frac{3}{2}>,\\
+    &|\frac{5}{2}, -\frac{5}{2}>, |\frac{5}{2}, -\frac{3}{2}>, |\frac{5}{2}, -\frac{1}{2}>, |\frac{5}{2}, +\frac{1}{2}>, |\frac{5}{2}, +\frac{3}{2}>, |\frac{5}{2}, +\frac{5}{2}>\\
+    f\rightarrow f_{5/2}+f_{7/2}: &|\frac{5}{2}, -\frac{5}{2}>, |\frac{5}{2}, -\frac{3}{2}>, |\frac{5}{2}, -\frac{1}{2}>, |\frac{5}{2}, +\frac{1}{2}>, |\frac{5}{2}, +\frac{3}{2}>, |\frac{5}{2}, +\frac{5}{2}>,\\
+    &|\frac{7}{2}, -\frac{7}{2}>, |\frac{7}{2}, -\frac{5}{2}>, |\frac{7}{2}, -\frac{3}{2}>, |\frac{7}{2}, -\frac{1}{2}>, |\frac{7}{2}, +\frac{1}{2}>, |\frac{7}{2}, +\frac{3}{2}>,\\
+    &|\frac{7}{2}, +\frac{5}{2}>,|\frac{7}{2}, +\frac{7}{2}>
+
+2.6. :math:`t_{2g}`-:math:`p` equivalence
+-----------------------------------------
+
+:math:`t_{2g}` orbitals transform as :math:`p` orbitals, and they have a one to one correspondence,
+
+.. math::
+
+    d_{xz} &\Leftrightarrow p_{y}\\
+    d_{yz} &\Leftrightarrow p_{x}\\
+    d_{xy} &\Leftrightarrow p_{z}
+
+2.7. Default orbital basis in edrixs
+------------------------------------
+
+- If one of the spin-orbital splitted sub-shell, such as :math:`p_{1/2}, p_{3/2}, d_{3/2}, d_{5/2}, f_{5/2}, f_{7/2}`, is involved, the default orbital basis is :math:`|j,j_z>` 
+
+- otherwise, the complex spherical harmonics basis :math:`|l_z, s_z>` is used.
 
 
