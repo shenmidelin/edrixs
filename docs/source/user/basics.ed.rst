@@ -51,6 +51,14 @@ A fermion operator acts on it and get a new Fock state with proper sign, for exa
 
 where, in :math:`(-1)^2` and :math:`(-1)^3`, 2 (3) means that it passes two (three) occupied orbitals when going from the first to the targeted orbital. Based on these operations, the matrix elements of any many-body operator can then be obtained.
 
+If core orbitals are involved in XAS or RIXS calculations, we use a convention that all the valence orbitals are always in front of the core orbitals,
+
+.. math::
+
+    |110101; 1111>
+
+where, 1~6 orbitals are for valence orbitals, and 7-10 for core orbitals.
+
 
 2. Common orbital basis and ordering in edrixs
 ==============================================
@@ -137,6 +145,32 @@ The spin-orbital coupled (SOC) basis on which the SOC Hamiltonian is diagonal, :
 
 - If one of the spin-orbital splitted sub-shell, such as :math:`p_{1/2}, p_{3/2}, d_{3/2}, d_{5/2}, f_{5/2}, f_{7/2}`, is involved, the default orbital basis is :math:`|j,j_z>` 
 
-- otherwise, the complex spherical harmonics basis :math:`|l_z, s_z>` is used.
+- Otherwise, the complex spherical harmonics basis :math:`|l_z, s_z>` is used.
+
+3. Steps to do ED using Python API
+==================================
+
+3.1. Get eigenvalues and eigenvectors
+-------------------------------------
+
+- Choose a single particle basis with specific ordering 
+
+- Write down the matrix :math:`E_{\alpha,\beta}` for two fermion terms and the rank-4 tensor :math:`U_{\alpha,\beta,\gamma,\delta}` for the four fermion terms, basis transform may be needed
+
+- Build Fock basis
+
+- Build the many-body Hamiltonian in the Fock basis
+
+- Call an ED solver, such as scipy.linalg.eigh, to get the eigenvalues and eigenvectors 
+
+3.2. Calculate the expectation values of operators
+--------------------------------------------------
+
+- Write down the matrix :math:`E_{\alpha,\beta}` for two fermion terms and the rank-4 tensor :math:`U_{\alpha,\beta,\gamma,\delta}` for the four fermion terms in the single particle basis
+
+- Build the matrix of the many-body operators in the Fock basis
+
+- Calculate the expectation values in the eigenvectors of the Hamiltonian
+
 
 
